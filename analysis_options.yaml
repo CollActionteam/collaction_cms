@@ -2,13 +2,12 @@ include: package:lint/analysis_options.yaml
 
 analyzer:
   errors:
-    always_use_package_imports: ignore
+    always_use_package_imports: error
     avoid_dynamic_calls: ignore
     invalid_annotation_target: ignore
     missing_return: error
     missing_required_param: error
     must_be_immutable: error
-    prefer_relative_imports: error
     sort_unnamed_constructors_first: ignore
     use_late_for_private_fields_and_variables: ignore
     invariant_booleans: ignore
