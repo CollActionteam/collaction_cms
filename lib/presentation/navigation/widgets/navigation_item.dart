@@ -20,14 +20,8 @@ class NavigationItem extends StatefulWidget {
 }
 
 class _NavigationItemState extends State<NavigationItem> {
-  late Color _backgroundColor;
-
-  @override
-  void initState() {
-    super.initState();
-    _backgroundColor =
-        widget.isActive ? kNavItemActiveBackgroundColor : kPrimaryColor;
-  }
+  late Color _backgroundColor =
+      widget.isActive ? kNavItemActiveBackgroundColor : kPrimaryColor;
 
   @override
   Widget build(BuildContext context) {

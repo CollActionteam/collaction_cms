@@ -35,6 +35,7 @@ class Menu extends StatelessWidget {
               ),
               const SizedBox(height: 35.0),
               NavigationItem(
+                key: GlobalKey<State>(),
                 icon: Icons.devices_other_outlined,
                 isActive: state.page == dashboardPageRoute,
                 label: 'Dashboard',
@@ -43,6 +44,7 @@ class Menu extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               NavigationItem(
+                key: GlobalKey<State>(),
                 icon: Icons.dns_outlined,
                 isActive: state.page == crowdActionPageRoute,
                 label: 'CrowdActions',
@@ -51,6 +53,7 @@ class Menu extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               NavigationItem(
+                key: GlobalKey<State>(),
                 icon: Icons.insert_comment_outlined,
                 isActive: state.page == moderationQueuePageRoute,
                 label: 'Moderation Queue',
