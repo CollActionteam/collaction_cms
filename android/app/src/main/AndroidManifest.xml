@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.collaction_admin">
+    package="org.collaction.collaction_admin">
    <application
         android:label="collaction_admin"
         android:name="${applicationName}"

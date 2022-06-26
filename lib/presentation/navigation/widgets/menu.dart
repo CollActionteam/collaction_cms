@@ -19,10 +19,13 @@ class Menu extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-              SizedBox(
-                height: 75,
-                child: Image.network(
-                  'https://www.collaction.org/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-green-small.88b18977.png&w=128&q=75',
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  height: 42,
+                  child: Image.network(
+                    'https://www.collaction.org/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-black-small.4b17f0ba.png&w=256&q=75',
+                  ),
                 ),
               ),
               const Divider(height: 0, color: kBorderColor),

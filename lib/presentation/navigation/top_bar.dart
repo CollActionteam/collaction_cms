@@ -1,6 +1,8 @@
+import 'package:collaction_admin/application/authentication/authentication_bloc.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopBar extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -39,9 +41,12 @@ class TopBar extends StatelessWidget {
               ),
               const Expanded(child: SizedBox()),
               Row(
-                children: const [
-                  Text('Mathias'),
-                  Icon(Icons.arrow_drop_down),
+                children: [
+                  Text(
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .authedUser!
+                        .displayName!,
+                  ),
                 ],
               ),
             ],
