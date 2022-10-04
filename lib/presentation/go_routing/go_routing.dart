@@ -15,8 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 
+GoRouter getRouter(BuildContext context) {
 
-final router = GoRouter(
+  final router = GoRouter(
   navigatorKey: GlobalKeys.rootNavigatorKey,
   redirect: (context, state) {
     if(state.location != BlocProvider.of<NavigationBloc>(context).state.route) {
@@ -84,5 +85,8 @@ final router = GoRouter(
          ),
      );
   },
-  refreshListenable: GoRouterRefreshStream(getIt<NavigationBloc>().stream)
+  refreshListenable: GoRouterRefreshStream(BlocProvider.of<NavigationBloc>(context).stream)
 );
+return router;
+}
+
