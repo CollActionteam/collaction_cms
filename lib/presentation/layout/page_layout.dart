@@ -7,15 +7,11 @@ import 'package:collaction_admin/presentation/navigation/widgets/menu.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class PageLayout extends StatefulWidget {
-  const PageLayout({
-    Key? key,
-    required this.child
-    }) : super(key: key);
+  const PageLayout({Key? key, required this.child}) : super(key: key);
 
-    final Widget child;
+  final Widget child;
 
   @override
   State<PageLayout> createState() => _PageLayoutState();
@@ -51,15 +47,13 @@ class _PageLayoutState extends State<PageLayout> {
           ),
           body: ResponsiveWidget(
             largeScreen: LargeScreen(
-              scaffoldKey: scaffoldKey,
-              navigatorKey: navigatorKey,
-              child: widget.child
-            ),
+                scaffoldKey: scaffoldKey,
+                navigatorKey: navigatorKey,
+                child: widget.child),
             smallScreen: SmallScreen(
-              scaffoldKey: scaffoldKey,
-              navigatorKey: navigatorKey,
-              child: widget.child
-            ),
+                scaffoldKey: scaffoldKey,
+                navigatorKey: navigatorKey,
+                child: widget.child),
           ),
         ),
       ),

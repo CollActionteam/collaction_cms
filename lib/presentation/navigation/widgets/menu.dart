@@ -64,21 +64,20 @@ class Menu extends StatelessWidget {
                 onTap: () => BlocProvider.of<NavigationBloc>(context)
                     .add(NavigateToPageEvent(route: moderationQueue)),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
-                padding: EdgeInsets.only(bottom: 30),
+                padding: const EdgeInsets.only(bottom: 30),
                 alignment: Alignment.centerLeft,
                 child: InkWell(
-                  onTap: (){
-                    BlocProvider.of<AuthenticationBloc>(context).add(AuthCheckRequestedTest(AuthenticationStatus.unauthenticated));
+                  onTap: () {
+                    BlocProvider.of<AuthenticationBloc>(context).add(
+                        AuthCheckRequestedTest(
+                            AuthenticationStatus.unauthenticated));
                   },
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Container(
-                        width: 100,
-                        height: 20
-                      ),
+                      const SizedBox(width: 100, height: 20),
                       Positioned(
                         right: 70,
                         child: SvgPicture.asset(
@@ -92,11 +91,10 @@ class Menu extends StatelessWidget {
                         child: Text(
                           "Sign Out",
                           style: TextStyle(
-                            fontFamily: "Rubik",
-                            color: Colors.red[400],
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300
-                          ),
+                              fontFamily: "Rubik",
+                              color: Colors.red[400],
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300),
                         ),
                       ),
                     ],

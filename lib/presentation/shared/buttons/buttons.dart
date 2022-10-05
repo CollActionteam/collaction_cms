@@ -2,36 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
 
 class CollActionButton extends StatelessWidget {
-  CollActionButton({
+  const CollActionButton({
     Key? key,
     this.width = double.infinity,
-    required this.onPressed
-    }) : super(key: key);
+    required this.onPressed,
+  }) : super(key: key);
 
-    double width;
-    Function onPressed;
+  final double width;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       height: 45,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(kAccentColor),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+            backgroundColor: MaterialStateProperty.all(kAccentColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
-            )
-          )
-        ),
-        onPressed: () => onPressed(),
+            ))),
+        onPressed: onPressed(),
         child: const Text(
           "Sign In",
-          style: TextStyle(
-            fontFamily: "Rubik",
-            fontWeight: FontWeight.w700
-          ),
+          style: TextStyle(fontFamily: "Rubik", fontWeight: FontWeight.w700),
         ),
       ),
     );

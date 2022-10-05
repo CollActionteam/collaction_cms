@@ -15,6 +15,7 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final IAuthRepository authRepository;
+
   User? authedUser;
   late StreamSubscription<Option<User>> _authenticationSubscription;
   late StreamSubscription<AuthenticationStatus> _authenticationSubscriptionTest;
@@ -50,13 +51,12 @@ class AuthenticationBloc
       );
     });
 
-
-    _authenticationSubscription = authRepository.user.listen((event) => add(AuthCheckRequested()));
-
+    _authenticationSubscription =
+        authRepository.user.listen((event) => add(AuthCheckRequested()));
 
     /// This is for testing purposes without using [FirebaseAuth] should be deleted after having a firebase account
     on<AuthCheckRequestedTest>((event, emit) async {
-      switch(event.status) {
+      switch (event.status) {
         case AuthenticationStatus.unauthenticated:
           return emit(Unauthenticated());
         case AuthenticationStatus.authenticated:
@@ -67,7 +67,7 @@ class AuthenticationBloc
     });
 
     /// This is for testing purposes without using [FirebaseAuth] should be deleted after having a firebase account
-    // _authenticationSubscriptionTest = authRepository.status.listen((event) 
+    // _authenticationSubscriptionTest = authRepository.status.listen((event)
     //   => add(AuthCheckRequestedTest(event as AuthenticationStatus))) as StreamSubscription<AuthenticationStatus>;
   }
 }

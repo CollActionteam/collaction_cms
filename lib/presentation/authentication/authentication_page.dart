@@ -15,7 +15,6 @@ class AuthenticationPage extends StatefulWidget {
 }
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -28,7 +27,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 40, bottom: 40, left:5),
+                padding: const EdgeInsets.only(top: 40, bottom: 40, left: 5),
                 child: Image.asset(
                   'images/Vector.png',
                   width: 200,
@@ -45,8 +44,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     width: 374,
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      ),
+                          borderRadius: BorderRadius.circular(10)),
                       elevation: 6,
                       color: kLightBackgroundGreyColor,
                       child: Padding(
@@ -55,31 +53,26 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(top: 32),
-                              alignment: Alignment.center,
-                              child: const SelectableText(
-                                'Welcome',
-                                style: TextStyle(
-                                  fontFamily: "Rubik",
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w700,
-                                  color: kTextTitle
-                                )
-                              )
-                            ),
+                                padding: const EdgeInsets.only(top: 32),
+                                alignment: Alignment.center,
+                                child: const SelectableText('Welcome',
+                                    style: TextStyle(
+                                        fontFamily: "Rubik",
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w700,
+                                        color: kTextTitle))),
                             Container(
-                              padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 8, right: 8),
                               alignment: Alignment.center,
                               child: const SelectableText(
-                                textAlign: TextAlign.center,
-                                'Please, enter your credentials to enter the CMS admin app.',
-                                style: TextStyle(
-                                  color: kTextColor,
-                                  fontFamily: "Rubik",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400
-                                )
-                              ),
+                                  textAlign: TextAlign.center,
+                                  'Please, enter your credentials to enter the CMS admin app.',
+                                  style: TextStyle(
+                                      color: kTextColor,
+                                      fontFamily: "Rubik",
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400)),
                             ),
                             const SizedBox(height: 30),
                             CollActionInputField.text(
@@ -92,9 +85,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                             ),
                             const SizedBox(height: 30.0),
                             CollActionButton(
-                              onPressed: () => 
-                              //BlocProvider.of<AuthenticationBloc>(context).add(SignInWithEmailAndPassword(email, controller))
-                                BlocProvider.of<AuthenticationBloc>(context).add(AuthCheckRequestedTest(AuthenticationStatus.authenticated)),
+                              onPressed: () =>
+                                  //BlocProvider.of<AuthenticationBloc>(context).add(SignInWithEmailAndPassword(email, controller))
+                                  BlocProvider.of<AuthenticationBloc>(context)
+                                      .add(AuthCheckRequestedTest(
+                                          AuthenticationStatus.authenticated)),
                             )
                           ],
                         ),

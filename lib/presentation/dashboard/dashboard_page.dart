@@ -1,6 +1,3 @@
-// TODO: Remove this ignore
-// ignore_for_file: unnecessary_const
-
 import 'package:collaction_admin/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -50,17 +47,17 @@ class _DashboardPageState extends State<DashboardPage> {
                           amount: 34,
                           label: 'Draft',
                         ),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15),
                         StatsBox(
                           amount: 9,
                           label: 'Upcoming',
                         ),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15),
                         StatsBox(
                           amount: 17,
                           label: 'On-going',
                         ),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15),
                         StatsBox(
                           amount: 197,
                           label: 'Ended',
@@ -77,7 +74,6 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 }
-
 
 class StatsBox extends StatelessWidget {
   final int amount;
