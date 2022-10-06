@@ -23,7 +23,7 @@ class CollActionButton extends StatelessWidget {
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ))),
-        onPressed: onPressed(),
+        onPressed: () => onPressed(),
         child: const Text(
           "Sign In",
           style: TextStyle(fontFamily: "Rubik", fontWeight: FontWeight.w700),

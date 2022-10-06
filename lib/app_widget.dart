@@ -40,8 +40,8 @@ class AppWidget extends StatelessWidget {
               },
             ),
           ],
-          child: Builder(
-            builder: (context) {
+          child: BlocBuilder<NavigationBloc, NavigationState>(
+            builder: (context, state) {
               final goRouter = getRouter(context);
 
               return MaterialApp.router(

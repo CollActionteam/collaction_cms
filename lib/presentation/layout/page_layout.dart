@@ -1,5 +1,4 @@
 import 'package:collaction_admin/application/navigation/navigation_bloc.dart';
-import 'package:collaction_admin/infrastructure/core/injection.dart';
 import 'package:collaction_admin/presentation/layout/responsiveness.dart';
 import 'package:collaction_admin/presentation/layout/screen_definitions/large_screen.dart';
 import 'package:collaction_admin/presentation/layout/screen_definitions/small_screen.dart';
@@ -30,31 +29,28 @@ class _PageLayoutState extends State<PageLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<NavigationBloc>(),
-      child: BlocListener<NavigationBloc, NavigationState>(
-        listener: (context, state) {
-          // navigatorKey.currentState?.pushNamed(state.route);
-        },
-        child: Scaffold(
-          key: scaffoldKey,
-          drawer: const Drawer(
-            backgroundColor: kPrimaryColor,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Menu(),
-            ),
+    return BlocListener<NavigationBloc, NavigationState>(
+      listener: (context, state) {
+        // navigatorKey.currentState?.pushNamed(state.route);
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: const Drawer(
+          backgroundColor: kPrimaryColor,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Menu(),
           ),
-          body: ResponsiveWidget(
-            largeScreen: LargeScreen(
-                scaffoldKey: scaffoldKey,
-                navigatorKey: navigatorKey,
-                child: widget.child),
-            smallScreen: SmallScreen(
-                scaffoldKey: scaffoldKey,
-                navigatorKey: navigatorKey,
-                child: widget.child),
-          ),
+        ),
+        body: ResponsiveWidget(
+          largeScreen: LargeScreen(
+              scaffoldKey: scaffoldKey,
+              navigatorKey: navigatorKey,
+              child: widget.child),
+          smallScreen: SmallScreen(
+              scaffoldKey: scaffoldKey,
+              navigatorKey: navigatorKey,
+              child: widget.child),
         ),
       ),
     );
