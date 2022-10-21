@@ -1,11 +1,13 @@
-import 'package:collaction_admin/application/authentication/authentication_bloc.dart';
-import 'package:collaction_admin/infrastructure/authentication/auth_repository.dart';
+import 'package:collaction_admin/application/auth/auth_bloc.dart';
+import 'package:collaction_admin/infrastructure/authentication/firebase_auth_repository.dart';
 import 'package:collaction_admin/presentation/layout/responsiveness.dart';
 import 'package:collaction_admin/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_admin/presentation/shared/form/form.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -17,6 +19,12 @@ class AuthenticationPage extends StatefulWidget {
 class _AuthenticationPageState extends State<AuthenticationPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +83,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                       fontWeight: FontWeight.w400)),
                             ),
                             const SizedBox(height: 30),
-                            CollActionInputField.text(
+                            CollActionInputField.email(
                               controller: emailController,
                               labelText: "Email",
                             ),
@@ -84,13 +92,17 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                               controller: passwordController,
                             ),
                             const SizedBox(height: 30.0),
-                            CollActionButton(
-                              onPressed: () =>
-                                  //BlocProvider.of<AuthenticationBloc>(context).add(SignInWithEmailAndPassword(email, controller))
-                                  BlocProvider.of<AuthenticationBloc>(context)
-                                      .add(AuthCheckRequestedTest(
-                                          AuthenticationStatus.authenticated)),
-                            )
+                            CollActionButton(onPressed: () {
+                              BlocProvider.of<AuthBloc>(context).add(
+                                AuthEvent.signInWithEmailAndPassword(
+                                  emailController.value.text,
+                                  passwordController.value.text));
+                            }
+
+                                // BlocProvider.of<AuthBloc>(context)
+                                //     .add(const AuthEvent.authCheckRequestedTest(
+                                //         AuthenticationStatus.authenticated)),
+                                )
                           ],
                         ),
                       ),

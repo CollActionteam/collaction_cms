@@ -1,19 +1,20 @@
 import 'dart:async';
 
-import 'package:collaction_admin/domain/authentication/auth_failure.dart';
-import 'package:collaction_admin/domain/authentication/i_auth_repository.dart';
+import 'package:collaction_admin/domain/auth/auth_failure.dart';
+import 'package:collaction_admin/domain/auth/i_auth_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:collaction_admin/infrastructure/authentication/firebase_auth_mapper.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
   AuthRepository(this.firebaseAuth);
 
-  final FirebaseAuth firebaseAuth;
+  final firebase_auth.FirebaseAuth firebaseAuth;
 
   @override
-  Stream<Option<User>> get user => firebaseAuth
+  Stream<Option<firebase_auth.User>> get user => firebaseAuth
       .authStateChanges()
       .map((currentUser) => optionOf(currentUser));
 
@@ -44,7 +45,7 @@ class AuthRepository implements IAuthRepository {
       {String? email, String? password}) async {
     if (email == null || password == null) {
       return left(
-          const AuthFailure(message: 'Email and/or password can not be empty'));
+          const AuthFailure.invalidEmail());
     }
 
     try {
@@ -54,23 +55,17 @@ class AuthRepository implements IAuthRepository {
       return await roleOption.first.then((option) => option.fold(
           () => incorrectRole(),
           (role) => role == 'ADMIN' ? right(unit) : incorrectRole()));
-    } on FirebaseAuthException catch (error) {
-      if (error.code == 'wrong-password' || error.code == 'user-not-found') {
-        return left(const AuthFailure(
-            message: 'Invalid email and password combination'));
-      } else if (error.code == 'user-disabled') {
-        return left(const AuthFailure(message: 'User is disabled'));
-      } else {
-        return left(const AuthFailure(message: 'An unknown error ocurred'));
-      }
+    } on firebase_auth.FirebaseAuthException catch (error) {
+      return left(error.toFailure());
+    } catch(_) {
+      return left(const AuthFailure.serverError());
     }
   }
 
   @override
   Future<void> signOut() => firebaseAuth.signOut();
 
-  Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure(
-      message: 'User must be an Admin to access the AdminCMS'));
+  Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure.incorrectRole());
 }
 
 /// This is for testing purposes without using [FirebaseAuth] shuld be deleted after having a firebase account

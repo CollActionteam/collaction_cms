@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
 
-class CollActionInputField extends StatelessWidget {
-  const CollActionInputField.text({
+class CollActionInputField extends StatefulWidget {
+  const CollActionInputField.email({
     Key? key,
-    this.labelText = "Placeholder",
+    this.labelText = "Email",
     this.width = double.infinity,
     this.obscureText = false,
     this.controller,
@@ -26,14 +26,27 @@ class CollActionInputField extends StatelessWidget {
   final TextEditingController? controller;
 
   @override
+  State<CollActionInputField> createState() => _CollActionInputFieldState();
+}
+
+class _CollActionInputFieldState extends State<CollActionInputField> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
+      width: widget.width,
       child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
+        controller: widget.controller,
+        obscureText: widget.obscureText,
         cursorColor: kAccentColor,
-        style: obscureText
+        style: widget.obscureText
             ? const TextStyle(
                 fontFamily: "Rubik",
                 fontWeight: FontWeight.w300,
@@ -46,7 +59,7 @@ class CollActionInputField extends StatelessWidget {
                 fontSize: 15,
               ),
         decoration: InputDecoration(
-            labelText: labelText,
+            labelText: widget.labelText,
             labelStyle: const TextStyle(
                 fontFamily: "Rubik",
                 fontSize: 15,

@@ -1,10 +1,10 @@
 import 'package:collaction_admin/application/navigation/navigation_bloc.dart';
-import 'package:collaction_admin/infrastructure/authentication/auth_repository.dart';
+import 'package:collaction_admin/infrastructure/authentication/firebase_auth_repository.dart';
 import 'package:collaction_admin/presentation/navigation/widgets/navigation_item.dart';
 import 'package:collaction_admin/presentation/navigation/widgets/special_navigation_item.dart';
 import 'package:collaction_admin/presentation/go_routing/routes.dart';
 import 'package:collaction_admin/presentation/theme/constants.dart';
-import 'package:collaction_admin/application/authentication/authentication_bloc.dart';
+import 'package:collaction_admin/application/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,9 +69,12 @@ class Menu extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 30),
                 alignment: Alignment.centerLeft,
                 child: InkWell(
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
                   onTap: () {
-                    BlocProvider.of<AuthenticationBloc>(context).add(
-                        AuthCheckRequestedTest(
+                    BlocProvider.of<AuthBloc>(context).add(
+                        const AuthEvent.authCheckRequestedTest(
                             AuthenticationStatus.unauthenticated));
                   },
                   child: Stack(
