@@ -37,20 +37,38 @@ class AuthBloc
         authRepository.user.listen((event) => add(const AuthEvent.authCheckRequested()));
   }
 
-  FutureOr<void> _mapAuthCheckRequested(
+  // FutureOr<void> _mapAuthCheckRequested(
+  //   Emitter<AuthState> emit,
+  //   _AuthCheckRequested event
+  //   ) async {
+  //     final userOption = await authRepository.user.first;
+  //     final userRole = await authRepository.roleOption.first;
+  //     emit(
+  //       userOption.fold(
+  //         () => const AuthState.unaunthenticated(),
+  //         (user) {
+  //           authedUser = user;
+  //           return AuthState.authenticated(user);
+  //         },
+  //       ),
+  //     );
+  // }
+
+  Future<void> _mapAuthCheckRequested(
     Emitter<AuthState> emit,
     _AuthCheckRequested event
-    ) async {
+  ) async {
       final userOption = await authRepository.user.first;
-      emit(
-        userOption.fold(
-          () => const AuthState.unaunthenticated(),
-          (user) {
-            authedUser = user;
-            return AuthState.authenticated(user);
-          },
-        ),
-      );
+      final userRole = await authRepository.roleOption.first;
+
+      userOption.fold(
+        () => emit(const AuthState.unaunthenticated()), 
+        (user) {
+          authedUser = user;
+          userRole.fold(
+            () => null, 
+            (adminRole) => emit(AuthState.authenticated(authedUser)));
+        });
   }
 
   FutureOr<void> _mapSignedOut(
@@ -65,6 +83,7 @@ class AuthBloc
     Emitter<AuthState> emit,
     _SignInWithEmailAndPassword event
   ) async {
+    emit(const AuthState.signingInUser());
     final result = await authRepository.signInWithEmailAndPassword(
       email: event.email,
       password: event.password

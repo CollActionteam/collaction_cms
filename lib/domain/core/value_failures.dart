@@ -5,26 +5,27 @@ part 'value_failures.freezed.dart';
 @freezed
 class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.invalidEmail({
-    required T failedValue,
+    required T failureMessage,
   }) = InvalidEmail<T>;
 
   const factory ValueFailure.empty({
-    required T failedValue,
+    required T failureMessage,
   }) = Empty<T>;
 
   const factory ValueFailure.shortPassword({
-    required T failedValue,
+    required T failureMessage,
   }) = ShortPassword<T>;
 
   const factory ValueFailure.nonUppercasePassword({
-    required T failedValue,
+    required T failureMessage,
   }) = NonUppercasePassword<T>;
 
   const factory ValueFailure.nonLowercasePassword({
-    required T failedValue,
+    required T failureMessage,
   }) = NonLowercasePassword<T>;
 
   const factory ValueFailure.allLettersPassword({
-    required T failedValue,
+    required T failureMessage,
   }) = AllLettersPassword<T>;
 }
+

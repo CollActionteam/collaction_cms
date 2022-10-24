@@ -30,6 +30,7 @@ class AuthRepository implements IAuthRepository {
         }
       });
 
+  @override
   Stream<Option<String>> get roleOption => firebaseAuth
           .authStateChanges()
           .asyncMap<Option<String>>((currentUser) async {
@@ -45,7 +46,7 @@ class AuthRepository implements IAuthRepository {
       {String? email, String? password}) async {
     if (email == null || password == null) {
       return left(
-          const AuthFailure.invalidEmail());
+          const AuthFailure.invalidEmail("Invalid email or password"));
     }
 
     try {
@@ -58,14 +59,14 @@ class AuthRepository implements IAuthRepository {
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch(_) {
-      return left(const AuthFailure.serverError());
+      return left(const AuthFailure.serverError("Server error"));
     }
   }
 
   @override
   Future<void> signOut() => firebaseAuth.signOut();
 
-  Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure.incorrectRole());
+  Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure.incorrectRole("Admin role not found"));
 }
 
 /// This is for testing purposes without using [FirebaseAuth] shuld be deleted after having a firebase account

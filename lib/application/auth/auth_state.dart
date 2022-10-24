@@ -9,6 +9,8 @@ class AuthState with _$AuthState {
 
   const factory AuthState.authError(AuthFailure failure) = _AuthError;
 
+  const factory AuthState.signingInUser() = _SigningInUser;
+
   const factory AuthState.authenticated(
     final User? user
   ) = _Authenticated;

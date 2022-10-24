@@ -12,4 +12,6 @@ abstract class IAuthRepository {
   });
 
   Future<void> signOut();
+
+  Stream<Option<String>> get roleOption;
 }

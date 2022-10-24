@@ -28,19 +28,19 @@ extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
   AuthFailure toFailure() {
     print(code);
     if (code == 'network-request-failed') {
-      return const AuthFailure.networkRequestFailed();
+      return const AuthFailure.networkRequestFailed("Network request failed");
     } 
 
     if(code == 'user-not-found') {
-      return const AuthFailure.userNotFound();
+      return const AuthFailure.userNotFound("User not found");
     }
 
     if(code == 'wrong-password') {
-      return const AuthFailure.wrongPassword();
+      return const AuthFailure.wrongPassword("Wrong password");
     }
 
     else {
-      return const AuthFailure.serverError();
+      return const AuthFailure.serverError("Server error");
     }
   }
 }
