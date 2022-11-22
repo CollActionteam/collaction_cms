@@ -26,8 +26,6 @@ class AuthFailure<T> with _$AuthFailure<T> {
     final T error,
   ) = WrongPassword<T>;
 
-  ///This error should't appear because there's already a frontend value validation that
-  ///prevents from happening.
   ///This error ocurrs when the function [signInWithEmailAndPassword] gets called
   ///and the email value is incorrect
   const factory AuthFailure.invalidEmail(
@@ -49,7 +47,6 @@ class AuthFailure<T> with _$AuthFailure<T> {
   ///
   ///The second one is when a guest admin navigates to [/verification] screen to verificate an account
   ///and the url is not valid, so there has not being made a call to generate the url provided.
-  ///
   const factory AuthFailure.invalidUri(
     final T error
     ) = InvalidUri<T>;
