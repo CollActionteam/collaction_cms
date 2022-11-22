@@ -1,5 +1,6 @@
 import 'package:collaction_admin/application/navigation/navigation_bloc.dart';
-import 'package:collaction_admin/infrastructure/authentication/firebase_auth_repository.dart';
+import 'package:collaction_admin/infrastructure/auth/firebase/firebase_auth_repository.dart';
+import 'package:collaction_admin/presentation/modals/invite_admin.dart';
 import 'package:collaction_admin/presentation/navigation/widgets/navigation_item.dart';
 import 'package:collaction_admin/presentation/navigation/widgets/special_navigation_item.dart';
 import 'package:collaction_admin/presentation/go_routing/routes.dart';
@@ -31,11 +32,19 @@ class Menu extends StatelessWidget {
               ),
               const Divider(height: 0, color: kBorderColor),
               const SizedBox(height: 35.0),
-              SpecialNavigationItem(
-                icon: Icons.add_circle_outline,
-                label: 'Invite Admin',
-                onTap: () => BlocProvider.of<NavigationBloc>(context)
-                    .add(NavigateToPageEvent(route: 'AdminModeration')),
+              BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return SpecialNavigationItem(
+                      icon: Icons.add_circle_outline,
+                      label: 'Invite Admin',
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext builder) {
+                              return InviteAdminModal();
+                            }).then((value) => BlocProvider.of<AuthBloc>(context).add(const AuthEvent.authCheckRequested()));
+                      });
+                },
               ),
               const SizedBox(height: 35.0),
               NavigationItem(
@@ -73,9 +82,8 @@ class Menu extends StatelessWidget {
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   onTap: () {
-                    BlocProvider.of<AuthBloc>(context).add(
-                        const AuthEvent.authCheckRequestedTest(
-                            AuthenticationStatus.unauthenticated));
+                    BlocProvider.of<AuthBloc>(context)
+                        .add(const AuthEvent.signedOut());
                   },
                   child: Stack(
                     alignment: Alignment.center,

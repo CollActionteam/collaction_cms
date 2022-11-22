@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../domain/auth/auth_failure.dart';
-import '../../domain/user/user.dart';
+import '../../../domain/auth/auth_failure.dart';
+import '../../../domain/user/user.dart';
 
 
 extension FirebaseUserX on firebase_auth.User? {
@@ -32,11 +32,23 @@ extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
     } 
 
     if(code == 'user-not-found') {
-      return const AuthFailure.userNotFound("User not found");
+      return const AuthFailure.userNotFound("User or password is wrong");
     }
 
     if(code == 'wrong-password') {
-      return const AuthFailure.wrongPassword("Wrong password");
+      return const AuthFailure.wrongPassword("User or password is wrong");
+    }
+
+    if(code == "too-many-requests") {
+      return const AuthFailure.tooManyRequests("Too many requests");
+    }
+
+    if(code == "invalid-continue-uri") {
+      return const AuthFailure.invalidUri("Invalid url");
+    }
+
+    if(code == "argument-error") {
+      return const AuthFailure.invalidUri("Invalid invitation");
     }
 
     else {

@@ -8,6 +8,10 @@ class ValueFailure<T> with _$ValueFailure<T> {
     required T failureMessage,
   }) = InvalidEmail<T>;
 
+  const factory ValueFailure.incorrectDomain({
+    required T failureMessage
+  }) = IncorrectDomain<T>;
+
   const factory ValueFailure.empty({
     required T failureMessage,
   }) = Empty<T>;
@@ -27,5 +31,10 @@ class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.allLettersPassword({
     required T failureMessage,
   }) = AllLettersPassword<T>;
+
+  const factory ValueFailure.passwordsMismatch({
+    required T failureMessage,
+  }) = PasswordsMismatch<T>;
+
 }
 

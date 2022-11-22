@@ -26,24 +26,27 @@ class _SpecialNavigationItemState extends State<SpecialNavigationItem> {
       cursor: SystemMouseCursors.click,
       onEnter: (event) => setState(() => _backgroundColor = kAccentHoverColor),
       onExit: (event) => setState(() => _backgroundColor = kAccentColor),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: _backgroundColor,
-        ),
-        child: Row(
-          children: [
-            Icon(widget.icon, color: kPrimaryColor),
-            const SizedBox(width: 15),
-            Text(
-              widget.label,
-              style: const TextStyle(
-                fontSize: 16.0,
-                color: kPrimaryColor,
+      child: GestureDetector(
+        onTap: () => widget.onTap(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: _backgroundColor,
+          ),
+          child: Row(
+            children: [
+              Icon(widget.icon, color: kPrimaryColor),
+              const SizedBox(width: 15),
+              Text(
+                widget.label,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  color: kPrimaryColor,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

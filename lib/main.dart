@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:collaction_admin/app_widget.dart';
+import 'package:collaction_admin/infrastructure/web_service/browser_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:collaction_admin/firebase_options.dart';
@@ -18,3 +21,11 @@ void main() async {
 
   runApp(const AppWidget());
 }
+
+
+
+
+
+
+
+

@@ -14,4 +14,5 @@ class BrowserNotifier extends ChangeNotifier {
 
   String? _routePopState;
   String? get routePopState => _routePopState;
+
 }

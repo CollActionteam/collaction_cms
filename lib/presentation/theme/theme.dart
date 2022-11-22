@@ -12,7 +12,7 @@ final appTheme = ThemeData(
         primary: kPrimaryColor,
         secondary: kAccentColor,
       ),
-  textTheme: ThemeData.light().textTheme,
+  textTheme: ThemeData.light().textTheme.apply(),
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: {
       TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),

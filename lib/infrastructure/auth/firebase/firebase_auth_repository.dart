@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:collaction_admin/domain/auth/auth_failure.dart';
-import 'package:collaction_admin/domain/auth/i_auth_repository.dart';
+import 'package:collaction_admin/domain/auth/i_auth_client_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:collaction_admin/infrastructure/authentication/firebase_auth_mapper.dart';
+import 'package:collaction_admin/infrastructure/auth/firebase/firebase_auth_mapper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: IAuthRepository)
-class AuthRepository implements IAuthRepository {
+
+@LazySingleton(as: IAuthClientRepository)
+class AuthRepository implements IAuthClientRepository {
   AuthRepository(this.firebaseAuth);
 
   final firebase_auth.FirebaseAuth firebaseAuth;
@@ -64,10 +65,50 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
+  Future<Either<AuthFailure, Unit>> sendEmailLinkAuth(
+      {String? email, firebase_auth.ActionCodeSettings? actionCodeSettings }
+  ) async {
+    if(email == null || actionCodeSettings == null) {
+      return left(
+        const AuthFailure.invalidUri("Invalid Uri")
+      );
+    }
+    try {
+      await firebaseAuth.sendSignInLinkToEmail(
+        email: email, 
+        actionCodeSettings: actionCodeSettings);
+
+        return right(unit);
+      
+
+    } on firebase_auth.FirebaseAuthException catch (error) {
+      return left(error.toFailure());
+    } catch (_) {
+      return left(const AuthFailure.serverError("Server Error"));
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, firebase_auth.User>> signInWithEmailLink(
+    {String? email, String? emailLink}
+  ) async {
+    try {
+      final userCredential = await firebaseAuth.signInWithEmailLink(
+        email: email!, 
+        emailLink: emailLink!);
+
+      return right(userCredential.user!);
+
+    } on firebase_auth.FirebaseAuthException catch(error) {
+      return left(error.toFailure());
+    } catch(_) {
+      return left(const AuthFailure.serverError("Server Error"));
+    }
+  }
+
+  @override
   Future<void> signOut() => firebaseAuth.signOut();
 
   Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure.incorrectRole("Admin role not found"));
 }
 
-/// This is for testing purposes without using [FirebaseAuth] shuld be deleted after having a firebase account
-enum AuthenticationStatus { unknown, authenticated, unauthenticated }

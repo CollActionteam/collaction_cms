@@ -36,7 +36,14 @@ class AppWidget extends StatelessWidget {
                 }, unknown: (_) {
                   BlocProvider.of<NavigationBloc>(context)
                       .add(NavigateToPageEvent(route: "/"));
-                });
+                }, onVerification: (value) {
+                  BlocProvider.of<NavigationBloc>(context)
+                      .add(NavigateToPageEvent(route: value.pathname!));
+                }, preAuthenticated: (value) {
+                  BlocProvider.of<NavigationBloc>(context)
+                      .add(NavigateToPageEvent(route: "/create-credentials"));
+                },
+                );
               },
             ),
           ],

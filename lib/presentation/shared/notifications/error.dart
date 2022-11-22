@@ -68,9 +68,10 @@ class _ErrorNotificationState extends State<ErrorNotification> {
                   child: SelectableText(
                     "${widget.errorMessage}.",
                     style: const TextStyle(
-                      color: kTextColor,
+                      color: kBlackPrimary300,
                       fontFamily: "Rubik",
                       fontSize: 12
+                      
                     ),
                   ),
                 ))

@@ -49,6 +49,10 @@ dependencies:
   firebase_core: ^1.23.0
   flutter_svg: ^1.1.5
   navigation_history_observer: ^1.1.0
+  rive: ^0.9.1
+  envied: ^0.2.4
+  http: ^0.13.5
+  mocktail: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +68,8 @@ dev_dependencies:
   freezed: ^2.1.0+1
   injectable_generator: ^1.5.4
   lint: ^1.10.0
+  envied_generator: ^0.2.3
+  json_serializable: ^6.5.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -17,13 +17,14 @@ class CollActionInputField extends StatefulWidget {
     this.focusNode,
     this.buttonTriggered = false,
     this.callback,
-    this.validationCallback
+    this.validationCallback,
+    this.readonly = false,
+    this.initialValue
   })  : 
-  labelText = password ? "Password": "Email",
+  labelText =  labelText ?? (password ? "Password" : "Email"),
   super(key: key);
         
-
-  final String labelText;
+  final String? labelText;
   final double width;
   final TextEditingController? controller;
   final FocusNode? focusNode;
@@ -31,6 +32,8 @@ class CollActionInputField extends StatefulWidget {
   Function? callback;
   Function? validationCallback;
   final bool password;
+  final bool readonly;
+  final String? initialValue;
 
   @override
   State<CollActionInputField> createState() => _CollActionInputFieldState();
@@ -44,7 +47,8 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _mapValidationOutput = mapValidation(widget.validationCallback!(""));
+    widget.validationCallback == null ? _mapValidationOutput = MapValidationOutput(error: false, output: "") :
+    _mapValidationOutput = mapValidation(widget.validationCallback!(widget.initialValue ?? ""));
   }
 
   @override
@@ -54,26 +58,29 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
       child: Stack(
         children: [
           TextFormField(
+            initialValue: widget.initialValue,
+            readOnly: widget.readonly,
             obscureText: widget.password,
-            controller: widget.controller,
+            controller: widget.initialValue == null ? widget.controller : null,
             focusNode: widget.focusNode,
             onChanged: (value) {
+              widget.validationCallback == null ? _mapValidationOutput = MapValidationOutput(error: false, output: "") :
               _mapValidationOutput = mapValidation(widget.validationCallback!(value));
               setState(() {
               });
-                widget.callback!(_mapValidationOutput.error);
+                widget.callback == null ? null : widget.callback!(_mapValidationOutput.error);
             },
             cursorColor: kAccentColor,
             style: widget.password 
                   ? const TextStyle(
                       fontFamily: "Rubik",
                       fontWeight: FontWeight.w300,
-                      color: kInputTextColor,
+                      color: kBlackPrimary300,
                     )
                   : const TextStyle(
                       fontFamily: "Rubik",
                       fontWeight: FontWeight.w300,
-                      color: kInputTextColor,
+                      color: kBlackPrimary300,
                       fontSize: 15,
                     ),
             decoration: InputDecoration(

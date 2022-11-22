@@ -1,4 +1,6 @@
-import 'package:collaction_admin/presentation/authentication/authentication_page.dart';
+import 'package:collaction_admin/presentation/auth/authentication_page.dart';
+import 'package:collaction_admin/presentation/auth/create_credentials.dart';
+import 'package:collaction_admin/presentation/auth/link_auth_page.dart';
 import 'package:collaction_admin/presentation/crowdactions/crowdactions_page.dart';
 import 'package:collaction_admin/presentation/dashboard/dashboard_page.dart';
 import 'package:collaction_admin/presentation/go_routing/listenables.dart';
@@ -17,6 +19,7 @@ GoRouter getRouter(BuildContext context) {
   final router = GoRouter(
       navigatorKey: rootNavigatorKey,
       redirect: (context, state) {
+        print("goRouter state: ${state.location}, navigationBlocState: ${BlocProvider.of<NavigationBloc>(context).state.route}");
         if (state.location !=
             BlocProvider.of<NavigationBloc>(context).state.route) {
           return BlocProvider.of<NavigationBloc>(context).state.route;
@@ -30,6 +33,24 @@ GoRouter getRouter(BuildContext context) {
               return const MaterialPage(
                   child: Loader());
             })),
+        GoRoute(
+          path: '/verification',
+          name: 'verification',
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              child: LinkAuthPage()
+            );
+          },
+        ),
+        GoRoute(
+          path: '/create-credentials',
+          name: 'create-credentials',
+          pageBuilder: ((context, state) {
+            return const MaterialPage(
+              child: CreateCredentialsPage()
+            );
+          })
+        ),
         GoRoute(
             path: '/log-in',
             name: 'log-in',

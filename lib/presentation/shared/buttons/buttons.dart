@@ -7,17 +7,19 @@ class CollActionButton extends StatelessWidget {
     this.width = double.infinity,
     this.loading = false,
     required this.onPressed,
+    required this.text
   }) : super(key: key);
 
   final double width;
   final Function onPressed;
   final bool loading;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 45,
+      height: 52,
       child: TextButton(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(kAccentColor),
@@ -26,8 +28,8 @@ class CollActionButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ))),
         onPressed: () => onPressed(),
-        child: !loading ? const Text(
-          "Sign In",
+        child: !loading ?  Text(
+          text,
           style: TextStyle(fontFamily: "Rubik", fontWeight: FontWeight.w700),
         ) : const SizedBox(
               width: 20,
