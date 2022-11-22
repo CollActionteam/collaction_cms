@@ -40,18 +40,20 @@ class AuthFailure<T> with _$AuthFailure<T> {
     final T error,
   ) = IncorrectRole<T>;
 
-  ///There are two ways to get this failure:
+  ///There are two ways to get this error:
   ///
   ///The first one is when the function [sendEmailLinkAuth] gets called with
-  ///incomplete information, such as a url being incomplete.
+  ///incomplete information, such as an incomplete url.
   ///
-  ///The second one is when a guest admin navigates to [/verification] screen to verificate an account
-  ///and the url is not valid, so there has not being made a call to generate the url provided.
+  ///The second one is when a guest admin navigates to [/verification] screen to verify an account
+  ///and the url is not valid, so there's not an available url invitation link.
+  ///The user has not being invited.
   const factory AuthFailure.invalidUri(
     final T error
     ) = InvalidUri<T>;
 
-  /// Error that handle if an empty value is returned after calling [verifyUser]
+  /// This error ocurrs if an empty value is returned from the backend 
+  /// after calling [verifyUser]
   const factory AuthFailure.emptyUid(
     final T error,
     ) = EmptyUid<T>;

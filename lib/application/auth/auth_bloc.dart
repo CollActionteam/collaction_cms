@@ -17,128 +17,105 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 @injectable
-class AuthBloc
-    extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthClientRepository authRepository;
   final IAuthApiRepository authApiRepository;
 
   User? authedUser;
-  
+
   late StreamSubscription<Option<User>> _authenticationSubscription;
 
-  AuthBloc(this.authRepository, this.authApiRepository) : super(const AuthState.unknown()) {
+  AuthBloc(this.authRepository, this.authApiRepository)
+      : super(const AuthState.unknown()) {
     on<AuthEvent>((event, emit) async {
       await event.map(
-        authCheckRequested: (event) async => await _mapAuthCheckRequested(emit, event), 
-        signedOut: (event) async => await _mapSignedOut(emit, event), 
-        signInWithEmailAndPassword: (event) async => await _mapSignInWithEmailAndPassword(emit, event),
-        toVerification: (event) async => await _mapVerificationRequested(emit, event), 
-        sendSignInLinkToEmail: (event) async => await _mapSendSignInLinkToEmail(emit, event),
-        verifyUser: (event) async => await _mapVerifyUser(emit, event),
-        addPassword: (event) async => await _mapAddPassword(emit, event)
-      );
+          authCheckRequested: (event) async =>
+              await _mapAuthCheckRequested(emit, event),
+          signedOut: (event) async => await _mapSignedOut(emit, event),
+          signInWithEmailAndPassword: (event) async =>
+              await _mapSignInWithEmailAndPassword(emit, event),
+          toVerification: (event) async =>
+              await _mapVerificationRequested(emit, event),
+          sendSignInLinkToEmail: (event) async =>
+              await _mapSendSignInLinkToEmail(emit, event),
+          verifyUser: (event) async => await _mapVerifyUser(emit, event),
+          addPassword: (event) async => await _mapAddPassword(emit, event));
     });
 
-    if(window.location.href.contains("/verification")) {
-      add(AuthEvent.toVerification(window.location.href, window.location.pathname!));
-      
+    if (window.location.href.contains("/verification")) {
+      add(AuthEvent.toVerification(
+          window.location.href, window.location.pathname!));
     } else {
-      _authenticationSubscription = 
-        authRepository.user.listen((event) => add(const AuthEvent.authCheckRequested()));
-    }    
+      _authenticationSubscription = authRepository.user
+          .listen((event) => add(const AuthEvent.authCheckRequested()));
+    }
   }
 
   FutureOr<void> _mapVerifyUser(
-    Emitter<AuthState> emit,
-    _VerifyUser event
-  ) async {
+      Emitter<AuthState> emit, _VerifyUser event) async {
     emit(const AuthState.verifyingUser());
     final result = await authRepository.signInWithEmailLink(
-      email: event.email,
-      emailLink: event.url
-    );
+        email: event.email, emailLink: event.url);
 
-    result.fold(
-      (failure) => emit(AuthState.authError(failure)), 
-      (uid) => emit(AuthState.preAuthenticated(uid)));
+    result.fold((failure) => emit(AuthState.authError(failure)),
+        (uid) => emit(AuthState.preAuthenticated(uid)));
   }
 
   FutureOr<void> _mapSendSignInLinkToEmail(
-    Emitter<AuthState> emit,
-    _SendSignInLinkToEmail event
-  ) async {
+      Emitter<AuthState> emit, _SendSignInLinkToEmail event) async {
     emit(const AuthState.invitingAdmin());
     final result = await authRepository.sendEmailLinkAuth(
-      email: event.email,
-      actionCodeSettings: event.actionCodeSettings
-    );
+        email: event.email, actionCodeSettings: event.actionCodeSettings);
 
-    result.fold(
-      (failure) => emit(AuthState.authError(failure)), 
-      (_) => emit(const AuthState.inviteAdminDone()));
+    result.fold((failure) => emit(AuthState.authError(failure)),
+        (_) => emit(const AuthState.inviteAdminDone()));
   }
 
   Future<void> _mapAuthCheckRequested(
-    Emitter<AuthState> emit,
-    _AuthCheckRequested event
-  ) async {
-      final userOption = await authRepository.user.first;
-      final userRole = await authRepository.roleOption.first;
+      Emitter<AuthState> emit, _AuthCheckRequested event) async {
+    final userOption = await authRepository.user.first;
+    final userRole = await authRepository.roleOption.first;
 
-      if(userOption.isSome() && userRole.isSome()) {
-        late String providerId;
-        late User AuthedUser;
+    if (userOption.isSome() && userRole.isSome()) {
+      late String providerId;
+      late User AuthedUser;
 
-        userOption.map((user) {
-          providerId = user.providerData[0].providerId;
-          AuthedUser = user;
-        });
-        if(providerId == "password") {
-          emit(AuthState.authenticated(authedUser));
-        } else {
-            emit(const AuthState.unaunthenticated());
-        }
-
+      userOption.map((user) {
+        providerId = user.providerData[0].providerId;
+        AuthedUser = user;
+      });
+      if (providerId == "password") {
+        emit(AuthState.authenticated(authedUser));
       } else {
         emit(const AuthState.unaunthenticated());
       }
+    } else {
+      emit(const AuthState.unaunthenticated());
+    }
   }
 
   FutureOr<void> _mapSignedOut(
-    Emitter<AuthState> emit,
-    _SignedOut event
-    ) async {
-      await authRepository.signOut();
-      emit(const AuthState.unaunthenticated());
-    }
-  
+      Emitter<AuthState> emit, _SignedOut event) async {
+    await authRepository.signOut();
+    emit(const AuthState.unaunthenticated());
+  }
+
   FutureOr<void> _mapSignInWithEmailAndPassword(
-    Emitter<AuthState> emit,
-    _SignInWithEmailAndPassword event
-  ) async {
+      Emitter<AuthState> emit, _SignInWithEmailAndPassword event) async {
     emit(const AuthState.signingInUser());
     final result = await authRepository.signInWithEmailAndPassword(
-      email: event.email,
-      password: event.password
-    );
+        email: event.email, password: event.password);
 
-    result.fold(
-      (failure) => emit(AuthState.authError(failure)), 
-      (user) => add(const AuthEvent.authCheckRequested())
-    );
+    result.fold((failure) => emit(AuthState.authError(failure)),
+        (user) => add(const AuthEvent.authCheckRequested()));
   }
 
   FutureOr<void> _mapVerificationRequested(
-    Emitter<AuthState> emit,
-    _ToVerification event
-  ) async {
-      emit(AuthState.onVerification(event.href, event.pathname));
-    }
+      Emitter<AuthState> emit, _ToVerification event) async {
+    emit(AuthState.onVerification(event.href, event.pathname));
+  }
 
-  
   ///---------------------------------------Handlers for new auth flow------------------------------------------------///
-  
-  
 
   // FutureOr<void> _mapSendSignInLinkToEmail(
   //   Emitter<AuthState> emit,
@@ -151,7 +128,7 @@ class AuthBloc
   //   );
 
   //   result.fold(
-  //     (failure) => emit(AuthState.authError(failure)), 
+  //     (failure) => emit(AuthState.authError(failure)),
   //     (_) => emit(const AuthState.inviteAdminDone())
   //   );
   // }
@@ -167,24 +144,17 @@ class AuthBloc
   //     );
 
   //     result.fold(
-  //       (failure) => emit(AuthState.authError(failure)), 
+  //       (failure) => emit(AuthState.authError(failure)),
   //       (uid) => emit(AuthState.preAuthenticated(uid)));
   //   }
 
   FutureOr<void> _mapAddPassword(
-    Emitter<AuthState> emit,
-    _AddPassword event
-  ) async {
+      Emitter<AuthState> emit, _AddPassword event) async {
     emit(const AuthState.addingPassword());
     final result = await authApiRepository.addPassword(
-      uid: event.uid,
-      password: event.password
-    );
+        uid: event.uid, password: event.password);
 
-    result.fold(
-      (failure) => emit(AuthState.authError(failure)), 
-      (_) => emit(const AuthState.adminCreationCompleted()));
+    result.fold((failure) => emit(AuthState.authError(failure)),
+        (_) => emit(const AuthState.adminCreationCompleted()));
   }
 }
-
-

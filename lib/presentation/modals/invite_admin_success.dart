@@ -12,16 +12,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
 
-class SuccesfullInviteMessage extends StatefulWidget {
-  SuccesfullInviteMessage({
+class SuccessfulInviteMessage extends StatefulWidget {
+  SuccessfulInviteMessage({
     Key? key
     }) : super(key: key);
 
   @override
-  State<SuccesfullInviteMessage> createState() => _SuccesfullInviteMessageState();
+  State<SuccessfulInviteMessage> createState() => _SuccessfulInviteMessageState();
 }
 
-class _SuccesfullInviteMessageState extends State<SuccesfullInviteMessage> {
+class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -62,7 +62,7 @@ class _InviteAdminModalState extends State<InviteAdminModal> {
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
                 child: invitationSuccess
-                    ? SuccesfullInviteMessage()
+                    ? SuccessfulInviteMessage()
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [

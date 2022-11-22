@@ -13,7 +13,7 @@ import 'package:collaction_admin/infrastructure/auth/firebase/firebase_auth_mapp
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
-/// -----------------------------ENDPOINTS ARE NOT IMPLEMENTED YET New Auth Flow-------------------------
+/// -----------------------------ENDPOINTS ARE NOT IMPLEMENTED YET New Auth Flow-------------------------///
 @LazySingleton(as: IAuthApiRepository)
 class AuthApiRepository implements IAuthApiRepository {
   final http.Client _client;
@@ -21,10 +21,7 @@ class AuthApiRepository implements IAuthApiRepository {
   final IAuthClientRepository _authClientRepository;
 
   AuthApiRepository(
-    this._client,
-    this._settingsRepository,
-    this._authClientRepository
-  );
+      this._client, this._settingsRepository, this._authClientRepository);
 
   @override
   Future<Either<AuthFailure, Unit>> sendEmailLinkAuth({
@@ -37,39 +34,32 @@ class AuthApiRepository implements IAuthApiRepository {
       user.map((user) async {
         tokenId = await user.getIdToken();
       });
-      
+
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/invite-admin'
-      );
-      
-      final response = await _client.post(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $tokenId'
-      
-        },
-        body: jsonEncode(
-          {
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/invite-admin');
+
+      final response = await _client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $tokenId'
+          },
+          body: jsonEncode({
             'email': email,
             'url': actionCodeSettings!.url,
             'handleCodeInApp': actionCodeSettings.url
-          }
-        )
-      );
+          }));
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return right(unit);
       } else {
         final authFailureDto = AuthFailureDto.fromJson(
-          jsonDecode(response.body) as Map<String, dynamic>
-        );
+            jsonDecode(response.body) as Map<String, dynamic>);
         return left(authFailureDto.toDomainAuthFailure());
       }
-    } catch(e) {
+    } catch (e) {
       return left(const AuthFailure.serverError("Server error"));
     }
-  } 
+  }
 
   @override
   Future<Either<AuthFailure, String>> verifiyUser({
@@ -78,82 +68,50 @@ class AuthApiRepository implements IAuthApiRepository {
   }) async {
     try {
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/verify-email'
-      );
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/verify-email');
 
-      final response = await _client.post(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json'
-        },
-        body: jsonEncode(
-          {
-            'email': email,
-            'emailLink': emailLink
-          }
-        )
-      );
+      final response = await _client.post(uri,
+          headers: <String, String>{'Content-Type': 'application/json'},
+          body: jsonEncode({'email': email, 'emailLink': emailLink}));
 
-      if(response.statusCode == 200) {
-        final Option<String> uid = optionOf((jsonDecode(
-          response.body
-        ) as Map<String, String>)["uid"]);
-        
+      if (response.statusCode == 200) {
+        final Option<String> uid =
+            optionOf((jsonDecode(response.body) as Map<String, String>)["uid"]);
+
         return uid.fold(
-          () => left(const AuthFailure.emptyUid("Empty uid sent by the backe")), 
-          (uid) => right(uid));
-
+            () =>
+                left(const AuthFailure.emptyUid("Empty uid sent by the backe")),
+            (uid) => right(uid));
       } else {
         final authFailureDto = AuthFailureDto.fromJson(
-          jsonDecode(response.body) as Map<String, dynamic>
-        );
+            jsonDecode(response.body) as Map<String, dynamic>);
         return left(authFailureDto.toDomainAuthFailure());
       }
-    } catch(e) {
+    } catch (e) {
       return left(const AuthFailure.serverError("Server error"));
     }
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> addPassword({
-    String? uid, 
-    String? password
-  }) async {
-      try {
-        final uri = Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/add-password'
-        );
+  Future<Either<AuthFailure, Unit>> addPassword(
+      {String? uid, String? password}) async {
+    try {
+      final uri = Uri.parse(
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/add-password');
 
-        final response = await _client.post(
-          uri, 
-          headers: <String, String>{
-            'Content-Type': 'application/json'
-          },
-          body: jsonEncode(
-            {
-              uid: uid,
-              password: password
-            }
-          )
-        );
+      final response = await _client.post(uri,
+          headers: <String, String>{'Content-Type': 'application/json'},
+          body: jsonEncode({uid: uid, password: password}));
 
-        if(response.statusCode == 200) {
-          return right(unit);
-        } else {
-          final authFailureDto = AuthFailureDto.fromJson(
-          jsonDecode(response.body) as Map<String, dynamic>
-        );
+      if (response.statusCode == 200) {
+        return right(unit);
+      } else {
+        final authFailureDto = AuthFailureDto.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>);
         return left(authFailureDto.toDomainAuthFailure());
-        }
-
-      } catch(e) {
-        return left(const AuthFailure.serverError("Server error"));
       }
+    } catch (e) {
+      return left(const AuthFailure.serverError("Server error"));
+    }
   }
 }
-
-
-
-
-
-

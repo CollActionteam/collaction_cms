@@ -7,7 +7,6 @@ import 'package:collaction_admin/infrastructure/auth/firebase/firebase_auth_mapp
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:injectable/injectable.dart';
 
-
 @LazySingleton(as: IAuthClientRepository)
 class AuthRepository implements IAuthClientRepository {
   AuthRepository(this.firebaseAuth);
@@ -46,8 +45,7 @@ class AuthRepository implements IAuthClientRepository {
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
       {String? email, String? password}) async {
     if (email == null || password == null) {
-      return left(
-          const AuthFailure.invalidEmail("Invalid email or password"));
+      return left(const AuthFailure.invalidEmail("Invalid email or password"));
     }
 
     try {
@@ -59,28 +57,23 @@ class AuthRepository implements IAuthClientRepository {
           (role) => role == 'ADMIN' ? right(unit) : incorrectRole()));
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch(_) {
+    } catch (_) {
       return left(const AuthFailure.serverError("Server error"));
     }
   }
 
   @override
   Future<Either<AuthFailure, Unit>> sendEmailLinkAuth(
-      {String? email, firebase_auth.ActionCodeSettings? actionCodeSettings }
-  ) async {
-    if(email == null || actionCodeSettings == null) {
-      return left(
-        const AuthFailure.invalidUri("Invalid Uri")
-      );
+      {String? email,
+      firebase_auth.ActionCodeSettings? actionCodeSettings}) async {
+    if (email == null || actionCodeSettings == null) {
+      return left(const AuthFailure.invalidUri("Invalid Uri"));
     }
     try {
       await firebaseAuth.sendSignInLinkToEmail(
-        email: email, 
-        actionCodeSettings: actionCodeSettings);
+          email: email, actionCodeSettings: actionCodeSettings);
 
-        return right(unit);
-      
-
+      return right(unit);
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
@@ -90,18 +83,15 @@ class AuthRepository implements IAuthClientRepository {
 
   @override
   Future<Either<AuthFailure, firebase_auth.User>> signInWithEmailLink(
-    {String? email, String? emailLink}
-  ) async {
+      {String? email, String? emailLink}) async {
     try {
       final userCredential = await firebaseAuth.signInWithEmailLink(
-        email: email!, 
-        emailLink: emailLink!);
+          email: email!, emailLink: emailLink!);
 
       return right(userCredential.user!);
-
-    } on firebase_auth.FirebaseAuthException catch(error) {
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch(_) {
+    } catch (_) {
       return left(const AuthFailure.serverError("Server Error"));
     }
   }
@@ -109,6 +99,6 @@ class AuthRepository implements IAuthClientRepository {
   @override
   Future<void> signOut() => firebaseAuth.signOut();
 
-  Either<AuthFailure, Unit> incorrectRole() => left(const AuthFailure.incorrectRole("Admin role not found"));
+  Either<AuthFailure, Unit> incorrectRole() =>
+      left(const AuthFailure.incorrectRole("Admin role not found"));
 }
-
