@@ -1,11 +1,11 @@
-import 'package:collaction_admin/application/auth/auth_bloc.dart';
-import 'package:collaction_admin/domain/auth/value_validators.dart';
-import 'package:collaction_admin/presentation/layout/responsiveness.dart';
-import 'package:collaction_admin/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_admin/presentation/shared/form/input_field.dart';
-import 'package:collaction_admin/presentation/shared/notifications/error.dart';
-import 'package:collaction_admin/presentation/theme/constants.dart';
-import 'package:collaction_admin/presentation/theme/text.dart';
+import 'package:collaction_cms/application/auth/auth_bloc.dart';
+import 'package:collaction_cms/domain/core/value_validators.dart';
+import 'package:collaction_cms/presentation/layout/responsiveness.dart';
+import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
+import 'package:collaction_cms/presentation/shared/form/input_field.dart';
+import 'package:collaction_cms/presentation/shared/notifications/error.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
+import 'package:collaction_cms/presentation/theme/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,10 +25,13 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
   final passwordFocusNode = FocusNode();
   final confirmPasswordFocusNode = FocusNode();
 
-  bool emailValidationError = true;
   bool passwordValidationError = true;
   bool confirmPasswordValidationError = false;
   bool buttonTriggered = false;
+
+  late String _uid;
+  late String _token;
+  late String _email;
 
 
   bool authError = false;
@@ -44,7 +47,9 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
             authErrorMessage = value.failure.error;
           },
           preAuthenticated: (value) {
-            value.user!.email;
+            _email = value.preAuthCredential!.email!;
+            _uid = value.preAuthCredential!.identifier;
+            _token = value.preAuthCredential!.token;
           },
         );
         return Scaffold(
@@ -100,20 +105,13 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                 ErrorNotification(errorMessage: authErrorMessage,) : const SizedBox.shrink(),
                                 const SizedBox(height: 15),
                                 CollActionInputField(
-                                  initialValue: _getInitialEmail(state),
+                                  // initialValue: _getInitialEmail(state),
+                                  initialValue: _email,
                                   readonly: true,
                                   controller: emailController,
                                   focusNode: emailFocusNode,
                                   labelText: "Email",
                                   buttonTriggered: buttonTriggered,
-                                  callback: (value) {
-                                    setState(() {
-                                      emailValidationError = value;
-                                    });
-                                  },
-                                  validationCallback: (value) {
-                                    return validateEmailAddress(value);
-                                  },
                                 ),
                                 const SizedBox(height: 30.0),
                                 CollActionInputField(
@@ -154,14 +152,14 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                     setState(() {
                                       buttonTriggered = true;
                                     });
-                                    if (!emailValidationError &&
+                                    if (!confirmPasswordValidationError&&
                                         !passwordValidationError) {
                                       BlocProvider.of<AuthBloc>(context).add(
-                                          AuthEvent.signInWithEmailAndPassword(
-                                              emailController.value.text,
-                                              passwordController.value.text));
+                                          AuthEvent.addPassword(
+                                              _uid,
+                                              passwordController.value.text,
+                                              _token));
                                     }
-                                    if (emailValidationError) return emailFocusNode.requestFocus();
                                       
                                     if (passwordValidationError) return passwordFocusNode.requestFocus();
 
@@ -191,7 +189,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
 
     state.mapOrNull(
       preAuthenticated: (value) {
-        initialEmail = value.user!.email!;
+        initialEmail = value.preAuthCredential!.email!;
       },
     );
 

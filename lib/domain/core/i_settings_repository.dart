@@ -1,5 +1,5 @@
 
-import 'package:collaction_admin/env/envied.dart';
+import 'package:collaction_cms/env/envied.dart';
 
 abstract class ISettingsRepository {
 

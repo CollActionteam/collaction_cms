@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:collaction_admin/presentation/theme/constants.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
 
 class CollActionButton extends StatelessWidget {
   const CollActionButton({

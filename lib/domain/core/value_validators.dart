@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:collaction_admin/domain/core/value_failures.dart';
+import 'package:collaction_cms/domain/core/value_failures.dart';
 
 Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   const emailRegex =

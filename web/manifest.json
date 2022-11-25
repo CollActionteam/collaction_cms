@@ -1,6 +1,6 @@
 {
-    "name": "collaction_admin",
-    "short_name": "collaction_admin",
+    "name": "collaction_cms",
+    "short_name": "collaction_cms",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

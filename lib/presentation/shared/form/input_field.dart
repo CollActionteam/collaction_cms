@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:collaction_admin/domain/core/value_failures.dart';
-import 'package:collaction_admin/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
+import 'package:collaction_cms/domain/core/value_failures.dart';
+import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
 import 'package:flutter/material.dart';
-import 'package:collaction_admin/presentation/theme/constants.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
 

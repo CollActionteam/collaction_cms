@@ -1,4 +1,4 @@
-package org.collaction.collaction_admin
+package org.collaction.collaction_cms
 
 import io.flutter.embedding.android.FlutterActivity
 

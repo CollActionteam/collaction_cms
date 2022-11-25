@@ -53,10 +53,9 @@ class AuthFailure<T> with _$AuthFailure<T> {
     ) = InvalidUri<T>;
 
   /// This error ocurrs if an empty value is returned from the backend 
-  /// after calling [verifyUser]
-  const factory AuthFailure.emptyUid(
+  const factory AuthFailure.missingValues(
     final T error,
-    ) = EmptyUid<T>;
+    ) = MissingValues<T>;
 
   /// When a user has already set their password and calls [addPassword]
   const factory AuthFailure.passwordHasBeenSet(

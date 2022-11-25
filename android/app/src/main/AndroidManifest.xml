@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.collaction.collaction_admin">
+    package="org.collaction.collaction_cms">
    <application
-        android:label="collaction_admin"
+        android:label="collaction_cms"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

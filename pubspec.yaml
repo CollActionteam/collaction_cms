@@ -1,4 +1,4 @@
-name: collaction_admin
+name: collaction_cms
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -70,6 +70,7 @@ dev_dependencies:
   lint: ^1.10.0
   envied_generator: ^0.2.3
   json_serializable: ^6.5.4
+  json_annotation: ^4.7.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

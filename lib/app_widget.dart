@@ -1,8 +1,8 @@
-import 'package:collaction_admin/infrastructure/core/injection.dart';
-import 'package:collaction_admin/presentation/theme/theme.dart';
+import 'package:collaction_cms/infrastructure/core/injection.dart';
+import 'package:collaction_cms/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:collaction_admin/application/auth/auth_bloc.dart';
+import 'package:collaction_cms/application/auth/auth_bloc.dart';
 
 import './presentation/go_routing/go_routing.dart';
 import './application/navigation/navigation_bloc.dart';

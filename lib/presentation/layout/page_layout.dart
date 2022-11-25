@@ -1,8 +1,8 @@
-import 'package:collaction_admin/presentation/layout/responsiveness.dart';
-import 'package:collaction_admin/presentation/layout/screen_definitions/large_screen.dart';
-import 'package:collaction_admin/presentation/layout/screen_definitions/small_screen.dart';
-import 'package:collaction_admin/presentation/navigation/widgets/menu.dart';
-import 'package:collaction_admin/presentation/theme/constants.dart';
+import 'package:collaction_cms/presentation/layout/responsiveness.dart';
+import 'package:collaction_cms/presentation/layout/screen_definitions/large_screen.dart';
+import 'package:collaction_cms/presentation/layout/screen_definitions/small_screen.dart';
+import 'package:collaction_cms/presentation/navigation/widgets/menu.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
 

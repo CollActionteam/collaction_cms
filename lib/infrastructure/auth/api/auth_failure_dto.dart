@@ -1,4 +1,4 @@
-import 'package:collaction_admin/domain/auth/auth_failure.dart';
+import 'package:collaction_cms/domain/auth/auth_failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_failure_dto.freezed.dart';

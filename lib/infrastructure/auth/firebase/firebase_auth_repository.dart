@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:collaction_admin/domain/auth/auth_failure.dart';
-import 'package:collaction_admin/domain/auth/i_auth_client_repository.dart';
+import 'package:collaction_cms/domain/auth/auth_failure.dart';
+import 'package:collaction_cms/domain/auth/i_auth_client_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:collaction_admin/infrastructure/auth/firebase/firebase_auth_mapper.dart';
+import 'package:collaction_cms/infrastructure/auth/firebase/firebase_auth_mapper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:injectable/injectable.dart';
 

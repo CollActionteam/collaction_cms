@@ -1,7 +1,7 @@
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_admin/infrastructure/web_service/browser_notifier.dart';
-import 'package:collaction_admin/presentation/shared/utils/colors/color.dart';
+import 'package:collaction_cms/infrastructure/web_service/browser_notifier.dart';
+import 'package:collaction_cms/presentation/shared/utils/colors/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 

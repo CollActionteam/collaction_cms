@@ -1,10 +1,11 @@
 import 'dart:html';
 
-import 'package:collaction_admin/app_widget.dart';
-import 'package:collaction_admin/infrastructure/web_service/browser_notifier.dart';
+import 'package:collaction_cms/app_widget.dart';
+import 'package:collaction_cms/infrastructure/web_service/browser_notifier.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:collaction_admin/firebase_options.dart';
+import 'package:collaction_cms/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import './infrastructure/core/injection.dart';

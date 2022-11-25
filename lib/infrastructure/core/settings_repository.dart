@@ -1,5 +1,5 @@
-import 'package:collaction_admin/domain/core/i_settings_repository.dart';
-import 'package:collaction_admin/env/envied.dart';
+import 'package:collaction_cms/domain/core/i_settings_repository.dart';
+import 'package:collaction_cms/env/envied.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: ISettingsRepository)

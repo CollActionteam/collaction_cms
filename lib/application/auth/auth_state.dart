@@ -30,7 +30,7 @@ class AuthState with _$AuthState {
 
   ///When a user verify their email successfully on [/verification] screen,
   ///bloc emits this state.
-  const factory AuthState.preAuthenticated(final User? user) =
+  const factory AuthState.preAuthenticated(final PreAuthCredential? preAuthCredential) =
       _PreAuthenticated;
 
   ///Transitiory state when the user submit the invitation form

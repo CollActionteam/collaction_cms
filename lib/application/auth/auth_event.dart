@@ -45,6 +45,7 @@ class AuthEvent with _$AuthEvent {
   ///After the user verifies their account successfully, it navigates to
   ///[create_credentials] screen to set up a password. When the user submit the
   ///password form this event gets triggered.
-  const factory AuthEvent.addPassword(final String uid, final String password) =
+  const factory AuthEvent.addPassword(
+          final String uid, final String password, final String token) =
       _AddPassword;
 }
