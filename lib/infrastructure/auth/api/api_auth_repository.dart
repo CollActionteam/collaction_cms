@@ -97,39 +97,9 @@ class AuthApiRepository implements IAuthApiRepository {
     }
   }
 
-  // @override
-  // Future<Either<AuthFailure, Unit>> addPassword(
-  //     {String? uid, String? password, String? token}) async {
-  //       print("$uid, $password, $token");
-  //   try {
-  //     final uri = Uri.parse(
-  //         '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/update-password');
-
-  //     final response = await _client.post(uri,
-  //         headers: <String, String>{
-  //           'Content-Type': 'application/json',
-  //           'Authorization': 'Bearer $token'
-  //           },
-  //         body: jsonEncode({'password': password}));
-
-  //     if (response.statusCode.toString().startsWith("20")) {
-  //       return right(unit);
-  //     } else {
-  //       final authFailureDto = AuthFailureDto.fromJson(
-  //           jsonDecode(response.body) as Map<String, dynamic>);
-  //       return left(authFailureDto.toDomainAuthFailure());
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     return left(const AuthFailure.serverError("Server error"));
-  //   }
-  // }
-
-  ///Without token, just with uid
   @override
   Future<Either<AuthFailure, Unit>> addPassword(
       {String? uid, String? password, String? token}) async {
-        print("$uid, $password, $token");
     try {
       final uri = Uri.parse(
           '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/update-password');
@@ -137,8 +107,9 @@ class AuthApiRepository implements IAuthApiRepository {
       final response = await _client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
             },
-          body: jsonEncode({'uid': uid, 'password': password}));
+          body: jsonEncode({'password': password}));
 
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);

@@ -19,7 +19,6 @@ GoRouter getRouter(BuildContext context) {
   final router = GoRouter(
       navigatorKey: rootNavigatorKey,
       redirect: (context, state) {
-        print("goRouter state: ${state.location}, navigationBlocState: ${BlocProvider.of<NavigationBloc>(context).state.route}");
         if (state.location !=
             BlocProvider.of<NavigationBloc>(context).state.route) {
           return BlocProvider.of<NavigationBloc>(context).state.route;
