@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:collaction_cms/presentation/core/icons/icons_map.dart';
+
+//Check if freezed is necessary here.
+part 'crowdaction.freezed.dart';
+
+@freezed
+class CrowdAction with _$CrowdAction {
+  
+  const factory CrowdAction({
+    required String id,
+    required String type,
+    required String title,
+    required String description,
+    required String category,
+    required Location location,
+    required List<CommitmentOption> commitmentOptions,
+    required Images images,
+    required int participantCount,
+    required Status status,
+    required JoinStatus joinStatus,
+    required DateTime endAt,
+    String? password,
+    String? subcategory,
+  }) = _CrowdAction;
+}
+
+class Images{
+    const Images({
+      required String card,
+      required String banner
+    });
+}
+
+class Location{
+  const Location({
+    required String code,
+    required String name
+  });
+}
+
+enum Status{
+  @JsonValue('STARTED')
+  started,
+  @JsonValue('WAITING')
+  waiting,
+  @JsonValue('ENDED')
+  ended
+}
+
+enum JoinStatus {
+  @JsonValue('OPEN')
+  open,
+  @JsonValue('CLOSED')
+  closed,
+}
+
+class CommitmentOption{
+
+  CommitmentOption({
+    required String id,
+    required String type,
+    required String label,
+    required int points,
+    required List<String> blocks,
+    String? description, 
+    required String? iconId
+  });
+
+  final String? iconId = null;
+
+  IconData get icon => mapIcon(iconId);
+}
+
+
+
+
+

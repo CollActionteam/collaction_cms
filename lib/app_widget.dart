@@ -1,3 +1,4 @@
+import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_cms/infrastructure/core/injection.dart';
 import 'package:collaction_cms/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class AppWidget extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => NavigationBloc(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<CrowdActionGetterBloc>(),
           )
         ],
         child: MultiBlocListener(

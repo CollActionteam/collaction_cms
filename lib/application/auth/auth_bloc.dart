@@ -126,7 +126,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       result.fold(
         (failure) => emit(AuthState.authError(failure)),
-        (preAuthCredential) => emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email))));
+        (preAuthCredential) {
+          emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email)));
+        });
+        // (preAuthCredential) => emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email))));
     }
 
   FutureOr<void> _mapAddPassword(

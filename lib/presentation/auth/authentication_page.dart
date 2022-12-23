@@ -7,6 +7,7 @@ import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:collaction_cms/presentation/theme/text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -28,6 +29,12 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   bool authError = false;
   late String authErrorMessage;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

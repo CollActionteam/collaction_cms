@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//ERASE THIS
+import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_repository.dart';
+
 class Menu extends StatelessWidget {
   const Menu({
     Key? key,
@@ -61,8 +64,11 @@ class Menu extends StatelessWidget {
                 icon: Icons.dns_outlined,
                 isActive: state.route == crowdAction,
                 label: 'CrowdActions',
-                onTap: () => BlocProvider.of<NavigationBloc>(context)
-                    .add(NavigateToPageEvent(route: crowdAction)),
+                onTap: () {
+                  BlocProvider.of<NavigationBloc>(context)
+                    .add(NavigateToPageEvent(route: crowdAction));
+                },
+
               ),
               const SizedBox(height: 10),
               NavigationItem(
