@@ -1,5 +1,4 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:flutter/material.dart';
+part of 'constants.dart';
 
 
 class CollactionTextStyles {
@@ -10,6 +9,14 @@ class CollactionTextStyles {
     fontSize: 28,
     fontWeight: FontWeight.w700,
     color: kBlackPrimary400,
+    );
+
+    ///Figma - Title #1 CMS variation
+  static const titleStyle26 = TextStyle( 
+    fontFamily: "Rubik",
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFF707070),
     );
   
   //Figma - Title #2
@@ -54,6 +61,21 @@ class CollactionTextStyles {
     color: kBlackPrimary300
   );
 
+///Figma - Body - CMS variation
+static const body14 = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 14,
+    fontWeight: FontWeight.w300,
+    color: kBlackPrimary300
+);
+
+static const bodyMedium14 = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: kBlackPrimary300
+);
+
   ///Figma - Body bold
   static const bodyBold = TextStyle(
     fontFamily: "Rubik",
@@ -62,6 +84,19 @@ class CollactionTextStyles {
     color: kBlackPrimary300
   );
 
+    static const bodySemiBold = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    color: kBlackPrimary300
+  );
+
+  static const hyperLink = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: kAccentColor
+  );
 
 }
 

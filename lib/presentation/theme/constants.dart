@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+part 'borders.dart';
+part 'text.dart';
+
 const kScaffoldColor = Color(0xFFF9F9F9);
 const kBorderColor = Color(0xFFE6E6E6);
 const kScaffoldColorWhite = Color(0xFFFFFFFF);
@@ -28,4 +31,11 @@ const kBlackPrimary400 = Color(0xFF333333); // Figma - Black Primary 400
 const kSelectionColor = Color(0xFF92E3D0); //Figma - Accent 300
 
 const kLightBackgroundGreyColor = Color(0xFFF9F9F9);
+
+const kStartedTagBackground = Color(0xFFB1F5AF);
+const kStartedTagText = Color(0xFF33BD02);
+const kWaitingTagBackground = Color(0xFFAFE5F5);
+const kWaitingTagText = Color(0XFF0074B6);
+const kEndedTagBackground = Color(0xFFF4F5AF);
+const kEndedTagText = Color(0xFFC8A21B);
 

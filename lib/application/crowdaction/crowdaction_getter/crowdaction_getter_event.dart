@@ -7,4 +7,9 @@ class CrowdActionGetterEvent with _$CrowdActionGetterEvent {
     int pageSize,
     Status? status
   ) = _FetchCrowdActions;
+
+  const factory CrowdActionGetterEvent.fetchSingleCrowdAction(
+    String? id,
+    String? slug
+  ) = _FetchSingleCrowdAction;
 }

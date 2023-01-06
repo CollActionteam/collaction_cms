@@ -20,6 +20,7 @@ class CrowdAction with _$CrowdAction {
     required int participantCount,
     required Status status,
     required JoinStatus joinStatus,
+    required DateTime createdAt,
     required DateTime endAt,
     String? password,
     String? subcategory,
@@ -35,9 +36,12 @@ class Images{
 
 class Location{
   const Location({
-    required String code,
-    required String name
+    required this.code,
+    required this.name
   });
+
+  final String code;
+  final String name;
 }
 
 enum Status{

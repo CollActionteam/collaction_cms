@@ -5,7 +5,6 @@ import 'package:collaction_cms/presentation/modals/invite_admin_success.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:collaction_cms/presentation/theme/text.dart';
 import 'package:collaction_cms/presentation/shared/form/input_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

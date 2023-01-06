@@ -1,5 +1,4 @@
 import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:collaction_cms/presentation/theme/text.dart';
 import 'package:flutter/material.dart';
 
 class InfoNotification extends StatelessWidget {

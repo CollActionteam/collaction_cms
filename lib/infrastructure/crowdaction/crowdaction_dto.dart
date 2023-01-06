@@ -17,6 +17,7 @@ class CrowdActionDto {
     required this.participantCount,
     required this.status,
     required this.joinStatus,
+    required this.createdAt,
     required this.endAt,
     this.password,
     this.subcategory,
@@ -33,6 +34,7 @@ class CrowdActionDto {
   final int participantCount;
   final Status status;
   final JoinStatus joinStatus;
+  final String createdAt;
   final String endAt;
   final String? password;
   final String? subcategory;
@@ -51,6 +53,7 @@ class CrowdActionDto {
       participantCount: participantCount,
       status: status,
       joinStatus: joinStatus,
+      createdAt: DateTime.parse(createdAt),
       endAt: DateTime.parse(endAt),
       password: password,
       subcategory: subcategory,

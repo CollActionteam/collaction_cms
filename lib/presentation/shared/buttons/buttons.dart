@@ -30,7 +30,7 @@ class CollActionButton extends StatelessWidget {
         onPressed: () => onPressed(),
         child: !loading ?  Text(
           text,
-          style: TextStyle(fontFamily: "Rubik", fontWeight: FontWeight.w700),
+          style: const TextStyle(fontFamily: "Rubik", fontWeight: FontWeight.w700),
         ) : const SizedBox(
               width: 20,
               height: 20,
@@ -38,5 +38,69 @@ class CollActionButton extends StatelessWidget {
             ),
       ),
     );
+  }
+}
+
+
+class CollActionButtonRectangle extends StatelessWidget {
+  CollActionButtonRectangle.wrapped({
+    Key? key,
+    required this.text,
+    this.iconData,
+    required this.onPressed,
+    }) : 
+      super(key: key);
+
+    final String text;
+    final IconData? iconData;
+    Color _backgroundColor = kAccentColor;
+    final Function onPressed;
+
+
+  @override
+  Widget build(BuildContext context) {  
+    return SizedBox(
+      height: 32,
+      child: TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(_backgroundColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            )),
+        ),
+        onPressed: () => onPressed(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _iconWidget(iconData),
+              const SizedBox(
+                width: 15,
+              ),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontFamily: "Rubik", 
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16
+                  ),
+              ),
+            ],
+          ),
+        ) 
+      ),
+    );
+  }
+
+  Widget _iconWidget(IconData? iconData) {
+    if(iconData != null) {
+      return Icon(
+        iconData
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }

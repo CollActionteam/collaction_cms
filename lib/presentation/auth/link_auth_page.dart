@@ -4,7 +4,6 @@ import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:collaction_cms/presentation/theme/text.dart';
 import 'package:collaction_cms/presentation/shared/form/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

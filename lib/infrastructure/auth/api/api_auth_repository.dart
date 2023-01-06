@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:collaction_cms/domain/auth/preauth_credential.dart';
-import 'package:collaction_cms/infrastructure/auth/api/auth_failure_dto.dart';
 import 'package:collaction_cms/infrastructure/auth/api/preauth_credential_dto.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,9 +50,8 @@ class AuthApiRepository implements IAuthApiRepository {
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
       } else {
-        final authFailureDto = AuthFailureDto.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>);
-        return left(authFailureDto.toDomainAuthFailure());
+
+        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);
@@ -87,9 +85,7 @@ class AuthApiRepository implements IAuthApiRepository {
         return right(preAuthCredentialDto.toDomain());
             
       } else {
-        final authFailureDto = AuthFailureDto.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>);
-        return left(authFailureDto.toDomainAuthFailure());
+        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);
@@ -114,9 +110,7 @@ class AuthApiRepository implements IAuthApiRepository {
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
       } else {
-        final authFailureDto = AuthFailureDto.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>);
-        return left(authFailureDto.toDomainAuthFailure());
+        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);

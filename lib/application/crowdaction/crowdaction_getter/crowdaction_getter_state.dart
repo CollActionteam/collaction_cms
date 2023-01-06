@@ -7,7 +7,7 @@ class CrowdActionGetterState with _$CrowdActionGetterState {
   const factory CrowdActionGetterState.fetchingCrowdActions() =
       _FetchingCrowdActions;
 
-  const factory CrowdActionGetterState.fetched(List<CrowdAction> crowdActions) =
+  const factory CrowdActionGetterState.fetched(PaginatedCrowdActions paginatedCrowdActions) =
       _Fetched;
 
   const factory CrowdActionGetterState.crowdActionsFetchError(
