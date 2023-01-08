@@ -59,11 +59,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (userOption.isSome() && userRole.isSome()) {
       late String? providerId;
-      late User AuthedUser;
+      late User authedUser;
 
       userOption.map((user) {
         providerId = user.providerData[0].providerId;
-        AuthedUser = user;
+        authedUser = user;
       });
       if (providerId != null) {
         emit(AuthState.authenticated(authedUser));
