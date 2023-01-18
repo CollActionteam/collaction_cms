@@ -53,3 +53,6 @@ app.*.map.json
 
 #Utils
 remove_temp_files.py
+
+#Firebase
+.firebase/
