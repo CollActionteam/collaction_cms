@@ -1,6 +1,5 @@
 import 'package:collaction_cms/domain/crowdaction/pagination/paginated_crowdactions.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'crowdaction.dart';
 import 'crowdaction_failures.dart';

@@ -1,6 +1,3 @@
-
-
-import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_cms/presentation/core/enums/enums.dart';
 import 'package:collaction_cms/presentation/crowdactions/table.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
@@ -8,7 +5,6 @@ import 'package:collaction_cms/presentation/shared/filters/dropdown.dart';
 import 'package:collaction_cms/presentation/shared/filters/search_input.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CrowdActionPage extends StatefulWidget {
   const CrowdActionPage({Key? key}) : super(key: key);
@@ -119,9 +115,7 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
             const SizedBox(height: 20),
             Expanded(
               child: Container(
-                alignment: Alignment.topLeft,
-                child: CrowdActionsTable()
-                ),
+                  alignment: Alignment.topLeft, child: CrowdActionsTable()),
             ),
             SizedBox(
               height: 50,

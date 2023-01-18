@@ -1,5 +1,4 @@
 import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
-import 'package:collaction_cms/infrastructure/auth/firebase/firebase_auth_repository.dart';
 import 'package:collaction_cms/presentation/modals/invite_admin.dart';
 import 'package:collaction_cms/presentation/navigation/widgets/navigation_item.dart';
 import 'package:collaction_cms/presentation/navigation/widgets/special_navigation_item.dart';
@@ -10,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-//ERASE THIS
-import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_repository.dart';
 
 class Menu extends StatelessWidget {
   const Menu({

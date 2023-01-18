@@ -2,11 +2,8 @@ import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowda
 import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/core/enums/enums.dart';
-import 'package:collaction_cms/presentation/crowdactions/double_text_cell.dart';
 import 'package:collaction_cms/presentation/crowdactions/pagination.dart';
 import 'package:collaction_cms/presentation/crowdactions/table_utils.dart';
-import 'package:collaction_cms/presentation/shared/tags/status.dart';
-import 'package:collaction_cms/presentation/shared/utils/data_parse/date.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

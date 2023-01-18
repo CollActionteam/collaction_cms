@@ -1,5 +1,4 @@
 import 'package:collaction_cms/domain/crowdaction/pagination/paginated_crowdactions.dart';
-import 'package:collaction_cms/domain/crowdaction/pagination/pagination.dart';
 import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_dto.dart';
 import 'package:collaction_cms/infrastructure/crowdaction/pagination/pagination_info_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

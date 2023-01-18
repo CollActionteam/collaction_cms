@@ -1,23 +1,14 @@
-import 'package:collaction_cms/application/auth/auth_bloc.dart';
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/shared/notifications/info.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:collaction_cms/presentation/shared/form/input_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
-
 class SuccessfulInviteMessage extends StatefulWidget {
-  SuccessfulInviteMessage({
-    Key? key
-    }) : super(key: key);
+  SuccessfulInviteMessage({Key? key}) : super(key: key);
 
   @override
-  State<SuccessfulInviteMessage> createState() => _SuccessfulInviteMessageState();
+  State<SuccessfulInviteMessage> createState() =>
+      _SuccessfulInviteMessageState();
 }
 
 class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
@@ -30,10 +21,7 @@ class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
           padding: const EdgeInsets.only(top: 28),
           alignment: Alignment.center,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 96,
-              maxWidth: 96
-            ),
+            constraints: const BoxConstraints(maxHeight: 96, maxWidth: 96),
             child: const RiveAnimation.asset(
               'animations/check6.riv',
             ),
@@ -49,13 +37,14 @@ class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
         Container(
           padding: const EdgeInsets.only(top: 10),
           child: const SelectableText(
-            "The guest admin will receive the verification link",
-            style: CollactionTextStyles.captionStyleLight
-          ),
+              "The guest admin will receive the verification link",
+              style: CollactionTextStyles.captionStyleLight),
         ),
         const SizedBox(height: 24),
         const InfoNotification(),
-        const SizedBox(height: 48,)
+        const SizedBox(
+          height: 48,
+        )
       ],
     );
   }
