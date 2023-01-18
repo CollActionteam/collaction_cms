@@ -1,12 +1,7 @@
 part of 'navigation_bloc.dart';
 
-
-
 class NavigationState {
-
-  NavigationState({
-    this.route = "/"
-  });
+  NavigationState({this.route = "/"});
 
   final String route;
 
@@ -16,4 +11,3 @@ class NavigationState {
     );
   }
 }
-

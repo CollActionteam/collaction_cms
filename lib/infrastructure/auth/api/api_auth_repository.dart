@@ -50,7 +50,7 @@ class AuthApiRepository implements IAuthApiRepository {
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
       } else {
-
+        print(response.body);
         return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {

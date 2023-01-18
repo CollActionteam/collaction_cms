@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:collaction_cms/infrastructure/web_service/browser_notifier.dart';
 import 'package:collaction_cms/presentation/shared/utils/colors/color.dart';
@@ -8,13 +7,10 @@ import 'package:go_router/go_router.dart';
 part 'navigation_event.dart';
 part 'navigation_state.dart';
 
-
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-
   BrowserNotifier browserNotifier = BrowserNotifier();
 
   NavigationBloc() : super(NavigationState()) {
-
     browserNotifier.addListener(() {
       add(BrowserPopStateEvent(route: browserNotifier.routePopState!));
     });
@@ -28,6 +24,3 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     });
   }
 }
-
-
-
