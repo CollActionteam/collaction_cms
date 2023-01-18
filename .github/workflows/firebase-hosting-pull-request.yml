@@ -14,7 +14,8 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: echo ${{secrets.ENV}} | base64 --decode > env
-      - run: flutter test
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - run: flutter test --platform chrome
       - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

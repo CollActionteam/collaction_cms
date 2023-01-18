@@ -9,8 +9,6 @@ import 'package:collaction_cms/application/auth/auth_bloc.dart';
 import './presentation/go_routing/go_routing.dart';
 import './application/navigation/navigation_bloc.dart';
 
-import 'dart:html';
-
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 

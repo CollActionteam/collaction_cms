@@ -99,38 +99,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ///---------------------------------------Handlers for new auth flow------------------------------------------------///
 
   FutureOr<void> _mapSendSignInLinkToEmail(
-    Emitter<AuthState> emit,
-    _SendSignInLinkToEmail event
-  ) async {
+      Emitter<AuthState> emit, _SendSignInLinkToEmail event) async {
     emit(const AuthState.invitingAdmin());
     final result = await authApiRepository.sendEmailLinkAuth(
-      email: event.email,
-      actionCodeSettings: event.actionCodeSettings
-    );
+        email: event.email, actionCodeSettings: event.actionCodeSettings);
 
-    result.fold(
-      (failure) => emit(AuthState.authError(failure)),
-      (_) => emit(const AuthState.inviteAdminDone())
-    );
+    result.fold((failure) => emit(AuthState.authError(failure)),
+        (_) => emit(const AuthState.inviteAdminDone()));
   }
 
   FutureOr<void> _mapVerifyUser(
-      Emitter<AuthState> emit,
-      _VerifyUser event
-    ) async {
-      emit(const AuthState.verifyingUser());
-      final result = await authApiRepository.verifiyUser(
-        email: event.email,
-        url: event.url
-      );
+      Emitter<AuthState> emit, _VerifyUser event) async {
+    emit(const AuthState.verifyingUser());
+    final result =
+        await authApiRepository.verifiyUser(email: event.email, url: event.url);
 
-      result.fold(
-        (failure) => emit(AuthState.authError(failure)),
+    result.fold((failure) => emit(AuthState.authError(failure)),
         (preAuthCredential) {
-          emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email)));
-        });
-        // (preAuthCredential) => emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email))));
-    }
+      emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email)));
+    });
+    // (preAuthCredential) => emit(AuthState.preAuthenticated(preAuthCredential.addEmail(event.email))));
+  }
 
   FutureOr<void> _mapAddPassword(
       Emitter<AuthState> emit, _AddPassword event) async {
@@ -138,10 +127,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await authApiRepository.addPassword(
         uid: event.uid, password: event.password, token: event.token);
 
-    result.fold((failure) => emit(AuthState.authError(failure)),
-        (_) {
-          emit(const AuthState.adminCreationCompleted());
-          add(const AuthEvent.signedOut());
-        });
+    result.fold((failure) => emit(AuthState.authError(failure)), (_) {
+      emit(const AuthState.adminCreationCompleted());
+      add(const AuthEvent.signedOut());
+    });
   }
 }
