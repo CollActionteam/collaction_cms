@@ -23,7 +23,7 @@ class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxHeight: 96, maxWidth: 96),
             child: const RiveAnimation.asset(
-              'animations/check6.riv',
+              'assets/animations/check6.riv',
             ),
           ),
         ),

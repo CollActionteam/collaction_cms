@@ -51,7 +51,7 @@ class _LinkAuthPageState extends State<LinkAuthPage> {
             Container(
               padding: const EdgeInsets.only(top: 40, bottom: 40, left: 5),
               child: Image.asset(
-                'images/Vector.png',
+                'assets/images/Vector.png',
                 width: 200,
               ),
             ),

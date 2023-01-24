@@ -26,7 +26,7 @@ class Menu extends StatelessWidget {
               SizedBox(
                 height: 75,
                 child: Image.asset(
-                  'images/Vector.png',
+                  'assets/images/Vector.png',
                   width: 180,
                 ),
               ),
@@ -96,7 +96,7 @@ class Menu extends StatelessWidget {
                         right: 70,
                         child: SvgPicture.asset(
                           width: 14,
-                          "icons/sign_out.svg",
+                          "assets/icons/sign_out.svg",
                           color: Colors.red[400],
                         ),
                       ),
