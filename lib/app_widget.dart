@@ -23,7 +23,7 @@ class AppWidget extends StatelessWidget {
             create: (context) => NavigationBloc(),
           ),
           BlocProvider(
-            create: (context) => getIt<CrowdActionGetterBloc>()..add(const CrowdActionGetterEvent.fetchCrowdActions(1, 2, null)),
+            create: (context) => getIt<CrowdActionGetterBloc>()..add(const CrowdActionGetterEvent.fetchCrowdActions(1, 7, null)),
           ),
           BlocProvider(
             create: (_) => getIt<PaginationCubit>()

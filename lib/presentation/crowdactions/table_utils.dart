@@ -77,7 +77,7 @@ class TableUtils {
       int totalPages,
       Status? status,
       int pageSize) {
-
+    
     if (1 == totalPages) {
       return () => {};
     }

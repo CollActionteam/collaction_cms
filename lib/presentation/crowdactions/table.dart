@@ -26,8 +26,6 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
     "Participants"
   ];
 
-  String paginationInfo = "Page 1 of 1";
-
   @override
   void initState() {
     // TODO: implement initState
@@ -41,15 +39,7 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
         height: double.infinity,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: BlocConsumer<CrowdActionGetterBloc, CrowdActionGetterState>(
-          listener: (context, state) {
-            state.mapOrNull(
-              fetched: (value) {
-                paginationInfo =
-                    '''Page ${value.paginatedCrowdActions.paginationInfo.page} of ${value.paginatedCrowdActions.paginationInfo.totalPages}''';
-              },
-            );
-          },
+        child: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) {
             return Column(
               mainAxisSize: MainAxisSize.max,
@@ -93,7 +83,7 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
                       },
                       fetched: (value) {
                         return DataTable(
-                          showBottomBorder: true,
+                          showBottomBorder: false,
                           dataRowHeight: 65,
                           horizontalMargin: 0,
                           columnSpacing: 30,
@@ -126,7 +116,7 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
                       (BuildContext cubitContext, PaginationState cubitState) {
                     if (cubitState is Unknown) {
                       return Pagination(
-                          paginationInfo: "Loaging Pagination",
+                          paginationInfo: "Loading Pagination",
                           callbackNext: () => {},
                           callbackPrevious: () => {});
                     } else {
@@ -137,7 +127,7 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
                               PaginationButtonType.next,
                               context,
                               cubitState.page,
-                              cubitState.pageSize,
+                              cubitState.totalPages,
                               cubitState.status,
                               cubitState.pageSize),
                           callbackPrevious: TableUtils.paginationLogic(

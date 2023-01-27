@@ -12,5 +12,10 @@
       "source": "**",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "emulators": {
+    "hosting": {
+      "port": "55714"
+    }
+  }
 }

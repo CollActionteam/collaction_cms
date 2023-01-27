@@ -22,7 +22,7 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
-        height: 800,
+        height: 860,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
