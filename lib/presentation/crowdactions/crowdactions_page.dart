@@ -1,3 +1,5 @@
+import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/core/enums/enums.dart';
 import 'package:collaction_cms/presentation/crowdactions/table.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
@@ -5,6 +7,7 @@ import 'package:collaction_cms/presentation/shared/filters/dropdown.dart';
 import 'package:collaction_cms/presentation/shared/filters/search_input.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CrowdActionPage extends StatefulWidget {
   const CrowdActionPage({Key? key}) : super(key: key);
@@ -16,7 +19,9 @@ class CrowdActionPage extends StatefulWidget {
 class _CrowdActionPageState extends State<CrowdActionPage> {
   final TextEditingController _searchInputController = TextEditingController();
   final dropdownItemsSearchBy = ["Title", "Id"];
-  String? dropdownItemsSearchByValue;
+  final dropdownItemsSearchByStatus = ["All", "Waiting", "Started", "Ended"];
+  String? dropdownItemSearchByValue;
+  String? dropdownItemSearchByStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +55,7 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
                   rectSide: RectSide.right,
                   getValueCallback: (String value) {
                     setState(() {
-                      dropdownItemsSearchByValue = value;
+                      dropdownItemSearchByValue = value;
                     });
                   },
                 ),
@@ -58,8 +63,24 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
                 SearchInput(
                   rectSide: RectSide.left,
                   searchBy:
-                      dropdownItemsSearchByValue ?? dropdownItemsSearchBy.first,
-                  callback: () => {print("Hi")},
+                      dropdownItemSearchByValue ?? dropdownItemsSearchBy.first,
+                  callback: () {
+                    if ((dropdownItemSearchByValue ??
+                            dropdownItemsSearchBy.first) ==
+                        "Title") {
+                      print(_searchInputController.text.runtimeType);
+                      BlocProvider.of<CrowdActionGetterBloc>(context).add(
+                          CrowdActionGetterEvent.fetchSingleCrowdAction(
+                              null, _searchInputController.text.toLowerCase()));
+                    }
+
+                    if (dropdownItemSearchByValue == "Id") {
+                      print(_searchInputController.text.runtimeType);
+                      BlocProvider.of<CrowdActionGetterBloc>(context).add(
+                          CrowdActionGetterEvent.fetchSingleCrowdAction(
+                              _searchInputController.text.toLowerCase(), null));
+                    }
+                  },
                   controller: _searchInputController,
                 ),
                 const SizedBox(
@@ -104,11 +125,22 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  const DropdownFilter(
-                    items: ["All", "Waiting", "Started", "Ended"],
+                  DropdownFilter(
+                    items: dropdownItemsSearchByStatus,
+                    getValueCallback: (String value) {
+                      setState(() {
+                        dropdownItemSearchByStatus = value;
+                        print(dropdownItemSearchByStatus);
+                      });
+                    },
                   ),
                   const SizedBox(width: 10),
-                  SearchIcon(callback: () => {})
+                  SearchIcon(
+                      callback: () => {
+                            BlocProvider.of<CrowdActionGetterBloc>(context).add(
+                                CrowdActionGetterEvent.fetchCrowdActions(1, 8,
+                                    Status.enumOf(dropdownItemSearchByStatus)))
+                          })
                 ],
               ),
             ),

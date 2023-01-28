@@ -21,7 +21,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
 
   @override
   Future<Either<CrowdActionFailure, PaginatedCrowdActions>> getCrowdActions(
-      int page, int pageSize, Status? status) async {
+      int page, int pageSize, String? status) async {
     try {
       final response = await _client.get(
         Uri.parse(
@@ -92,6 +92,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
         return left(const CrowdActionFailure.crowdActionNotFound(
             "CrowdAction not found"));
       } else {
+        print(response.statusCode);
+        print(response.body);
         return left(const CrowdActionFailure.networkRequestFailed(
             "Network requested Failed"));
       }

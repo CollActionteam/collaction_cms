@@ -50,7 +50,30 @@ enum Status{
   @JsonValue('WAITING')
   waiting,
   @JsonValue('ENDED')
-  ended
+  ended;
+
+  static Status? enumOf(String? input) {
+    switch(input) {
+      case "Started": return Status.started;
+      case "Waiting": return Status.waiting;
+      case "Ended": return Status.ended;
+      default :
+        return null;
+    }
+  }
+}
+
+extension Values on Status {
+  String? get value {
+    switch(this) {
+      case Status.started: return "STARTED";
+      case Status.waiting: return "WAITING";
+      case Status.ended: return "ENDED";
+      default: return null;
+    }
+  }
+
+  
 }
 
 enum JoinStatus {

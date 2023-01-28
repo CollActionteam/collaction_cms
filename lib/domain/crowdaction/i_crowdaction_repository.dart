@@ -9,7 +9,7 @@ abstract class ICrowdActionRepository {
   Future<Either<CrowdActionFailure, PaginatedCrowdActions>> getCrowdActions(
     int page,
     int pageSize,
-    Status? status
+    String? status
   );
  
   Future<Either<CrowdActionFailure, PaginatedCrowdActions>> getCrowdAction(

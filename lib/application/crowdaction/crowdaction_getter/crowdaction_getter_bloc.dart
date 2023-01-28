@@ -28,7 +28,7 @@ class CrowdActionGetterBloc
             emit(const CrowdActionGetterState.fetchingCrowdActions());
             Either<CrowdActionFailure, PaginatedCrowdActions> response =
                 await _crowdActionRepository.getCrowdActions(
-                    event.page, event.pageSize, event.status);
+                    event.page, event.pageSize, event.status != null ? event.status!.value : null);
 
             response.fold(
                 (failure) => emit(
@@ -43,11 +43,6 @@ class CrowdActionGetterBloc
 
                 emit(CrowdActionGetterState.fetched(paginatedCrowdActions));
             });
-
-            // emit(response.fold(
-            //     (failure) =>
-            //         CrowdActionGetterState.crowdActionsFetchError(failure),
-            //     (paginatedCrowdActions) => CrowdActionGetterState.fetched(paginatedCrowdActions)));
           },
           fetchSingleCrowdAction: (event) async =>
               await _mapFetchSingleCrowdAction(emit, event));
@@ -59,8 +54,29 @@ class CrowdActionGetterBloc
       _FetchSingleCrowdAction event) async {
     emit(const CrowdActionGetterState.fetchingCrowdActions());
 
+    //Because empty strings are causing a different error response from the api, we are converting the 
+    //the emtpty strings to a space.
+    var slug;
+    var id;
+
+    if(event.slug != null) {
+      if(event.slug!.isEmpty) {
+        slug = " ";
+      } else {
+        slug = event.slug;
+      }
+    }
+
+    if(event.id != null) {
+      if(event.id!.isEmpty) {
+        id = " ";
+      } else {
+        id = event.id;
+      }
+    }
+
     final result =
-        await _crowdActionRepository.getCrowdAction(event.slug, event.id);
+        await _crowdActionRepository.getCrowdAction(slug, id);
 
     result.fold(
         (failure) =>
