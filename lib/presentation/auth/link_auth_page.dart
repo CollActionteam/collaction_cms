@@ -1,12 +1,13 @@
 import 'package:collaction_cms/application/auth/auth_bloc.dart';
+import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
 import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:collaction_cms/presentation/shared/form/input_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class LinkAuthPage extends StatefulWidget {
   LinkAuthPage({Key? key}) : super(key: key);
@@ -123,36 +124,44 @@ class _LinkAuthPageState extends State<LinkAuthPage> {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.only(top: 30),
-                        child: CollActionButton(
-                          loading: _isItLoading(state),
-                          onPressed: () {
-                            setState(() {
-                              buttonTriggered = true;
-                            });
+                          padding: const EdgeInsets.only(top: 30),
+                          child: CollActionButton(
+                            loading: _isItLoading(state),
+                            onPressed: () {
+                              setState(() {
+                                buttonTriggered = true;
+                              });
 
-                            if (!emailValidationError) {
-                              BlocProvider.of<AuthBloc>(context).add(
-                                  AuthEvent.verifyUser(
-                                      emailController.value.text,
-                                      urlValueNotifier.value));
-                            }
-                          },
-                          text: "Confirm",
-                        )
-                      ),
+                              if (!emailValidationError) {
+                                BlocProvider.of<AuthBloc>(context).add(
+                                    AuthEvent.verifyUser(
+                                        emailController.value.text,
+                                        urlValueNotifier.value));
+                              }
+                            },
+                            text: "Confirm",
+                          )),
                       Container(
                         padding: const EdgeInsets.only(top: 25, bottom: 50),
                         child: RichText(
                           textAlign: TextAlign.center,
-                          text: const TextSpan(
-                              text: "Already an admin? ",
-                              style: CollactionTextStyles.body,
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: "Go to Login",
-                                    style: CollactionTextStyles.bodyBold)
-                              ]),
+                          text: TextSpan(
+                            text: "Already an admin? ",
+                            style: CollactionTextStyles.body,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Go to Login",
+                                style: CollactionTextStyles.bodyBold,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    BlocProvider.of<NavigationBloc>(context)
+                                        .add(
+                                      NavigateToPageEvent(route: '/log-in'),
+                                    );
+                                  },
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -165,15 +174,13 @@ class _LinkAuthPageState extends State<LinkAuthPage> {
       },
     );
   }
-  bool _isItLoading(AuthState state) {
 
+  bool _isItLoading(AuthState state) {
     bool isItLoading = false;
 
-    state.mapOrNull(
-      verifyingUser: ((value) {
-        isItLoading = true;
-      })
-    );
+    state.mapOrNull(verifyingUser: ((value) {
+      isItLoading = true;
+    }));
 
     return isItLoading;
   }
