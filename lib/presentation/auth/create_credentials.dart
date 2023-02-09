@@ -76,29 +76,37 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                         width: 374,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           elevation: 6,
                           color: kLightBackgroundGreyColor,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 26.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 26.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    padding: const EdgeInsets.only(top: 32),
-                                    alignment: Alignment.center,
-                                    child: const SelectableText('Welcome',
-                                        style:
-                                            CollactionTextStyles.titleStyle)),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, left: 8, right: 8),
+                                  padding: const EdgeInsets.only(top: 32),
                                   alignment: Alignment.center,
                                   child: const SelectableText(
-                                      textAlign: TextAlign.center,
-                                      'Please, enter your credentials to enter the CMS admin app.',
-                                      style: CollactionTextStyles.captionStyle),
+                                    'Welcome',
+                                    style: CollactionTextStyles.titleStyle,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    top: 20,
+                                    left: 8,
+                                    right: 8,
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: const SelectableText(
+                                    textAlign: TextAlign.center,
+                                    'Please, enter your credentials to enter the CMS admin app.',
+                                    style: CollactionTextStyles.captionStyle,
+                                  ),
                                 ),
                                 const SizedBox(height: 10),
                                 authError
@@ -145,35 +153,40 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                   },
                                   validationCallback: (value) {
                                     return validateConfirmPassword(
-                                        value, passwordController.value.text);
+                                      value,
+                                      passwordController.value.text,
+                                    );
                                   },
                                 ),
                                 const SizedBox(height: 30),
                                 CollActionButton(
-                                    text: "Sign in",
-                                    loading: _isItLoading(state),
-                                    onPressed: () {
-                                      setState(() {
-                                        buttonTriggered = true;
-                                      });
-                                      if (!confirmPasswordValidationError &&
-                                          !passwordValidationError) {
-                                        BlocProvider.of<AuthBloc>(context).add(
-                                            AuthEvent.addPassword(
-                                                _uid,
-                                                passwordController.value.text,
-                                                _token));
-                                      }
+                                  text: "Sign in",
+                                  loading: _isItLoading(state),
+                                  onPressed: () {
+                                    setState(() {
+                                      buttonTriggered = true;
+                                    });
+                                    if (!confirmPasswordValidationError &&
+                                        !passwordValidationError) {
+                                      BlocProvider.of<AuthBloc>(context).add(
+                                        AuthEvent.addPassword(
+                                          _uid,
+                                          passwordController.value.text,
+                                          _token,
+                                        ),
+                                      );
+                                    }
 
-                                      if (passwordValidationError) {
-                                        return passwordFocusNode.requestFocus();
-                                      }
+                                    if (passwordValidationError) {
+                                      return passwordFocusNode.requestFocus();
+                                    }
 
-                                      if (confirmPasswordValidationError) {
-                                        return confirmPasswordFocusNode
-                                            .requestFocus();
-                                      }
-                                    }),
+                                    if (confirmPasswordValidationError) {
+                                      return confirmPasswordFocusNode
+                                          .requestFocus();
+                                    }
+                                  },
+                                ),
                                 Container(
                                   padding: const EdgeInsets.only(
                                     top: 25,

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LinkAuthPage extends StatefulWidget {
-  LinkAuthPage({Key? key}) : super(key: key);
+  const LinkAuthPage({Key? key}) : super(key: key);
 
   @override
   State<LinkAuthPage> createState() => _LinkAuthPageState();
@@ -68,79 +68,89 @@ class _LinkAuthPageState extends State<LinkAuthPage> {
                 elevation: 6,
                 color: kLightBackgroundGreyColor,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 26),
+                  padding: const EdgeInsets.symmetric(horizontal: 26),
                   child: Column(
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: 32),
-                        child: const SelectableText("Confirm email",
-                            style: CollactionTextStyles.titleStyle),
-                      ),
-                      Container(
-                          padding:
-                              const EdgeInsets.only(top: 16, left: 2, right: 2),
-                          alignment: Alignment.center,
-                          child: const SelectableText.rich(
-                              textAlign: TextAlign.center,
-                              TextSpan(
-                                  text: "Enter the ",
-                                  style: CollactionTextStyles.captionStyle,
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: "collaction@org ",
-                                        style: CollactionTextStyles
-                                            .captionStyleBold),
-                                    TextSpan(
-                                        text:
-                                            "email to which the authentication link was sent.",
-                                        style:
-                                            CollactionTextStyles.captionStyle),
-                                  ]))),
-                      const SizedBox(height: 10),
-                      authError
-                          ? Container(
-                              padding:
-                                  const EdgeInsets.only(top: 10, bottom: 5),
-                              child: ErrorNotification(
-                                  errorMessage: authErrorMessage))
-                          : const SizedBox.shrink(),
-                      const SizedBox(height: 15),
-                      Container(
-                        // padding: EdgeInsets.only(top: 25),
-                        child: CollActionInputField(
-                          controller: emailController,
-                          focusNode: emailFocusNode,
-                          labelText: "Email",
-                          buttonTriggered: buttonTriggered,
-                          callback: (value) {
-                            setState(() {
-                              emailValidationError = value;
-                            });
-                          },
-                          validationCallback: (value) {
-                            return validateEmailAddress(value);
-                          },
+                        padding: const EdgeInsets.only(top: 32),
+                        child: const SelectableText(
+                          "Confirm email",
+                          style: CollactionTextStyles.titleStyle,
                         ),
                       ),
                       Container(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: CollActionButton(
-                            loading: _isItLoading(state),
-                            onPressed: () {
-                              setState(() {
-                                buttonTriggered = true;
-                              });
+                        padding: const EdgeInsets.only(
+                          top: 16,
+                          left: 2,
+                          right: 2,
+                        ),
+                        alignment: Alignment.center,
+                        child: const SelectableText.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: "Enter the ",
+                            style: CollactionTextStyles.captionStyle,
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: "collaction@org ",
+                                  style: CollactionTextStyles.captionStyleBold),
+                              TextSpan(
+                                  text:
+                                      "email to which the authentication link was sent.",
+                                  style: CollactionTextStyles.captionStyle),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      authError
+                          ? Container(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                bottom: 5,
+                              ),
+                              child: ErrorNotification(
+                                errorMessage: authErrorMessage,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      const SizedBox(height: 15),
+                      CollActionInputField(
+                        controller: emailController,
+                        focusNode: emailFocusNode,
+                        labelText: "Email",
+                        buttonTriggered: buttonTriggered,
+                        callback: (value) {
+                          setState(() {
+                            emailValidationError = value;
+                          });
+                        },
+                        validationCallback: (value) {
+                          return validateEmailAddress(value);
+                        },
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: CollActionButton(
+                          loading: _isItLoading(state),
+                          onPressed: () {
+                            setState(() {
+                              buttonTriggered = true;
+                            });
 
-                              if (!emailValidationError) {
-                                BlocProvider.of<AuthBloc>(context).add(
-                                    AuthEvent.verifyUser(
-                                        emailController.value.text,
-                                        urlValueNotifier.value));
-                              }
-                            },
-                            text: "Confirm",
-                          )),
+                            if (!emailValidationError) {
+                              BlocProvider.of<AuthBloc>(context).add(
+                                AuthEvent.verifyUser(
+                                  emailController.value.text,
+                                  urlValueNotifier.value,
+                                ),
+                              );
+                            }
+                          },
+                          text: "Confirm",
+                        ),
+                      ),
                       Container(
                         padding: const EdgeInsets.only(top: 25, bottom: 50),
                         child: RichText(
