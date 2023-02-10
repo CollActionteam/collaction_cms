@@ -72,7 +72,6 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                           borderRadius: BorderRadius.circular(10),
                           color: kLightBackgroundGreyColor,
                         ),
-                        height: 493,
                         width: 374,
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -91,7 +90,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                   padding: const EdgeInsets.only(top: 32),
                                   alignment: Alignment.center,
                                   child: const SelectableText(
-                                    'Welcome',
+                                    'Create a password',
                                     style: CollactionTextStyles.titleStyle,
                                   ),
                                 ),
@@ -104,7 +103,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                   alignment: Alignment.center,
                                   child: const SelectableText(
                                     textAlign: TextAlign.center,
-                                    'Please, enter your credentials to enter the CMS admin app.',
+                                    'Below you will see the email that will be your login. Choose a password and confirm it, making sure it is secure.',
                                     style: CollactionTextStyles.captionStyle,
                                   ),
                                 ),
@@ -190,26 +189,28 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                 Container(
                                   padding: const EdgeInsets.only(
                                     top: 25,
-                                    bottom: 50,
+                                    bottom: 40,
                                   ),
-                                  child: RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(
-                                      text: "Go to Login",
-                                      style: CollactionTextStyles.bodyBold,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () async {
-                                          BlocProvider.of<NavigationBloc>(
-                                                  context)
-                                              .add(
-                                            NavigateToPageEvent(
-                                              route: '/log-in',
-                                            ),
-                                          );
-                                        },
+                                  child: Center(
+                                    child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        text: "Go to Login",
+                                        style: CollactionTextStyles.bodyBold,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () async {
+                                            BlocProvider.of<NavigationBloc>(
+                                              context,
+                                            ).add(
+                                              NavigateToPageEvent(
+                                                route: '/log-in',
+                                              ),
+                                            );
+                                          },
+                                      ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
