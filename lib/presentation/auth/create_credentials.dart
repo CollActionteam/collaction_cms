@@ -1,13 +1,14 @@
 import 'package:collaction_cms/application/auth/auth_bloc.dart';
+import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
 import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/layout/responsiveness.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/form/input_field.dart';
 import 'package:collaction_cms/presentation/shared/notifications/error.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class CreateCredentialsPage extends StatefulWidget {
   const CreateCredentialsPage({Key? key}) : super(key: key);
@@ -31,7 +32,6 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
   late String _uid;
   late String _token;
   late String _email;
-
 
   bool authError = false;
   late String authErrorMessage;
@@ -76,32 +76,44 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                         width: 374,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           elevation: 6,
                           color: kLightBackgroundGreyColor,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 26.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 26.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    padding: const EdgeInsets.only(top: 32),
-                                    alignment: Alignment.center,
-                                    child: const SelectableText('Welcome',
-                                        style: CollactionTextStyles.titleStyle)),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, left: 8, right: 8),
+                                  padding: const EdgeInsets.only(top: 32),
                                   alignment: Alignment.center,
                                   child: const SelectableText(
-                                      textAlign: TextAlign.center,
-                                      'Please, enter your credentials to enter the CMS admin app.',
-                                      style: CollactionTextStyles.captionStyle),
+                                    'Welcome',
+                                    style: CollactionTextStyles.titleStyle,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    top: 20,
+                                    left: 8,
+                                    right: 8,
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: const SelectableText(
+                                    textAlign: TextAlign.center,
+                                    'Please, enter your credentials to enter the CMS admin app.',
+                                    style: CollactionTextStyles.captionStyle,
+                                  ),
                                 ),
                                 const SizedBox(height: 10),
-                                authError ? 
-                                ErrorNotification(errorMessage: authErrorMessage,) : const SizedBox.shrink(),
+                                authError
+                                    ? ErrorNotification(
+                                        errorMessage: authErrorMessage,
+                                      )
+                                    : const SizedBox.shrink(),
                                 const SizedBox(height: 15),
                                 CollActionInputField(
                                   // initialValue: _getInitialEmail(state),
@@ -140,31 +152,63 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                     });
                                   },
                                   validationCallback: (value) {
-                                    return validateConfirmPassword(value, passwordController.value.text);
+                                    return validateConfirmPassword(
+                                      value,
+                                      passwordController.value.text,
+                                    );
                                   },
                                 ),
                                 const SizedBox(height: 30),
                                 CollActionButton(
-                                  text: "Sign in",
+                                  text: "Become an admin!",
                                   loading: _isItLoading(state),
                                   onPressed: () {
                                     setState(() {
                                       buttonTriggered = true;
                                     });
-                                    if (!confirmPasswordValidationError&&
+                                    if (!confirmPasswordValidationError &&
                                         !passwordValidationError) {
                                       BlocProvider.of<AuthBloc>(context).add(
-                                          AuthEvent.addPassword(
-                                              _uid,
-                                              passwordController.value.text,
-                                              _token));
+                                        AuthEvent.addPassword(
+                                          _uid,
+                                          passwordController.value.text,
+                                          _token,
+                                        ),
+                                      );
                                     }
-                                      
-                                    if (passwordValidationError) return passwordFocusNode.requestFocus();
 
-                                    if(confirmPasswordValidationError) return confirmPasswordFocusNode.requestFocus();
-                                    
-                                  }
+                                    if (passwordValidationError) {
+                                      return passwordFocusNode.requestFocus();
+                                    }
+
+                                    if (confirmPasswordValidationError) {
+                                      return confirmPasswordFocusNode
+                                          .requestFocus();
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    top: 25,
+                                    bottom: 50,
+                                  ),
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      text: "Go to Login",
+                                      style: CollactionTextStyles.bodyBold,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () async {
+                                          BlocProvider.of<NavigationBloc>(
+                                                  context)
+                                              .add(
+                                            NavigateToPageEvent(
+                                              route: '/log-in',
+                                            ),
+                                          );
+                                        },
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -183,7 +227,6 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
   }
 
   String _getInitialEmail(AuthState state) {
-
     late String initialEmail;
 
     state.mapOrNull(
@@ -196,14 +239,11 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
   }
 
   bool _isItLoading(AuthState state) {
-
     bool isItLoading = false;
 
-    state.mapOrNull(
-      verifyingUser: ((value) {
-        isItLoading = true;
-      })
-    );
+    state.mapOrNull(verifyingUser: ((value) {
+      isItLoading = true;
+    }));
 
     return isItLoading;
   }
