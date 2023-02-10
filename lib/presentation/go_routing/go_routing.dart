@@ -13,8 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 GoRouter getRouter(BuildContext context) {
-  final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-  final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
+  final GlobalKey<NavigatorState> rootNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'root');
+  final GlobalKey<NavigatorState> shellNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'shell');
 
   final router = GoRouter(
       navigatorKey: rootNavigatorKey,
@@ -29,33 +31,26 @@ GoRouter getRouter(BuildContext context) {
             path: '/',
             name: 'loading',
             pageBuilder: ((context, state) {
-              return const MaterialPage(
-                  child: Loader());
+              return const MaterialPage(child: Loader());
             })),
         GoRoute(
           path: '/verification',
           name: 'verification',
           pageBuilder: (context, state) {
-            return MaterialPage(
-              child: LinkAuthPage()
-            );
+            return const MaterialPage(child: LinkAuthPage());
           },
         ),
         GoRoute(
-          path: '/create-credentials',
-          name: 'create-credentials',
-          pageBuilder: ((context, state) {
-            return const MaterialPage(
-              child: CreateCredentialsPage()
-            );
-          })
-        ),
+            path: '/create-credentials',
+            name: 'create-credentials',
+            pageBuilder: ((context, state) {
+              return const MaterialPage(child: CreateCredentialsPage());
+            })),
         GoRoute(
             path: '/log-in',
             name: 'log-in',
             pageBuilder: ((context, state) {
-              return const MaterialPage(
-                  child: AuthenticationPage());
+              return const MaterialPage(child: AuthenticationPage());
             })),
         ShellRoute(
             navigatorKey: shellNavigatorKey,
