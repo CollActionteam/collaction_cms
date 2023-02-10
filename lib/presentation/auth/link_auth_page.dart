@@ -93,7 +93,7 @@ class _LinkAuthPageState extends State<LinkAuthPage> {
                             style: CollactionTextStyles.captionStyle,
                             children: <TextSpan>[
                               TextSpan(
-                                  text: "collaction@org ",
+                                  text: "@collaction.org ",
                                   style: CollactionTextStyles.captionStyleBold),
                               TextSpan(
                                   text:

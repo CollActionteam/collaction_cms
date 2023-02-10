@@ -160,7 +160,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                 ),
                                 const SizedBox(height: 30),
                                 CollActionButton(
-                                  text: "Sign in",
+                                  text: "Become an admin!",
                                   loading: _isItLoading(state),
                                   onPressed: () {
                                     setState(() {
@@ -195,24 +195,18 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                   child: RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
-                                      text: "Already an admin? ",
-                                      style: CollactionTextStyles.body,
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: "Go to Login",
-                                          style: CollactionTextStyles.bodyBold,
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () async {
-                                              BlocProvider.of<NavigationBloc>(
-                                                      context)
-                                                  .add(
-                                                NavigateToPageEvent(
-                                                  route: '/log-in',
-                                                ),
-                                              );
-                                            },
-                                        ),
-                                      ],
+                                      text: "Go to Login",
+                                      style: CollactionTextStyles.bodyBold,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () async {
+                                          BlocProvider.of<NavigationBloc>(
+                                                  context)
+                                              .add(
+                                            NavigateToPageEvent(
+                                              route: '/log-in',
+                                            ),
+                                          );
+                                        },
                                     ),
                                   ),
                                 )
