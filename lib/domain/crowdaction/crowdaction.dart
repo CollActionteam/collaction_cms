@@ -7,15 +7,13 @@ part 'crowdaction.freezed.dart';
 
 @freezed
 class CrowdAction with _$CrowdAction {
-  
   const factory CrowdAction({
     required String id,
-    required String type,
     required String title,
     required String description,
     required String category,
     required Location location,
-    required List<CommitmentOption> commitmentOptions,
+    required List<Commitment> commitments,
     required Images images,
     required int participantCount,
     required Status status,
@@ -27,24 +25,18 @@ class CrowdAction with _$CrowdAction {
   }) = _CrowdAction;
 }
 
-class Images{
-    const Images({
-      required String card,
-      required String banner
-    });
+class Images {
+  const Images({required String card, required String banner});
 }
 
-class Location{
-  const Location({
-    required this.code,
-    required this.name
-  });
+class Location {
+  const Location({required this.code, required this.name});
 
   final String code;
   final String name;
 }
 
-enum Status{
+enum Status {
   @JsonValue('STARTED')
   started,
   @JsonValue('WAITING')
@@ -53,11 +45,14 @@ enum Status{
   ended;
 
   static Status? enumOf(String? input) {
-    switch(input) {
-      case "Started": return Status.started;
-      case "Waiting": return Status.waiting;
-      case "Ended": return Status.ended;
-      default :
+    switch (input) {
+      case "Started":
+        return Status.started;
+      case "Waiting":
+        return Status.waiting;
+      case "Ended":
+        return Status.ended;
+      default:
         return null;
     }
   }
@@ -65,15 +60,17 @@ enum Status{
 
 extension Values on Status {
   String? get value {
-    switch(this) {
-      case Status.started: return "STARTED";
-      case Status.waiting: return "WAITING";
-      case Status.ended: return "ENDED";
-      default: return null;
+    switch (this) {
+      case Status.started:
+        return "STARTED";
+      case Status.waiting:
+        return "WAITING";
+      case Status.ended:
+        return "ENDED";
+      default:
+        return null;
     }
   }
-
-  
 }
 
 enum JoinStatus {
@@ -83,24 +80,17 @@ enum JoinStatus {
   closed,
 }
 
-class CommitmentOption{
-
-  CommitmentOption({
-    required String id,
-    required String type,
-    required String label,
-    required int points,
-    required List<String> blocks,
-    String? description, 
-    required String? iconId
-  });
+class Commitment {
+  Commitment(
+      {required String id,
+      required String type,
+      required String label,
+      required int points,
+      required List<String> blocks,
+      String? description,
+      required String? iconId});
 
   final String? iconId = null;
 
   IconData get icon => mapIcon(iconId);
 }
-
-
-
-
-

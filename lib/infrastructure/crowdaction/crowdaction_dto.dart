@@ -7,12 +7,11 @@ part 'crowdaction_dto.g.dart';
 class CrowdActionDto {
   CrowdActionDto({
     required this.id,
-    required this.type,
     required this.title,
     required this.description,
     required this.category,
     required this.location,
-    required this.commitmentOptions,
+    required this.commitments,
     required this.images,
     required this.participantCount,
     required this.status,
@@ -24,12 +23,11 @@ class CrowdActionDto {
   });
 
   final String id;
-  final String type;
   final String title;
   final String description;
   final String category;
   final LocationDto location;
-  final List<CommitmentOptionDto> commitmentOptions;
+  final List<CommitmentDto> commitments;
   final ImagesDto images;
   final int participantCount;
   final Status status;
@@ -42,13 +40,11 @@ class CrowdActionDto {
   CrowdAction toDomain() {
     return CrowdAction(
       id: id,
-      type: type,
       title: title,
       description: description,
       category: category,
       location: location.toDomain(),
-      commitmentOptions:
-          commitmentOptions.map((option) => option.toDomain()).toList(),
+      commitments: commitments.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
@@ -101,8 +97,8 @@ class LocationDto {
 }
 
 @JsonSerializable()
-class CommitmentOptionDto {
-  CommitmentOptionDto({
+class CommitmentDto {
+  CommitmentDto({
     required this.id,
     required this.type,
     required this.label,
@@ -120,8 +116,8 @@ class CommitmentOptionDto {
   final String? description;
   final String? icon;
 
-  CommitmentOption toDomain() {
-    return CommitmentOption(
+  Commitment toDomain() {
+    return Commitment(
       id: id,
       type: type,
       label: label,
@@ -132,6 +128,6 @@ class CommitmentOptionDto {
     );
   }
 
-  factory CommitmentOptionDto.fromJson(Map<String, dynamic> json) =>
-      _$CommitmentOptionDtoFromJson(json);
+  factory CommitmentDto.fromJson(Map<String, dynamic> json) =>
+      _$CommitmentDtoFromJson(json);
 }
