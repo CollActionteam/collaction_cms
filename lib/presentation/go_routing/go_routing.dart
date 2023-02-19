@@ -1,6 +1,7 @@
 import 'package:collaction_cms/presentation/auth/authentication_page.dart';
 import 'package:collaction_cms/presentation/auth/create_credentials.dart';
 import 'package:collaction_cms/presentation/auth/link_auth_page.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/crowdaction_view.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdactions_page.dart';
 import 'package:collaction_cms/presentation/dashboard/dashboard_page.dart';
 import 'package:collaction_cms/presentation/go_routing/listenables.dart';
@@ -61,19 +62,25 @@ GoRouter getRouter(BuildContext context) {
             },
             routes: <RouteBase>[
               GoRoute(
-                  path: '/admin/dashboard',
+                  path: '/cms/dashboard',
                   name: 'dashboard',
                   builder: (BuildContext context, GoRouterState state) {
                     return const DashboardPage();
                   }),
               GoRoute(
-                  path: '/admin/crowdaction',
-                  name: 'crowdaction',
+                  path: '/cms/crowdactions',
+                  name: 'crowdactions',
                   builder: ((BuildContext context, GoRouterState state) {
-                    return const CrowdActionPage();
+                    return const CrowdActionsPage();
                   })),
               GoRoute(
-                path: '/admin/moderation-queue',
+                path: '/cms/crowdaction',
+                builder: (BuildContext context, GoRouterState state) {
+                  return CrowdActionPage();
+                }
+              ),
+              GoRoute(
+                path: '/cms/moderation-queue',
                 name: 'moderation-queue',
                 builder: (context, state) {
                   return const ModerationQueuePage();

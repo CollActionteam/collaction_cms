@@ -10,17 +10,19 @@ class CrowdAction with _$CrowdAction {
   
   const factory CrowdAction({
     required String id,
-    required String type,
     required String title,
     required String description,
     required String category,
     required Location location,
-    required List<CommitmentOption> commitmentOptions,
+    required List<Commitment> commitments,
     required Images images,
     required int participantCount,
     required Status status,
     required JoinStatus joinStatus,
+    required DateTime startAt,
+    required DateTime joinEndAt,
     required DateTime createdAt,
+    required DateTime updatedAt,
     required DateTime endAt,
     String? password,
     String? subcategory,
@@ -29,9 +31,12 @@ class CrowdAction with _$CrowdAction {
 
 class Images{
     const Images({
-      required String card,
-      required String banner
+      required this.card,
+      required this.banner
     });
+
+    final String card;
+    final String banner;
 }
 
 class Location{
@@ -83,20 +88,31 @@ enum JoinStatus {
   closed,
 }
 
-class CommitmentOption{
+extension JoinStatusValues on JoinStatus {
+  String get value {
+    switch(this) {
+      case JoinStatus.open: return "Open";
+      case JoinStatus.closed: return "Closed";
+    }
+  }
+}
 
-  CommitmentOption({
+@freezed
+class Commitment with _$Commitment{
+
+  const Commitment._();
+
+  const factory Commitment({
     required String id,
-    required String type,
+    required List<String> tags,
     required String label,
     required int points,
     required List<String> blocks,
     String? description, 
-    required String? iconId
-  });
+    @Default(null) String? iconId,
+  }) = _Commitment;
 
-  final String? iconId = null;
-
+  
   IconData get icon => mapIcon(iconId);
 }
 

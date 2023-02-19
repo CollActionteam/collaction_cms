@@ -1,4 +1,5 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
 import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
 import 'package:collaction_cms/infrastructure/core/injection.dart';
 import 'package:collaction_cms/presentation/theme/theme.dart';
@@ -27,6 +28,9 @@ class AppWidget extends StatelessWidget {
           ),
           BlocProvider(
             create: (_) => getIt<PaginationCubit>()
+          ),
+          BlocProvider(
+            create: (_) => getIt<CrowdActionSelectedCubit>(),
           )
         ],
         child: MultiBlocListener(
@@ -38,7 +42,7 @@ class AppWidget extends StatelessWidget {
                       .add(NavigateToPageEvent(route: "/log-in"));
                 }, authenticated: (_) {
                   BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: "/admin/dashboard"));
+                      .add(NavigateToPageEvent(route: "/cms/dashboard"));
                 }, unknown: (_) {
                   BlocProvider.of<NavigationBloc>(context)
                       .add(NavigateToPageEvent(route: "/"));

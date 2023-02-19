@@ -43,7 +43,7 @@ class CollActionButton extends StatelessWidget {
 
 
 class CollActionButtonRectangle extends StatelessWidget {
-  CollActionButtonRectangle.wrapped({
+  const CollActionButtonRectangle.wrapped({
     Key? key,
     required this.text,
     this.iconData,
@@ -53,7 +53,7 @@ class CollActionButtonRectangle extends StatelessWidget {
 
     final String text;
     final IconData? iconData;
-    Color _backgroundColor = kAccentColor;
+    final Color _backgroundColor = kAccentColor;
     final Function onPressed;
 
 
@@ -75,10 +75,10 @@ class CollActionButtonRectangle extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _iconWidget(iconData),
-              const SizedBox(
+              iconData != null ?_iconWidget(iconData) : const SizedBox.shrink(),
+               iconData != null ? const SizedBox(
                 width: 15,
-              ),
+              ) : const SizedBox.shrink(),
               Text(
                 text,
                 style: const TextStyle(

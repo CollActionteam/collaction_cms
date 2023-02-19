@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
 import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_cms/domain/crowdaction/i_crowdaction_repository.dart';
@@ -28,7 +29,9 @@ class CrowdActionGetterBloc
             emit(const CrowdActionGetterState.fetchingCrowdActions());
             Either<CrowdActionFailure, PaginatedCrowdActions> response =
                 await _crowdActionRepository.getCrowdActions(
-                    event.page, event.pageSize, event.status != null ? event.status!.value : null);
+                    event.page,
+                    event.pageSize,
+                    event.status != null ? event.status!.value : null);
 
             response.fold(
                 (failure) => emit(
@@ -38,10 +41,9 @@ class CrowdActionGetterBloc
                   page: paginatedCrowdActions.paginationInfo.page,
                   totalPages: paginatedCrowdActions.paginationInfo.totalPages,
                   status: event.status,
-                  pageSize: event.pageSize
-                  ));
+                  pageSize: event.pageSize));
 
-                emit(CrowdActionGetterState.fetched(paginatedCrowdActions));
+              emit(CrowdActionGetterState.fetched(paginatedCrowdActions));
             });
           },
           fetchSingleCrowdAction: (event) async =>
@@ -54,29 +56,28 @@ class CrowdActionGetterBloc
       _FetchSingleCrowdAction event) async {
     emit(const CrowdActionGetterState.fetchingCrowdActions());
 
-    //Because empty strings are causing a different error response from the api, we are converting the 
+    //Because empty strings are causing a different error response from the api, we are converting the
     //the emtpty strings to a space.
     var slug;
     var id;
 
-    if(event.slug != null) {
-      if(event.slug!.isEmpty) {
+    if (event.slug != null) {
+      if (event.slug!.isEmpty) {
         slug = " ";
       } else {
         slug = event.slug;
       }
     }
 
-    if(event.id != null) {
-      if(event.id!.isEmpty) {
+    if (event.id != null) {
+      if (event.id!.isEmpty) {
         id = " ";
       } else {
         id = event.id;
       }
     }
 
-    final result =
-        await _crowdActionRepository.getCrowdAction(slug, id);
+    final result = await _crowdActionRepository.getCrowdAction(slug, id);
 
     result.fold(
         (failure) =>
