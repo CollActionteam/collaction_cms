@@ -10,14 +10,14 @@ import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CrowdActionPage extends StatefulWidget {
-  const CrowdActionPage({Key? key}) : super(key: key);
+class CrowdActionsPage extends StatefulWidget {
+  const CrowdActionsPage({Key? key}) : super(key: key);
 
   @override
-  State<CrowdActionPage> createState() => _CrowdActionPageState();
+  State<CrowdActionsPage> createState() => _CrowdActionsPageState();
 }
 
-class _CrowdActionPageState extends State<CrowdActionPage> {
+class _CrowdActionsPageState extends State<CrowdActionsPage> {
   final TextEditingController _searchInputController = TextEditingController();
   final dropdownItemsSearchBy = ["Title", "Id"];
   final dropdownItemsSearchByStatus = ["All", "Waiting", "Started", "Ended"];
@@ -37,7 +37,7 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
               alignment: Alignment.centerLeft,
               child: const SelectableText(
                 "CrowdActions",
-                style: CollactionTextStyles.titleStyle26,
+                style: CollactionTextStyles.titleStyleCMS,
               ),
             ),
             const SizedBox(
@@ -69,7 +69,6 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
                     if ((dropdownItemSearchByValue ??
                             dropdownItemsSearchBy.first) ==
                         "Title") {
-                      print(_searchInputController.text.runtimeType);
                       BlocProvider.of<CrowdActionGetterBloc>(context).add(
                           CrowdActionGetterEvent.fetchSingleCrowdAction(
                               null, _searchInputController.text.toLowerCase()));
@@ -131,7 +130,6 @@ class _CrowdActionPageState extends State<CrowdActionPage> {
                     getValueCallback: (String value) {
                       setState(() {
                         dropdownItemSearchByStatus = value;
-                        print(dropdownItemSearchByStatus);
                       });
                     },
                   ),
