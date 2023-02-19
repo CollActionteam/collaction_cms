@@ -74,7 +74,6 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                     }
 
                     if (dropdownItemSearchByValue == "Id") {
-                      print(_searchInputController.text.runtimeType);
                       BlocProvider.of<CrowdActionGetterBloc>(context).add(
                           CrowdActionGetterEvent.fetchSingleCrowdAction(
                               _searchInputController.text.toLowerCase(), null));
