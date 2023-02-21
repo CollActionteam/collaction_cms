@@ -57,6 +57,7 @@ dependencies:
   defer_pointer: ^0.0.2
   country_codes: ^2.2.0
   country_icons: ^2.0.2
+  image_network: ^2.5.1
 
 dev_dependencies:
   flutter_test:
@@ -120,6 +121,9 @@ flutter:
           weight: 400
         - asset: fonts/rubik/Rubik-Light.ttf
           weight: 300
+    - family: CollActionIcons
+      fonts:
+        - asset: fonts/icons/CollactionIcons.ttf
 
           
   #   - family: Trajan Pro

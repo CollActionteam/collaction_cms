@@ -50,7 +50,7 @@ class StatusTag extends StatelessWidget {
       children: [
         Container(
           width: 70,
-          height: 30,
+          height: 27,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           decoration: BoxDecoration(
