@@ -12,11 +12,25 @@ class CollactionTextStyles {
     );
 
     ///Figma - Title #1 CMS variation
-  static const titleStyle26 = TextStyle( 
+  static const titleStyleCMS = TextStyle( 
     fontFamily: "Rubik",
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: FontWeight.w700,
-    color: Color(0xFF707070),
+    color: Color(0xFF585858),
+    );
+
+  static const subtitleStyleCMS = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFF585858)
+  );
+
+  static const titleStyleCMSAccent = TextStyle( 
+    fontFamily: "Rubik",
+    fontSize: 30,
+    fontWeight: FontWeight.w700,
+    color: kAccentColor,
     );
   
   //Figma - Title #2
@@ -69,6 +83,13 @@ static const body14 = TextStyle(
     color: kBlackPrimary300
 );
 
+static const body14Accent = TextStyle(
+      fontFamily: "Rubik",
+    fontSize: 14,
+    fontWeight: FontWeight.w300,
+    color: kAccentColor
+);
+
 static const bodyMedium14 = TextStyle(
     fontFamily: "Rubik",
     fontSize: 14,
@@ -96,6 +117,27 @@ static const bodyMedium14 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: kAccentColor
+  );
+
+    static const hyperLinkOnHover = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: kAccentColor
+  );
+
+  static const compositionTextLabel = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: kTextCompositionColor
+  );
+
+  static const compositionTextBody = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    color: kTextCompositionColor
   );
 
 }

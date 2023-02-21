@@ -16,7 +16,10 @@ class CrowdActionDto {
     required this.participantCount,
     required this.status,
     required this.joinStatus,
+    required this.startAt,
+    required this.joinEndAt,
     required this.createdAt,
+    required this.updatedAt,
     required this.endAt,
     this.password,
     this.subcategory,
@@ -32,7 +35,10 @@ class CrowdActionDto {
   final int participantCount;
   final Status status;
   final JoinStatus joinStatus;
+  final String startAt;
+  final String joinEndAt;
   final String createdAt;
+  final String updatedAt;
   final String endAt;
   final String? password;
   final String? subcategory;
@@ -44,12 +50,16 @@ class CrowdActionDto {
       description: description,
       category: category,
       location: location.toDomain(),
-      commitments: commitments.map((option) => option.toDomain()).toList(),
+      commitments:
+          commitments.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
       joinStatus: joinStatus,
+      startAt: DateTime.parse(startAt),
+      joinEndAt: DateTime.parse(joinEndAt),
       createdAt: DateTime.parse(createdAt),
+      updatedAt: DateTime.parse(updatedAt),
       endAt: DateTime.parse(endAt),
       password: password,
       subcategory: subcategory,
@@ -100,7 +110,7 @@ class LocationDto {
 class CommitmentDto {
   CommitmentDto({
     required this.id,
-    required this.type,
+    required this.tags,
     required this.label,
     required this.points,
     required this.blocks,
@@ -109,7 +119,7 @@ class CommitmentDto {
   });
 
   final String id;
-  final String type;
+  final List<String> tags;
   final String label;
   final int points;
   final List<String> blocks;
@@ -119,7 +129,7 @@ class CommitmentDto {
   Commitment toDomain() {
     return Commitment(
       id: id,
-      type: type,
+      tags: tags,
       label: label,
       points: points,
       blocks: blocks,

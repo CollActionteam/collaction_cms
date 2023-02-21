@@ -39,3 +39,5 @@ const kWaitingTagText = Color(0XFF0074B6);
 const kEndedTagBackground = Color(0xFFF4F5AF);
 const kEndedTagText = Color(0xFFC8A21B);
 
+const kTextCompositionColor = Color(0xFF585858);
+

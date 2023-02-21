@@ -104,7 +104,7 @@ class _CrowdActionsTableState extends State<CrowdActionsTable> {
                           }).toList(),
                           rows: value.paginatedCrowdActions.crowdActions
                               .map((CrowdAction crowdAction) {
-                            return TableUtils.dataRowProcessor(crowdAction);
+                            return TableUtils.dataRowProcessor(crowdAction, context);
                           }).toList(),
                         );
                       },

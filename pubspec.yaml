@@ -54,6 +54,7 @@ dependencies:
   mocktail: ^0.3.0
   json_annotation: ^4.7.0
   flutter_dotenv: ^5.0.2
+  image_network: ^2.5.1
 
 dev_dependencies:
   flutter_test:
@@ -117,6 +118,9 @@ flutter:
           weight: 400
         - asset: fonts/rubik/Rubik-Light.ttf
           weight: 300
+    - family: CollActionIcons
+      fonts:
+        - asset: fonts/icons/CollactionIcons.ttf
 
           
   #   - family: Trajan Pro
