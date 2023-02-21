@@ -24,7 +24,7 @@ class TableUtils {
           isItHyperlink: true,
           callback: () => {
             getIt<CrowdActionSelectedCubit>()
-                .loadcrowdActionSelected(crowdAction),
+                .loadCrowdActionSelected(crowdAction),
             BlocProvider.of<NavigationBloc>(context).add(
               NavigateToPageEvent(
                 route: '/cms/crowdaction',

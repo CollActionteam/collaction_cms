@@ -9,8 +9,6 @@ part 'crowdaction_selected_state.dart';
 class CrowdActionSelectedCubit extends Cubit<CrowdActionSelectedState> {
   CrowdActionSelectedCubit() : super(Unknown());
 
-    void loadcrowdActionSelected(CrowdAction crowdAction) =>
-      emit(CrowdActionSelected(
-          crowdAction: crowdAction));
-
+  void loadCrowdActionSelected(CrowdAction crowdAction) =>
+      emit(CrowdActionSelected(crowdAction: crowdAction));
 }

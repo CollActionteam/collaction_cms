@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 
 class BasePanel extends StatefulWidget {
   BasePanel({
-    Key? key,
-    required this.crowdAction
-    }) : super(key: key);
+    super.key,
+    required this.crowdAction,
+  });
 
-    final CrowdAction crowdAction;
+  final CrowdAction crowdAction;
 
   @override
   State<BasePanel> createState() => _BasePanelState();
@@ -52,7 +52,9 @@ class _BasePanelState extends State<BasePanel> {
               Row(
                 children: [
                   SelectionOption(
-                    isSelected: _infoSelectionOption == InfoSelectionOption.info ? true : false,
+                    isSelected: _infoSelectionOption == InfoSelectionOption.info
+                        ? true
+                        : false,
                     iconData: Icons.info_outline_rounded,
                     text: "Info",
                     callback: () => {
@@ -62,7 +64,10 @@ class _BasePanelState extends State<BasePanel> {
                   ),
                   const SizedBox(width: 20),
                   SelectionOption(
-                    isSelected: _infoSelectionOption == InfoSelectionOption.dates ? true : false,
+                      isSelected:
+                          _infoSelectionOption == InfoSelectionOption.dates
+                              ? true
+                              : false,
                       iconData: Icons.calendar_today_outlined,
                       text: "Dates",
                       callback: () => {
@@ -72,7 +77,10 @@ class _BasePanelState extends State<BasePanel> {
                           }),
                   const SizedBox(width: 20),
                   SelectionOption(
-                    isSelected: _infoSelectionOption == InfoSelectionOption.timestamps ? true : false,
+                      isSelected:
+                          _infoSelectionOption == InfoSelectionOption.timestamps
+                              ? true
+                              : false,
                       iconData: Icons.timer_outlined,
                       text: "Timestamps",
                       callback: () => {
@@ -82,7 +90,10 @@ class _BasePanelState extends State<BasePanel> {
                           }),
                   const SizedBox(width: 20),
                   SelectionOption(
-                      isSelected: _infoSelectionOption == InfoSelectionOption.images ? true : false,
+                      isSelected:
+                          _infoSelectionOption == InfoSelectionOption.images
+                              ? true
+                              : false,
                       iconData: Icons.image_outlined,
                       text: "Images",
                       callback: () => {
@@ -94,31 +105,30 @@ class _BasePanelState extends State<BasePanel> {
                 ],
               ),
               const Divider(thickness: 1, color: Color(0xFFE7E7E7)),
-              state.map(
-                info: (value) {
-                  return InfoPanel(
-                    location: crowdAction.location, 
-                    category: crowdAction.category, 
-                    subcategory: crowdAction.subcategory!, 
-                    description: crowdAction.description);
-                }, 
-                dates: (value){
-                  return DatesPanel(
-                    startAt: crowdAction.startAt, 
-                    endAt: crowdAction.endAt, 
-                    joinEndAt: crowdAction.joinEndAt);
-                }, 
-                timestamps: (value){
-                  return TimestampPanel(
-                    createdAt: crowdAction.createdAt, 
-                    updatedAt: crowdAction.updatedAt);
-                }, 
-                images: (value) {
-                  return ImagesPanel(
-                    banner: crowdAction.images.banner, 
-                    card: crowdAction.images.card);
-                }
-              ),
+              state.map(info: (value) {
+                return InfoPanel(
+                  location: crowdAction.location,
+                  category: crowdAction.category,
+                  subcategory: crowdAction.subcategory!,
+                  description: crowdAction.description,
+                );
+              }, dates: (value) {
+                return DatesPanel(
+                  startAt: crowdAction.startAt,
+                  endAt: crowdAction.endAt,
+                  joinEndAt: crowdAction.joinEndAt,
+                );
+              }, timestamps: (value) {
+                return TimestampPanel(
+                  createdAt: crowdAction.createdAt,
+                  updatedAt: crowdAction.updatedAt,
+                );
+              }, images: (value) {
+                return ImagesPanel(
+                  banner: crowdAction.images.banner,
+                  card: crowdAction.images.card,
+                );
+              }),
             ],
           );
         },
