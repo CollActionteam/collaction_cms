@@ -48,17 +48,6 @@ class CollActionButton extends StatelessWidget {
 }
 
 class CollActionButtonRectangle extends StatelessWidget {
-  const CollActionButtonRectangle({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    this.iconData,
-    this.width,
-    this.height = 32,
-    this.padding = 12,
-    this.inverted = false,
-  });
-
   const CollActionButtonRectangle.wrapped({
     Key? key,
     required this.text,

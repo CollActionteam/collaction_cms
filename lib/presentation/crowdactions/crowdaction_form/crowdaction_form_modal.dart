@@ -66,8 +66,8 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Column(
-                      children: const [
-                        /*LayoutBuilder(
+                      children: [
+                        LayoutBuilder(
                           builder: (BuildContext context,
                               BoxConstraints constraints) {
                             return Row(
@@ -75,14 +75,15 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                 CrowdActionInfoForm(
                                     width: constraints.maxWidth * 0.5 - 5),
                                 const SizedBox(width: 10),
+                                // replace with CrowdActionImagesForm
                                 CrowdActionInfoForm(
                                     width: constraints.maxWidth * 0.5 - 5),
                               ],
                             );
                           },
                         ),
-                        CrowdActionInfoForm(width: double.infinity),*/
-                        Placeholder(),
+                        // replace with CrowdActionCommitmentsForm
+                        CrowdActionInfoForm(width: double.infinity),
                       ],
                     ),
                   ),
@@ -93,14 +94,14 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
               child: ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
-                  CollActionButtonRectangle(
+                  CollActionButtonRectangle.wrapped(
                     text: "Save CrowdAction",
                     onPressed: () {},
                     width: 157,
                     height: 37,
                     padding: 0,
                   ),
-                  CollActionButtonRectangle(
+                  CollActionButtonRectangle.wrapped(
                     text: "Cancel",
                     onPressed: () => Navigator.of(
                       context,
