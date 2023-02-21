@@ -37,7 +37,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
 
   @override
   Widget build(BuildContext context) {
-    return CollactionFormField(
+    return CollActionFormField(
       label: widget.label,
       width: widget.width,
       child: SizedBox(

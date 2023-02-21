@@ -1,12 +1,12 @@
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
-class CollactionFormField extends StatelessWidget {
+class CollActionFormField extends StatelessWidget {
   final Widget child;
   final String? label;
   final double width;
 
-  const CollactionFormField({
+  const CollActionFormField({
     super.key,
     required this.child,
     this.label,

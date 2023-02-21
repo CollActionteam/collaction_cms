@@ -46,7 +46,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return CollactionFormField(
+    return CollActionFormField(
       label: widget.label,
       width: widget.width,
       child: SizedBox(
