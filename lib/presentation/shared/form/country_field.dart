@@ -93,7 +93,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
               }),
             ),
             if (_showPopup)
-              ...fieldPopup(
+              fieldPopup(
                 CountrySearch(
                   onCountrySelected: (CountryDetails countryDetails) =>
                       setState(() {
