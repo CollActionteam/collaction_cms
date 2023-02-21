@@ -1,5 +1,8 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
+import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_cms/infrastructure/core/injection.dart';
 import 'package:collaction_cms/presentation/core/enums/enums.dart';
 import 'package:collaction_cms/presentation/crowdactions/double_text_cell.dart';
 import 'package:collaction_cms/presentation/shared/tags/status.dart';
@@ -10,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TableUtils {
   /// Transform the crowdAction data to a row for the [DataTable]
-  static DataRow dataRowProcessor(CrowdAction crowdAction) {
+  static DataRow dataRowProcessor(
+      CrowdAction crowdAction, BuildContext context) {
     return DataRow(cells: <DataCell>[
       DataCell(Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -18,7 +22,15 @@ class TableUtils {
           highlightedText: crowdAction.title,
           regularText: crowdAction.id,
           isItHyperlink: true,
-          callback: () => {},
+          callback: () => {
+            getIt<CrowdActionSelectedCubit>()
+                .loadCrowdActionSelected(crowdAction),
+            BlocProvider.of<NavigationBloc>(context).add(
+              NavigateToPageEvent(
+                route: '/cms/crowdaction',
+              ),
+            )
+          },
         ),
       )),
       DataCell(Container(
@@ -37,8 +49,8 @@ class TableUtils {
       DataCell(Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: DoubleTextCell(
-          highlightedText:
-              DateParse.returnCollActionDate(crowdAction.createdAt),
+          highlightedText: DateParse.returnCollActionDate(
+              crowdAction.createdAt, DateFormatOutput.withoutYear),
           regularText: crowdAction.createdAt.year.toString(),
         ),
       )),
@@ -46,7 +58,8 @@ class TableUtils {
         Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: DoubleTextCell(
-            highlightedText: DateParse.returnCollActionDate(crowdAction.endAt),
+            highlightedText: DateParse.returnCollActionDate(
+                crowdAction.endAt, DateFormatOutput.withoutYear),
             regularText: crowdAction.endAt.year.toString(),
           ),
         ),
@@ -77,7 +90,6 @@ class TableUtils {
       int totalPages,
       Status? status,
       int pageSize) {
-    
     if (1 == totalPages) {
       return () => {};
     }

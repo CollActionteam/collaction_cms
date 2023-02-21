@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 class CollactionIcons {
   const CollactionIcons._();
 
-  static const _kFontFam = 'CollactionIcons';
+  static const _kFontFam = 'CollActionIcons';
   static const IconData eye = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData logout = IconData(0xe801, fontFamily: _kFontFam);
   static const IconData phone = IconData(0xe802, fontFamily: _kFontFam);

@@ -1,4 +1,9 @@
 
+import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/header.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/fields_panels.dart';
+import 'package:collaction_cms/presentation/shared/composition/crowdaction_title.dart';
+import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -22,56 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        // const SizedBox(height: 30),
-        // const Text(
-        //   'CrowdAction Statistics',
-        //   style: TextStyle(fontSize: 24),
-        // ),
-        // const SizedBox(height: 15),
-        // Row(
-        //   children: [
-        //     Expanded(
-        //       child: SizedBox(
-        //         height: 85,
-        //         child: Scrollbar(
-        //           controller: _statsScrollController,
-        //           child: Padding(
-        //             padding: const EdgeInsets.only(bottom: 15.0),
-        //             child: ListView(
-        //               controller: _statsScrollController,
-        //               physics: const AlwaysScrollableScrollPhysics(),
-        //               scrollDirection: Axis.horizontal,
-        //               shrinkWrap: true,
-        //               children: const [
-        //                 StatsBox(
-        //                   amount: 34,
-        //                   label: 'Draft',
-        //                 ),
-        //                 SizedBox(width: 15),
-        //                 StatsBox(
-        //                   amount: 9,
-        //                   label: 'Upcoming',
-        //                 ),
-        //                 SizedBox(width: 15),
-        //                 StatsBox(
-        //                   amount: 17,
-        //                   label: 'On-going',
-        //                 ),
-        //                 SizedBox(width: 15),
-        //                 StatsBox(
-        //                   amount: 197,
-        //                   label: 'Ended',
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-      ],
+      children: [],
     );
   }
 }

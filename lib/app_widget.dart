@@ -1,4 +1,5 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
 import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
 import 'package:collaction_cms/infrastructure/core/injection.dart';
 import 'package:collaction_cms/presentation/theme/theme.dart';
@@ -23,32 +24,39 @@ class AppWidget extends StatelessWidget {
             create: (context) => NavigationBloc(),
           ),
           BlocProvider(
-            create: (context) => getIt<CrowdActionGetterBloc>()..add(const CrowdActionGetterEvent.fetchCrowdActions(1, 7, null)),
+            create: (context) => getIt<CrowdActionGetterBloc>()
+              ..add(const CrowdActionGetterEvent.fetchCrowdActions(1, 7, null)),
           ),
+          BlocProvider(create: (_) => getIt<PaginationCubit>()),
           BlocProvider(
-            create: (_) => getIt<PaginationCubit>()
+            create: (_) => getIt<CrowdActionSelectedCubit>(),
           )
         ],
         child: MultiBlocListener(
           listeners: [
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
-                state.mapOrNull(unaunthenticated: (_) {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: "/log-in"));
-                }, authenticated: (_) {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: "/admin/dashboard"));
-                }, unknown: (_) {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: "/"));
-                }, onVerification: (value) {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: value.pathname!));
-                }, preAuthenticated: (value) {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(NavigateToPageEvent(route: "/create-credentials"));
-                },
+                state.mapOrNull(
+                  unaunthenticated: (_) {
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigateToPageEvent(route: "/log-in"));
+                  },
+                  authenticated: (_) {
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigateToPageEvent(route: "/cms/dashboard"));
+                  },
+                  unknown: (_) {
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigateToPageEvent(route: "/"));
+                  },
+                  onVerification: (value) {
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigateToPageEvent(route: value.pathname!));
+                  },
+                  preAuthenticated: (value) {
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigateToPageEvent(route: "/create-credentials"));
+                  },
                 );
               },
             ),
