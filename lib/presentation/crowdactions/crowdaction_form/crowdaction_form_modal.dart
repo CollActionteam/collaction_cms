@@ -1,6 +1,8 @@
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_dto.dart';
-import 'package:collaction_cms/presentation/go_routing/routes.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info_form.dart';
+import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
+import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
 
 class CrowdActionFormModal extends StatefulWidget {
@@ -15,16 +17,15 @@ class CrowdActionFormModal extends StatefulWidget {
 }
 
 class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
-  late CrowdActionDto? _crowdActionDto;
   late final String modalTitle;
 
   @override
   void initState() {
     super.initState();
-    widget.crowdAction == null ? setupForm(widget.crowdAction!) : emptyForm();
+    widget.crowdAction != null ? setupForm(widget.crowdAction) : emptyForm();
   }
 
-  void setupForm(CrowdAction crowdAction) {
+  void setupForm(CrowdAction? crowdAction) {
     modalTitle = "Edit CrowdAction";
   }
 
@@ -34,44 +35,104 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.9,
-      constraints: const BoxConstraints(
-        maxHeight: 875,
-        maxWidth: 1032,
-      ),
-      child: Column(
-        children: [
-          Text(
-            modalTitle,
-            style: const TextStyle(
-              fontFamily: 'Rubik',
-              fontWeight: FontWeight.w700,
-              fontSize: 28,
+    return SizedBox(
+      width: 1032,
+      height: 875,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 22),
+            Text(
+              modalTitle,
+              style: CollactionTextStyles.titleStyle26,
             ),
-          ),
-          ListView(
-            children: [
-              Row(
-                children: [],
+            const SizedBox(height: 22),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border.symmetric(
+                  horizontal: BorderSide(
+                    color: Color(0xFF8B8B8B),
+                    width: 0.25,
+                  ),
+                ),
               ),
-            ],
-          )
-        ],
+              width: double.infinity,
+              height: 710,
+              child: SingleChildScrollView(
+                child: DeferredPointerHandler(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: const [
+                        /*LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            return Row(
+                              children: [
+                                CrowdActionInfoForm(
+                                    width: constraints.maxWidth * 0.5 - 5),
+                                const SizedBox(width: 10),
+                                CrowdActionInfoForm(
+                                    width: constraints.maxWidth * 0.5 - 5),
+                              ],
+                            );
+                          },
+                        ),
+                        CrowdActionInfoForm(width: double.infinity),*/
+                        Placeholder(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: [
+                  CollActionButtonRectangle(
+                    text: "Save CrowdAction",
+                    onPressed: () {},
+                    width: 157,
+                    height: 37,
+                    padding: 0,
+                  ),
+                  CollActionButtonRectangle(
+                    text: "Cancel",
+                    onPressed: () => Navigator.of(
+                      context,
+                      rootNavigator: true,
+                    ).pop('dialog'),
+                    width: 157,
+                    height: 37,
+                    padding: 0,
+                    inverted: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-Future<void> showCrowdActionFormModal(
+void showCrowdActionFormModal(
     BuildContext context, CrowdAction? crowdAction) async {
   showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return CrowdActionFormModal(
+    barrierDismissible: false,
+    builder: (BuildContext context) => Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: CrowdActionFormModal(
         crowdAction: crowdAction,
-      );
-    },
+      ),
+    ),
   );
 }

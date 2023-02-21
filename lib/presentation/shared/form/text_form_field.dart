@@ -1,0 +1,96 @@
+import 'package:collaction_cms/presentation/shared/form/form_field.dart';
+import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
+import 'package:flutter/material.dart';
+
+class CollactionTextFormField extends StatefulWidget {
+  final String? label;
+  final double width;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final Function? callback;
+  final Function? validator;
+  final bool readOnly;
+  final String? initialValue;
+  final bool multiLine;
+
+  const CollactionTextFormField({
+    super.key,
+    this.label,
+    this.width = double.infinity,
+    this.controller,
+    this.focusNode,
+    this.callback,
+    this.validator,
+    this.readOnly = false,
+    this.initialValue,
+    this.multiLine = false,
+  });
+
+  @override
+  State<CollactionTextFormField> createState() =>
+      _CollactionTextFormFieldState();
+}
+
+class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
+  late MapValidationOutput _mapValidationOutput;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.validator == null
+        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
+        : _mapValidationOutput =
+            mapValidation(widget.validator!(widget.initialValue ?? ""));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CollactionFormField(
+      label: widget.label,
+      width: widget.width,
+      child: SizedBox(
+        height: widget.multiLine ? 87 : 32,
+        child: TextFormField(
+          initialValue: widget.initialValue,
+          readOnly: widget.readOnly,
+          controller: widget.initialValue == null ? widget.controller : null,
+          focusNode: widget.focusNode,
+          onChanged: (value) {
+            widget.validator == null
+                ? _mapValidationOutput =
+                    MapValidationOutput(error: false, output: "")
+                : _mapValidationOutput =
+                    mapValidation(widget.validator!(value));
+            setState(() {});
+            widget.callback == null
+                ? null
+                : widget.callback!(_mapValidationOutput.error);
+          },
+          cursorColor: kBlackPrimary300,
+          style: CollactionTextStyles.body,
+          maxLines: widget.multiLine ? null : 1,
+          expands: widget.multiLine ? true : false,
+          textAlignVertical: widget.multiLine
+              ? TextAlignVertical.top
+              : TextAlignVertical.center,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(8, 25, 8, 0),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderSide: BorderSide(color: Color(0x80707070)),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderSide: BorderSide(color: Color(0x80707070)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderSide: BorderSide(color: Color(0x80707070)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

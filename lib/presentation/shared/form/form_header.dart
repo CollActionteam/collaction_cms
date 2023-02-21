@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
+import 'package:flutter/material.dart';
 
 class FormHeader extends StatelessWidget {
   final String title;
@@ -20,11 +20,7 @@ class FormHeader extends StatelessWidget {
       child: Row(
         children: [
           const SizedBox(width: 22),
-          SvgPicture.asset(
-            "assets/icons/info.svg",
-            width: 20,
-            color: const Color(0xFF2EB494),
-          ),
+          const Icon(Icons.info, size: 24, color: kAccentColor),
           const SizedBox(width: 16),
           Text(
             title,
