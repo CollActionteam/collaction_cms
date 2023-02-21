@@ -6,43 +6,43 @@ import 'package:flutter/material.dart';
 
 class CommitmentsList extends StatelessWidget {
   CommitmentsList({
-    Key? key,
-    required this.commitments
-    }) : super(key: key);
+    super.key,
+    required this.commitments,
+  });
 
-    final List<Commitment> commitments;
+  final List<Commitment> commitments;
 
-    final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-
-      return Scrollbar(
+    return Scrollbar(
         controller: _scrollController,
         thumbVisibility: true,
-        child: commitments.isNotEmpty ? ListView.builder(
-          controller: _scrollController,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 20),
-          itemCount: commitments.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: CommitmentItem(
-                iconData: mapIcon(commitments[index].iconId),
-                label: commitments[index].label,
-                description: commitments[index].description!,
-                tags: commitments[index].tags,
-                points: commitments[index].points,
-              ),
-            );
-          },
-        ) : const Center(
-          child: Text(
-            "Commitments not found",
-            style: CollactionTextStyles.body,
-          ),
-        )
-      );
+        child: commitments.isNotEmpty
+            ? ListView.builder(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(bottom: 20),
+                itemCount: commitments.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: CommitmentItem(
+                      iconData: mapIcon(commitments[index].iconId),
+                      label: commitments[index].label,
+                      description: commitments[index].description!,
+                      tags: commitments[index].tags,
+                      points: commitments[index].points,
+                    ),
+                  );
+                },
+              )
+            : const Center(
+                child: Text(
+                  "Commitments not found",
+                  style: CollactionTextStyles.body,
+                ),
+              ));
   }
 }

@@ -8,7 +8,6 @@ import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
 
@@ -82,7 +81,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                     padding: const EdgeInsets.only(top: 32),
                                     alignment: Alignment.center,
                                     child: const SelectableText('Welcome',
-                                        style: CollactionTextStyles.titleStyle)),
+                                        style:
+                                            CollactionTextStyles.titleStyle)),
                                 Container(
                                   padding: const EdgeInsets.only(
                                       top: 20, left: 8, right: 8),
@@ -93,8 +93,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                       style: CollactionTextStyles.captionStyle),
                                 ),
                                 const SizedBox(height: 10),
-                                authError ? 
-                                ErrorNotification(errorMessage: authErrorMessage,) : const SizedBox.shrink(),
+                                authError
+                                    ? ErrorNotification(
+                                        errorMessage: authErrorMessage,
+                                      )
+                                    : const SizedBox.shrink(),
                                 const SizedBox(height: 15),
                                 CollActionInputField(
                                   controller: emailController,
@@ -127,25 +130,27 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                 ),
                                 const SizedBox(height: 30.0),
                                 CollActionButton(
-                                  text: "Sign in",
-                                  loading: _isItLoading(state),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttonTriggered = true;
-                                    });
-                                    if (!emailValidationError &&
-                                        !passwordValidationError) {
-                                      BlocProvider.of<AuthBloc>(context).add(
-                                          AuthEvent.signInWithEmailAndPassword(
-                                              emailController.value.text,
-                                              passwordController.value.text));
-                                    }
-                                    if (emailValidationError) return emailFocusNode.requestFocus();
-                                      
-                                    if (passwordValidationError) return passwordFocusNode.requestFocus();
-                                    
-                                  }
-                                )
+                                    text: "Sign in",
+                                    loading: _isItLoading(state),
+                                    onPressed: () {
+                                      setState(() {
+                                        buttonTriggered = true;
+                                      });
+                                      if (!emailValidationError &&
+                                          !passwordValidationError) {
+                                        BlocProvider.of<AuthBloc>(context).add(
+                                            AuthEvent
+                                                .signInWithEmailAndPassword(
+                                                    emailController.value.text,
+                                                    passwordController
+                                                        .value.text));
+                                      }
+                                      if (emailValidationError)
+                                        return emailFocusNode.requestFocus();
+
+                                      if (passwordValidationError)
+                                        return passwordFocusNode.requestFocus();
+                                    })
                               ],
                             ),
                           ),
@@ -163,14 +168,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   bool _isItLoading(AuthState state) {
-
     bool isItLoading = false;
 
-    state.mapOrNull(
-      signingInUser: ((value) {
-        isItLoading = true;
-      })
-    );
+    state.mapOrNull(signingInUser: ((value) {
+      isItLoading = true;
+    }));
 
     return isItLoading;
   }
