@@ -7,7 +7,6 @@ part 'crowdaction.freezed.dart';
 
 @freezed
 class CrowdAction with _$CrowdAction {
-  
   const factory CrowdAction({
     required String id,
     required String title,
@@ -39,17 +38,14 @@ class Images{
     final String banner;
 }
 
-class Location{
-  const Location({
-    required this.code,
-    required this.name
-  });
+class Location {
+  const Location({required this.code, required this.name});
 
   final String code;
   final String name;
 }
 
-enum Status{
+enum Status {
   @JsonValue('STARTED')
   started,
   @JsonValue('WAITING')
@@ -58,11 +54,14 @@ enum Status{
   ended;
 
   static Status? enumOf(String? input) {
-    switch(input) {
-      case "Started": return Status.started;
-      case "Waiting": return Status.waiting;
-      case "Ended": return Status.ended;
-      default :
+    switch (input) {
+      case "Started":
+        return Status.started;
+      case "Waiting":
+        return Status.waiting;
+      case "Ended":
+        return Status.ended;
+      default:
         return null;
     }
   }
@@ -70,15 +69,17 @@ enum Status{
 
 extension Values on Status {
   String? get value {
-    switch(this) {
-      case Status.started: return "STARTED";
-      case Status.waiting: return "WAITING";
-      case Status.ended: return "ENDED";
-      default: return null;
+    switch (this) {
+      case Status.started:
+        return "STARTED";
+      case Status.waiting:
+        return "WAITING";
+      case Status.ended:
+        return "ENDED";
+      default:
+        return null;
     }
   }
-
-  
 }
 
 enum JoinStatus {
@@ -112,11 +113,5 @@ class Commitment with _$Commitment{
     @Default(null) String? iconId,
   }) = _Commitment;
 
-  
   IconData get icon => mapIcon(iconId);
 }
-
-
-
-
-
