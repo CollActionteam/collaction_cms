@@ -47,7 +47,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
             const SizedBox(height: 22),
             Text(
               modalTitle,
-              style: CollactionTextStyles.titleStyle26,
+              style: CollactionTextStyles.titleStyle,
             ),
             const SizedBox(height: 22),
             Container(

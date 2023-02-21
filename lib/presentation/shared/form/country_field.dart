@@ -101,7 +101,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                     _showPopup = false;
                   }),
                 ),
-                onTapOutside: closePopup,
+                onTapOutside: _closePopup,
                 width: widget.width,
                 height: 300,
                 offset: 32,
@@ -112,7 +112,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
     );
   }
 
-  void closePopup() {
+  void _closePopup() {
     setState(() {
       _showPopup = false;
     });
