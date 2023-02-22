@@ -44,23 +44,24 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 22),
-            Text(
-              modalTitle,
-              style: CollactionTextStyles.titleStyle,
-            ),
-            const SizedBox(height: 22),
             Container(
+              alignment: Alignment.center,
+              height: 74,
+              width: double.infinity,
               decoration: const BoxDecoration(
-                border: Border.symmetric(
-                  horizontal: BorderSide(
+                border: Border(
+                  bottom: BorderSide(
                     color: Color(0xFF8B8B8B),
                     width: 0.25,
                   ),
                 ),
               ),
-              width: double.infinity,
-              height: 710,
+              child: Text(
+                modalTitle,
+                style: CollactionTextStyles.titleStyle,
+              ),
+            ),
+            Expanded(
               child: SingleChildScrollView(
                 child: DeferredPointerHandler(
                   child: Container(
@@ -90,7 +91,16 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                 ),
               ),
             ),
-            Expanded(
+            Container(
+              height: 88,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Color(0xFF8B8B8B),
+                    width: 0.25,
+                  ),
+                ),
+              ),
               child: ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
