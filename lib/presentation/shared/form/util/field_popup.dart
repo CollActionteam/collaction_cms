@@ -19,6 +19,7 @@ Widget fieldPopup(
         color: Colors.white,
         shadowColor: Colors.black,
         child: TapRegion(
+          behavior: HitTestBehavior.translucent,
           child: child,
           onTapOutside: (event) => onTapOutside!(),
         ),
