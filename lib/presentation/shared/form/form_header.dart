@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 
 class FormHeader extends StatelessWidget {
   final String title;
+  final double? width;
 
   const FormHeader({
     super.key,
     required this.title,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width ?? double.infinity,
       decoration: BoxDecoration(
         color: const Color(0xFFF4F2F2),
         borderRadius: BorderRadius.circular(5),
