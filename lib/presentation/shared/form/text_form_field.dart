@@ -13,6 +13,7 @@ class CollactionTextFormField extends StatefulWidget {
   final bool readOnly;
   final String? initialValue;
   final bool multiLine;
+  final String? error;
 
   const CollactionTextFormField({
     super.key,
@@ -25,6 +26,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.readOnly = false,
     this.initialValue,
     this.multiLine = false,
+    this.error,
   });
 
   @override
@@ -47,6 +49,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
+      error: widget.error,
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -67,28 +70,33 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
                 ? null
                 : widget.callback!(_mapValidationOutput.error);
           },
-          cursorColor: kBlackPrimary300,
-          style: CollactionTextStyles.body,
+          cursorColor: kAccentColor,
           maxLines: widget.multiLine ? null : 1,
           expands: widget.multiLine ? true : false,
           textAlignVertical: widget.multiLine
               ? TextAlignVertical.top
               : TextAlignVertical.center,
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.fromLTRB(8, 25, 8, 0),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              borderSide: BorderSide(color: Color(0x80707070)),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(
+              8,
+              widget.multiLine ? 8 : 25,
+              8,
+              widget.multiLine ? 8 : 0,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              borderSide: BorderSide(color: Color(0x80707070)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              borderSide: BorderSide(color: Color(0x80707070)),
-            ),
+            enabledBorder: CollActionBorderStyles.formFieldBorderSide,
+            border: CollActionBorderStyles.formFieldBorderSide,
+            focusedBorder: CollActionBorderStyles.formFieldBorderSide,
+            fillColor: widget.readOnly ? kBlackPrimary0 : Colors.transparent,
+            filled: true,
           ),
+          mouseCursor: widget.readOnly
+              ? SystemMouseCursors.basic
+              : SystemMouseCursors.text,
+          onTap: () {
+            if (widget.readOnly) {
+              FocusScope.of(context).unfocus();
+            }
+          },
         ),
       ),
     );

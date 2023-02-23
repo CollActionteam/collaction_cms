@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class CollActionFormField extends StatelessWidget {
   final Widget child;
   final String? label;
+  final String? error;
   final double width;
 
   const CollActionFormField({
     super.key,
     required this.child,
     this.label,
+    this.error,
     this.width = double.infinity,
   });
 
@@ -26,7 +28,20 @@ class CollActionFormField extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           child,
-          const SizedBox(height: 15),
+          if (error == null) ...[
+            const SizedBox(height: 15),
+          ] else ...[
+            Text(
+              error!,
+              style: const TextStyle(
+                fontFamily: "Rubik",
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: kRedColor,
+              ),
+            ),
+            const SizedBox(height: 1),
+          ],
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/shared/form/util/country_search.dart';
 import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
+import 'package:collaction_cms/presentation/theme/button.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class CollActionCountryField extends StatefulWidget {
   double width;
   final Function? callback;
   final bool readOnly;
+  final String? error;
 
   CollActionCountryField({
     super.key,
@@ -20,6 +22,7 @@ class CollActionCountryField extends StatefulWidget {
     this.width = double.infinity,
     this.callback,
     this.readOnly = false,
+    this.error,
   });
 
   @override
@@ -31,13 +34,9 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
   bool _showPopup = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return CollActionFormField(
+      error: widget.error,
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -45,20 +44,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
         child: Stack(
           children: [
             TextButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0x80707070)),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(
-                    double.infinity,
-                    32,
-                  ),
-                ),
-              ),
+              style: formFieldButtonStyle(readOnly: widget.readOnly),
               child: Row(
                 children: [
                   if (_selectedCountry != null) ...[
@@ -89,7 +75,9 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                 ],
               ),
               onPressed: () => setState(() {
-                _showPopup = true;
+                if (!widget.readOnly) {
+                  _showPopup = !_showPopup;
+                }
               }),
             ),
             if (_showPopup)
@@ -104,7 +92,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                 onTapOutside: _closePopup,
                 width: widget.width,
                 height: 300,
-                offset: 32,
+                offset: 0,
               ),
           ],
         ),
