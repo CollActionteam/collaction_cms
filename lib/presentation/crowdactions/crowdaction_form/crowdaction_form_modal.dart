@@ -4,6 +4,7 @@ import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
+import 'package:tap_canvas/tap_canvas.dart';
 
 class CrowdActionFormModal extends StatefulWidget {
   final CrowdAction? crowdAction;
@@ -137,13 +138,17 @@ void showCrowdActionFormModal(
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (BuildContext context) => Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: CrowdActionFormModal(
-        crowdAction: crowdAction,
-      ),
-    ),
+    builder: (BuildContext context) {
+      return TapCanvas(
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: CrowdActionFormModal(
+            crowdAction: crowdAction,
+          ),
+        ),
+      );
+    },
   );
 }

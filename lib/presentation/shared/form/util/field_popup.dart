@@ -1,5 +1,6 @@
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
+import 'package:tap_canvas/tap_canvas.dart';
 
 Widget fieldPopup(
   Widget child, {
@@ -15,13 +16,13 @@ Widget fieldPopup(
     child: DeferPointer(
       paintOnTop: true,
       child: Material(
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         elevation: 5.0,
         color: Colors.white,
         shadowColor: Colors.black,
-        child: TapRegion(
-          behavior: HitTestBehavior.translucent,
+        child: TapOutsideDetectorWidget(
           child: child,
-          onTapOutside: (event) => onTapOutside!(),
+          onTappedOutside: () => onTapOutside!(),
         ),
       ),
     ),
