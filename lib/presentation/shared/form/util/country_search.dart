@@ -91,7 +91,7 @@ class _CountrySearchState extends State<CountrySearch> {
                     }
                   },
                   child: SizedBox(
-                    height: 28,
+                    height: 32,
                     child: Row(
                       children: [
                         Image.asset(
@@ -104,6 +104,7 @@ class _CountrySearchState extends State<CountrySearch> {
                           child: Text(
                             country.name!,
                             overflow: TextOverflow.ellipsis,
+                            style: CollactionTextStyles.body,
                           ),
                         ),
                       ],
