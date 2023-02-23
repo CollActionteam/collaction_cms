@@ -58,6 +58,8 @@ dependencies:
   defer_pointer: ^0.0.2
   country_codes: ^2.2.0
   country_icons: ^2.0.2
+  image_network: ^2.5.1
+  tap_canvas: ^0.9.4
 
 dev_dependencies:
   flutter_test:
