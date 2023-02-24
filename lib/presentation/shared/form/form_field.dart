@@ -6,6 +6,7 @@ class CollActionFormField extends StatelessWidget {
   final String? label;
   final String? error;
   final double width;
+  final bool readOnly;
 
   const CollActionFormField({
     super.key,
@@ -13,6 +14,7 @@ class CollActionFormField extends StatelessWidget {
     this.label,
     this.error,
     this.width = double.infinity,
+    this.readOnly = false,
   });
 
   @override
@@ -27,7 +29,10 @@ class CollActionFormField extends StatelessWidget {
             style: CollactionTextStyles.bodyMedium14,
           ),
           const SizedBox(height: 4),
-          child,
+          IgnorePointer(
+            ignoring: readOnly,
+            child: child,
+          ),
           if (error == null) ...[
             const SizedBox(height: 15),
           ] else ...[
