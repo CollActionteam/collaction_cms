@@ -2,6 +2,7 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/shared/form/util/country_search.dart';
 import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
+import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
 import 'package:collaction_cms/presentation/theme/button.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:country_codes/country_codes.dart';
@@ -9,20 +10,22 @@ import 'package:flutter/material.dart';
 
 class CollActionCountryField extends StatefulWidget {
   final String? label;
-  Location? country;
-  double width;
+  final Location? country;
+  final double width;
   final Function? callback;
+  final Function? validationCallback;
   final bool readOnly;
-  final String? error;
+  final bool buttonTriggered;
 
-  CollActionCountryField({
+  const CollActionCountryField({
     super.key,
     this.label,
     this.country,
     this.width = double.infinity,
     this.callback,
+    this.validationCallback,
     this.readOnly = false,
-    this.error,
+    this.buttonTriggered = false,
   });
 
   @override
@@ -30,14 +33,26 @@ class CollActionCountryField extends StatefulWidget {
 }
 
 class _CollActionCountryFieldState extends State<CollActionCountryField> {
+  late MapValidationOutput _mapValidationOutput;
   CountryDetails? _selectedCountry;
   bool _showPopup = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.validationCallback == null
+        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
+        : _mapValidationOutput =
+            mapValidation(widget.validationCallback!(widget.country));
+  }
 
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.error,
+      error: widget.buttonTriggered && _mapValidationOutput.error
+          ? _mapValidationOutput.output
+          : null,
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -87,6 +102,11 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                   onCountrySelected: (CountryDetails countryDetails) =>
                       setState(() {
                     _selectedCountry = countryDetails;
+                    widget.validationCallback == null
+                        ? _mapValidationOutput =
+                            MapValidationOutput(error: false, output: "")
+                        : _mapValidationOutput = mapValidation(
+                            widget.validationCallback!(_selectedCountry));
                     _showPopup = false;
                   }),
                 ),
