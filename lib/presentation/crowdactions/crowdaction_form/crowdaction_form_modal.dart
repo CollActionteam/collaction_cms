@@ -72,20 +72,21 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                         LayoutBuilder(
                           builder: (BuildContext context,
                               BoxConstraints constraints) {
-                            return Row(
+                            double halfWidth = constraints.maxWidth < 640
+                                ? double.infinity
+                                : constraints.maxWidth * 0.5 - 5;
+                            return Wrap(
+                              spacing: 10,
                               children: [
-                                CrowdActionInfoForm(
-                                    width: constraints.maxWidth * 0.5 - 5),
-                                const SizedBox(width: 10),
+                                CrowdActionInfoForm(width: halfWidth),
                                 // replace with CrowdActionImagesForm
-                                CrowdActionInfoForm(
-                                    width: constraints.maxWidth * 0.5 - 5),
+                                CrowdActionInfoForm(width: halfWidth),
+                                // replace with CrowdActionCommitmentsForm
+                                CrowdActionInfoForm(width: double.infinity),
                               ],
                             );
                           },
                         ),
-                        // replace with CrowdActionCommitmentsForm
-                        CrowdActionInfoForm(width: double.infinity),
                       ],
                     ),
                   ),
