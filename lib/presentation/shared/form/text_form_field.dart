@@ -9,11 +9,11 @@ class CollactionTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final Function? callback;
-  final Function? validator;
+  final Function? validationCallback;
   final bool readOnly;
   final String? initialValue;
   final bool multiLine;
-  final String? error;
+  final bool buttonTriggered;
 
   const CollactionTextFormField({
     super.key,
@@ -22,11 +22,11 @@ class CollactionTextFormField extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.callback,
-    this.validator,
+    this.validationCallback,
     this.readOnly = false,
     this.initialValue,
     this.multiLine = false,
-    this.error,
+    this.buttonTriggered = false,
   });
 
   @override
@@ -40,17 +40,19 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   @override
   void initState() {
     super.initState();
-    widget.validator == null
+    widget.validationCallback == null
         ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
-        : _mapValidationOutput =
-            mapValidation(widget.validator!(widget.initialValue ?? ""));
+        : _mapValidationOutput = mapValidation(
+            widget.validationCallback!(widget.initialValue ?? ""));
   }
 
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.error,
+      error: widget.buttonTriggered && _mapValidationOutput.error
+          ? _mapValidationOutput.output
+          : null,
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -61,11 +63,11 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           controller: widget.initialValue == null ? widget.controller : null,
           focusNode: widget.focusNode,
           onChanged: (value) {
-            widget.validator == null
+            widget.validationCallback == null
                 ? _mapValidationOutput =
                     MapValidationOutput(error: false, output: "")
                 : _mapValidationOutput =
-                    mapValidation(widget.validator!(value));
+                    mapValidation(widget.validationCallback!(value));
             setState(() {});
             widget.callback == null
                 ? null

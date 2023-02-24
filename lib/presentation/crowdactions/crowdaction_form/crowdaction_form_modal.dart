@@ -19,6 +19,7 @@ class CrowdActionFormModal extends StatefulWidget {
 
 class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
   late final String modalTitle;
+  bool _buttonTriggered = false;
 
   @override
   void initState() {
@@ -78,11 +79,20 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                             return Wrap(
                               spacing: 10,
                               children: [
-                                CrowdActionInfoForm(width: halfWidth),
+                                CrowdActionInfoForm(
+                                  width: halfWidth,
+                                  buttonTriggered: _buttonTriggered,
+                                ),
                                 // replace with CrowdActionImagesForm
-                                CrowdActionInfoForm(width: halfWidth),
+                                CrowdActionInfoForm(
+                                  width: halfWidth,
+                                  buttonTriggered: _buttonTriggered,
+                                ),
                                 // replace with CrowdActionCommitmentsForm
-                                CrowdActionInfoForm(width: double.infinity),
+                                CrowdActionInfoForm(
+                                  width: double.infinity,
+                                  buttonTriggered: _buttonTriggered,
+                                ),
                               ],
                             );
                           },
@@ -108,7 +118,9 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                 children: [
                   CollActionButtonRectangle.wrapped(
                     text: "Save CrowdAction",
-                    onPressed: () {},
+                    onPressed: () => setState(() {
+                      _buttonTriggered = true;
+                    }),
                     width: 157,
                     height: 37,
                     padding: 0,
