@@ -43,11 +43,7 @@ class _CollactionDateTimeFormFieldState
   @override
   void initState() {
     super.initState();
-    _dateTime = widget.selectedDate != null
-        ? widget.selectedDate!
-        : widget.earliestDate != null
-            ? widget.earliestDate!
-            : DateTime.now().copyWith(hour: 0, minute: 0, second: 0);
+    _dateTime = _getCurrentDateTime();
     _validateDateTime();
   }
 
@@ -104,7 +100,7 @@ class _CollactionDateTimeFormFieldState
   }
 
   DateTime _getCurrentDateTime() {
-    return widget.selectedDate != null
+    return _dateSet
         ? widget.selectedDate!
         : widget.earliestDate != null
             ? widget.earliestDate!
