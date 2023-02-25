@@ -24,8 +24,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   String? title;
   String? type;
   late DateTime startDate;
+  bool startDateSet = false;
   late DateTime endDate;
+  bool endDateSet = false;
   late DateTime joinByDate;
+  bool joinByDateSet = false;
   Location? country;
   String? description;
   String? category;
@@ -86,11 +89,15 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       label: "Start date",
                       width: halfWidth,
                       selectedDate: startDate,
-                      latestDate: endDate.subtract(const Duration(minutes: 1)),
+                      latestDate: endDateSet
+                          ? endDate.subtract(const Duration(minutes: 1))
+                          : null,
                       validationCallback: validateDateTimeField,
-                      callback: (bool error, DateTime dateTime) => setState(
-                        () => startDate = dateTime,
-                      ),
+                      callback: (bool error, DateTime dateTime) {
+                        startDate = dateTime;
+                        startDateSet = true;
+                        setState(() {});
+                      },
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollactionDateTimeFormField(
@@ -101,20 +108,26 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                           ? startDate.add(const Duration(minutes: 1))
                           : joinByDate.add(const Duration(minutes: 1)),
                       validationCallback: validateDateTimeField,
-                      callback: (bool error, DateTime dateTime) => setState(
-                        () => endDate = dateTime,
-                      ),
+                      callback: (bool error, DateTime dateTime) {
+                        endDate = dateTime;
+                        endDateSet = true;
+                        setState(() {});
+                      },
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollactionDateTimeFormField(
                       label: "Join end at",
                       width: halfWidth,
                       selectedDate: joinByDate,
-                      latestDate: endDate.subtract(const Duration(minutes: 1)),
+                      latestDate: endDateSet
+                          ? endDate.subtract(const Duration(minutes: 1))
+                          : null,
                       validationCallback: validateDateTimeField,
-                      callback: (bool error, DateTime dateTime) => setState(
-                        () => joinByDate = dateTime,
-                      ),
+                      callback: (bool error, DateTime dateTime) {
+                        joinByDate = dateTime;
+                        joinByDateSet = true;
+                        setState(() {});
+                      },
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollActionCountryField(
