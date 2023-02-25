@@ -1,88 +1,147 @@
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_cms/presentation/shared/form/country_field.dart';
+import 'package:collaction_cms/presentation/shared/form/date_time_form_field.dart';
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
+import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 
-class CrowdActionInfoForm extends StatelessWidget {
+class CrowdActionInfoForm extends StatefulWidget {
   final double width;
+  final bool buttonTriggered;
+
+  const CrowdActionInfoForm({
+    super.key,
+    this.width = double.infinity,
+    this.buttonTriggered = false,
+  });
+
+  @override
+  State<CrowdActionInfoForm> createState() => _CrowdActionInfoFormState();
+}
+
+class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   String? title;
   String? type;
-  DateTime? startDate;
-  DateTime? endDate;
-  DateTime? joinByDate;
+  late DateTime startDate;
+  late DateTime endDate;
+  late DateTime joinByDate;
   Location? country;
   String? description;
   String? category;
   String? subcategory;
   String? password;
 
-  CrowdActionInfoForm({
-    super.key,
-    this.width = double.infinity,
-  });
+  @override
+  void initState() {
+    super.initState();
+    startDate = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+    );
+    endDate = startDate.add(const Duration(minutes: 1));
+    joinByDate = startDate;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const FormHeader(title: "Basic Information"),
-        const SizedBox(height: 18),
-      ],
+    return Container(
+      width: widget.width,
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          const FormHeader(title: "Basic Information"),
+          const SizedBox(height: 18),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 23),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                bool shrink = constraints.maxWidth < 405;
+                double fullWidth = shrink ? constraints.maxWidth : 405;
+                double halfWidth = shrink ? constraints.maxWidth : 192;
+                return Wrap(
+                  alignment: WrapAlignment.start,
+                  spacing: 21,
+                  children: [
+                    CollactionTextFormField(
+                      label: "Title of CrowdAction",
+                      width: fullWidth,
+                      validationCallback: validateEmptyTextField,
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionTextFormField(
+                      label: "Category",
+                      width: halfWidth,
+                      validationCallback: validateEmptyTextField,
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionTextFormField(
+                      label: "Subcategory",
+                      width: halfWidth,
+                      validationCallback: validateEmptyTextField,
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionDateTimeFormField(
+                      label: "Start date",
+                      width: halfWidth,
+                      selectedDate: startDate,
+                      latestDate: endDate.subtract(const Duration(minutes: 1)),
+                      validationCallback: validateDateTimeField,
+                      callback: (bool error, DateTime dateTime) => setState(
+                        () => startDate = dateTime,
+                      ),
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionDateTimeFormField(
+                      label: "End date",
+                      width: halfWidth,
+                      selectedDate: endDate,
+                      earliestDate: startDate.compareTo(joinByDate) > 0
+                          ? startDate.add(const Duration(minutes: 1))
+                          : joinByDate.add(const Duration(minutes: 1)),
+                      validationCallback: validateDateTimeField,
+                      callback: (bool error, DateTime dateTime) => setState(
+                        () => endDate = dateTime,
+                      ),
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionDateTimeFormField(
+                      label: "Join end at",
+                      width: halfWidth,
+                      selectedDate: joinByDate,
+                      latestDate: endDate.subtract(const Duration(minutes: 1)),
+                      validationCallback: validateDateTimeField,
+                      callback: (bool error, DateTime dateTime) => setState(
+                        () => joinByDate = dateTime,
+                      ),
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollActionCountryField(
+                      label: "Country",
+                      width: halfWidth,
+                      buttonTriggered: widget.buttonTriggered,
+                      validationCallback: validateCountryField,
+                    ),
+                    CollactionTextFormField(
+                      label: "Description",
+                      width: fullWidth,
+                      multiLine: true,
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                    CollactionTextFormField(
+                      label: "Password",
+                      width: fullWidth,
+                      validationCallback: validatePasswordSimple,
+                      buttonTriggered: widget.buttonTriggered,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-/*
-Architecture:
-Parent Modal: 
-  BlocProviders provide:
-    InfoBloc to CrowdActionInfoForm
-    ImageBloc to CrowdActionImagesForm
-    CommitmentsBloc to CrowdActionCommitmentsBloc
-  OnSubmit:
-    InfoBloc.GetInfo, ImageBloc.GetImages, CommitmentsBloc.GetCommitments
-
-
-InfoBloc states:
-  initial - not submittable
-  filled - filled, now submittable
-InfoBloc events:
-  setFilled(bool) - used to notify modal
-
-ImageBloc states:
-  initial - submittable, uses default imgs?
-  loading - image is loading, not submittable
-  *failed - 
-ImageBloc events:
-  upload() - sets state to loading
-  *uploadFinished() - sets state to initial?/failed?
-
-CommitmentBloc states: 
-  initial
-  filled - at least 1 commitment, now submitable
-CommitmentBloc states:
-  setFilled(bool) - used to notify modal
-
-CreateCrowdActionBloc states:
-  initial - uses BlocListeners to determine if submittable
-  submitting - not submittable
-  failed - submittable
-  success - closes modal
-CreateCrowdActionBloc events:
-  submitForm(FormDto) - sets state to submitting, calls API to create a new crowdaction using the DTO, sets state to success/failed
-    FormDto needs to be built by grabbing form info from child forms
-      Use unique keys to get children and their form data
-
-Modal submit button disabled until:
-  InfoBloc.state == filled && ImageBloc.state == initial && CommitmentBloc.state == filled
-Modal submit button shows a loading indicator when CreateCrowdActionBloc.state == submitting
-
-Sub-Blocs use BlocProvider.of to get blocs, then .add(event) when state changes
-Modal Bloc wraps each form in a BlocProvider<Bloc> with their respective bloc, is wrapped in a BlocBuilder
-
-OR
-
-Have a CrowdActionFormRepository
-Each BLoC 
-
-
-*/
