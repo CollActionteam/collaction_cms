@@ -6,10 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './infrastructure/core/injection.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:convert' show jsonEncode;
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: "env");
@@ -17,10 +13,10 @@ void main() async {
   await Firebase.initializeApp(
     options: FirebaseOptionsFactory.currentPlatform,
   );
+
   configureInjection();
 
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
   runApp(const AppWidget());
 }
-

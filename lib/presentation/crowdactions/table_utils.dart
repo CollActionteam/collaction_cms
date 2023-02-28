@@ -37,7 +37,7 @@ class TableUtils {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: DoubleTextCell(
             highlightedText: crowdAction.category,
-            regularText: crowdAction.subcategory!,
+            regularText: crowdAction.subcategory ?? "--",
           ))),
       DataCell(Container(
           padding: const EdgeInsets.symmetric(vertical: 12),

@@ -50,8 +50,7 @@ class CrowdActionDto {
       description: description,
       category: category,
       location: location.toDomain(),
-      commitments:
-          commitments.map((option) => option.toDomain()).toList(),
+      commitments: commitments.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
@@ -119,10 +118,10 @@ class CommitmentDto {
   });
 
   final String id;
-  final List<String> tags;
+  final List<String?> tags;
   final String label;
   final int points;
-  final List<String> blocks;
+  final List<String?> blocks;
   final String? description;
   final String? icon;
 

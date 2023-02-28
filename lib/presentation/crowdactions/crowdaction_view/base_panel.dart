@@ -1,9 +1,6 @@
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/fields_panels.dart';
-import 'package:collaction_cms/presentation/go_routing/routes.dart';
 import 'package:collaction_cms/presentation/shared/options/selection_option.dart';
-import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
-import 'package:collaction_cms/presentation/shared/utils/data_parse/date.dart';
 import 'package:collaction_cms/application/ui/crowdaction_view/crowdaction_view_info_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
@@ -109,7 +106,7 @@ class _BasePanelState extends State<BasePanel> {
                 return InfoPanel(
                   location: crowdAction.location,
                   category: crowdAction.category,
-                  subcategory: crowdAction.subcategory!,
+                  subcategory: crowdAction.subcategory ?? "--",
                   description: crowdAction.description,
                 );
               }, dates: (value) {
