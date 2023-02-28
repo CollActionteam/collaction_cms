@@ -51,7 +51,8 @@ class CrowdActionDto {
       description: description,
       category: category,
       location: location.toDomain(),
-      commitments: commitments.map((option) => option.toDomain()).toList(),
+      commitments:
+          commitments.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
