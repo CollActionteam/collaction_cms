@@ -94,12 +94,10 @@ Either<ValueFailure<String>, String> validateEmptyTextField(String text) {
   return (right(text));
 }
 
-Either<ValueFailure<String>, String> validateDateTimeField(
+Either<ValueFailure<String>, String> validateIncompleteDateTimeField(
   DateTime? input,
   bool dateFilled,
   bool timeFilled,
-  DateTime? minimum,
-  DateTime? maximum,
 ) {
   if (input == null || !dateFilled) {
     return left(
@@ -111,14 +109,6 @@ Either<ValueFailure<String>, String> validateDateTimeField(
     return left(
       const ValueFailure.empty(failureMessage: "Time field must be filled"),
     );
-  }
-
-  if (minimum != null && input.compareTo(minimum) < 0) {
-    input = minimum;
-  }
-
-  if (maximum != null && input.compareTo(maximum) > 0) {
-    input = maximum;
   }
 
   return right(input.toString());

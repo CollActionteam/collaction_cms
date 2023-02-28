@@ -14,6 +14,7 @@ class CollactionTextFormField extends StatefulWidget {
   final String? initialValue;
   final bool multiLine;
   final bool buttonTriggered;
+  final TextStyle? style;
 
   const CollactionTextFormField({
     super.key,
@@ -27,6 +28,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.initialValue,
     this.multiLine = false,
     this.buttonTriggered = false,
+    this.style,
   });
 
   @override
@@ -58,6 +60,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
       child: SizedBox(
         height: widget.multiLine ? 87 : 32,
         child: TextFormField(
+          style: widget.style ?? CollactionTextStyles.body,
           initialValue: widget.initialValue,
           readOnly: widget.readOnly,
           controller: widget.initialValue == null ? widget.controller : null,

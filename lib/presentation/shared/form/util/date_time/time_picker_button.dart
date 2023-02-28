@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 class TimePickerButton extends StatefulWidget {
   final double width;
-  final Function(DateTime)? callback;
+  final Function? callback;
   final DateTime? selectedTime;
   final DateTime? earliestTime;
   final DateTime? latestTime;
@@ -30,11 +30,6 @@ class TimePickerButton extends StatefulWidget {
 class _TimePickerButtonState extends State<TimePickerButton> {
   bool _timeSet = false;
   bool _showOverlay = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void _closeTimePicker() {
     setState(() {
