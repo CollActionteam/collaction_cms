@@ -54,7 +54,6 @@ dependencies:
   mocktail: ^0.3.0
   json_annotation: ^4.7.0
   flutter_dotenv: ^5.0.2
-  image_network: ^2.5.1
   defer_pointer: ^0.0.2
   country_codes: ^2.2.0
   country_icons: ^2.0.2

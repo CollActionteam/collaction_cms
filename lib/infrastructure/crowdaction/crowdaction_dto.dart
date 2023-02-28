@@ -26,12 +26,11 @@ class CrowdActionDto {
   });
 
   final String id;
-  final String type;
   final String title;
   final String description;
   final String category;
   final LocationDto location;
-  final List<CommitmentOptionDto> commitmentOptions;
+  final List<CommitmentDto> commitments;
   final ImagesDto images;
   final int participantCount;
   final Status status;
@@ -51,8 +50,7 @@ class CrowdActionDto {
       description: description,
       category: category,
       location: location.toDomain(),
-      commitments:
-          commitments.map((option) => option.toDomain()).toList(),
+      commitments: commitments.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
