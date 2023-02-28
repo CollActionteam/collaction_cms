@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class InviteAdminModal extends StatefulWidget {
   InviteAdminModal({Key? key}) : super(key: key);
 
@@ -54,7 +53,7 @@ class _InviteAdminModalState extends State<InviteAdminModal> {
               color: kLightBackgroundGreyColor,
             ),
             width: 374,
-            // height: 345,
+            height: 345,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: AnimatedSwitcher(
@@ -122,8 +121,7 @@ class _InviteAdminModalState extends State<InviteAdminModal> {
                                 },
                               )),
                           Container(
-                            padding:
-                                const EdgeInsets.only(top: 30, bottom: 40),
+                            padding: const EdgeInsets.only(top: 30, bottom: 40),
                             child: CollActionButton(
                               loading: _isItLoading(state),
                               text: "Send",
@@ -139,7 +137,8 @@ class _InviteAdminModalState extends State<InviteAdminModal> {
                                           actionCodeSettings));
                                 }
 
-                                if (emailValidationError) return emailFocusNode.requestFocus();
+                                if (emailValidationError)
+                                  return emailFocusNode.requestFocus();
                               },
                             ),
                           )
