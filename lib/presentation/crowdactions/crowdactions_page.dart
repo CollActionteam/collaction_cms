@@ -1,6 +1,7 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/core/enums/enums.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/crowdaction_form_modal.dart';
 import 'package:collaction_cms/presentation/crowdactions/table.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/filters/dropdown.dart';
@@ -87,7 +88,7 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                 const Spacer(),
                 CollActionButtonRectangle.wrapped(
                   text: "Add CrowdAction",
-                  onPressed: () => {},
+                  onPressed: () => showCrowdActionFormModal(context, null),
                   iconData: Icons.add_circle_outline_rounded,
                 ),
               ],

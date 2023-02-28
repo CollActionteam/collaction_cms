@@ -28,14 +28,14 @@ class CrowdAction with _$CrowdAction {
   }) = _CrowdAction;
 }
 
-class Images{
-    const Images({
-      required this.card,
-      required this.banner
-    });
+class Images {
+  const Images({
+    required this.card,
+    required this.banner,
+  });
 
-    final String card;
-    final String banner;
+  final String card;
+  final String banner;
 }
 
 class Location {
@@ -91,25 +91,26 @@ enum JoinStatus {
 
 extension JoinStatusValues on JoinStatus {
   String get value {
-    switch(this) {
-      case JoinStatus.open: return "Open";
-      case JoinStatus.closed: return "Closed";
+    switch (this) {
+      case JoinStatus.open:
+        return "Open";
+      case JoinStatus.closed:
+        return "Closed";
     }
   }
 }
 
 @freezed
-class Commitment with _$Commitment{
-
+class Commitment with _$Commitment {
   const Commitment._();
 
   const factory Commitment({
     required String id,
-    required List<String> tags,
+    required List<String?> tags,
     required String label,
     required int points,
-    required List<String> blocks,
-    String? description, 
+    required List<String?> blocks,
+    String? description,
     @Default(null) String? iconId,
   }) = _Commitment;
 

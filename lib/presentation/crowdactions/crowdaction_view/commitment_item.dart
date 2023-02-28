@@ -16,7 +16,7 @@ class CommitmentItem extends StatelessWidget {
   final IconData? iconData;
   final String label;
   final String description;
-  final List<String> tags;
+  final List<String?> tags;
   final int points;
   String tagsPresentationOutput = '';
 
@@ -82,12 +82,12 @@ class CommitmentItem extends StatelessWidget {
     );
   }
 
-  String _tagsPresentationConverter(List<String> tags) {
+  String _tagsPresentationConverter(List<String?> tags) {
     String output = '';
     String bracketsWrapper = '';
 
     for (var tag in tags) {
-      output.isEmpty ? output = tag : output += ', $tag';
+      output.isEmpty ? output = tag ?? '' : output += ', ${tag ?? ''}';
     }
 
     bracketsWrapper = "[ $output ]";

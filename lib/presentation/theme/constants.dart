@@ -25,6 +25,9 @@ const kDividerColor = Color(0xFFBFBFBF);
 
 const kFillInputTextColor = Color(0xFFEFEFEF);
 const kPlaceholderTextColor = Color(0xFFB5B5B5);
+const kBlackPrimary0 = Color(0xFFEFEFEF);
+const kBlackPrimary100 = Color(0xFFCCCCCC);
+const kBlackPrimary200 = Color(0xFF999999);
 const kBlackPrimary300 = Color(0xFF666666); // Figma - Black Primary 300
 const kBlackPrimary400 = Color(0xFF333333); // Figma - Black Primary 400
 
@@ -40,4 +43,3 @@ const kEndedTagBackground = Color(0xFFF4F5AF);
 const kEndedTagText = Color(0xFFC8A21B);
 
 const kTextCompositionColor = Color(0xFF585858);
-

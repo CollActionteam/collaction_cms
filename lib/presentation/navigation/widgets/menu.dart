@@ -8,7 +8,7 @@ import 'package:collaction_cms/application/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:tap_canvas/tap_canvas.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -41,8 +41,11 @@ class Menu extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (BuildContext builder) {
-                              return InviteAdminModal();
-                            }).then((value) => BlocProvider.of<AuthBloc>(context).add(const AuthEvent.authCheckRequested()));
+                              return TapOutsideDetectorWidget(
+                                  child: InviteAdminModal(),
+                                  onTappedOutside: () =>
+                                      Navigator.of(context).pop());
+                            });
                       });
                 },
               ),
@@ -63,9 +66,8 @@ class Menu extends StatelessWidget {
                 label: 'CrowdActions',
                 onTap: () {
                   BlocProvider.of<NavigationBloc>(context)
-                    .add(NavigateToPageEvent(route: crowdAction));
+                      .add(NavigateToPageEvent(route: crowdAction));
                 },
-
               ),
               const SizedBox(height: 10),
               NavigationItem(
