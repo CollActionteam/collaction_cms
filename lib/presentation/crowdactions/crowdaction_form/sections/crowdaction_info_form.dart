@@ -31,11 +31,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   bool startDateSet = false;
   late DateTime endDate;
   bool endDateSet = false;
-  late DateTime joinByDate;
+  DateTime? joinByDate;
   bool joinByDateSet = false;
-  Location? country;
-  String? description;
-  String? category;
+  late Location country;
+  late String description;
+  late String category;
   String? subcategory;
   String? password;
 
@@ -187,9 +187,9 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
       return DateTime.now().add(const Duration(minutes: 6));
     }
 
-    return startDate.compareTo(joinByDate) > 0
+    return startDate.compareTo(joinByDate!) > 0
         ? startDate.add(const Duration(minutes: 1))
-        : joinByDate.add(const Duration(minutes: 1));
+        : joinByDate!.add(const Duration(minutes: 1));
   }
 
   void _onMinuteChange() {
@@ -197,7 +197,7 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
     if (startDate.compareTo(now) < 0) {
       startDate = now;
     }
-    if (joinByDate.compareTo(now) < 0) {
+    if (joinByDate!.compareTo(now) < 0) {
       joinByDate = now;
     }
     now = now.add(const Duration(minutes: 1));

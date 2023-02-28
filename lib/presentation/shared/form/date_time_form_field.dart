@@ -103,7 +103,10 @@ class _CollactionDateTimeFormFieldState
 
   void _validateDateTime() {
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
+        ? _mapValidationOutput = MapValidationOutput(
+            error: _timeSet,
+            output: "",
+          )
         : _mapValidationOutput = mapValidation(
             widget.validationCallback!(
               _dateTime,
