@@ -29,7 +29,10 @@ class CrowdAction with _$CrowdAction {
 }
 
 class Images {
-  const Images({required this.card, required this.banner});
+  const Images({
+    required this.card,
+    required this.banner,
+  });
 
   final String card;
   final String banner;
