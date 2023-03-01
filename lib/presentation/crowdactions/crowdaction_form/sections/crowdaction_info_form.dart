@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/shared/form/country_field.dart';
@@ -21,30 +23,51 @@ class CrowdActionInfoForm extends StatefulWidget {
 }
 
 class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
+  late Timer _everySecond;
+  late Timer _everyMinute;
   String? title;
   String? type;
   late DateTime startDate;
   bool startDateSet = false;
   late DateTime endDate;
   bool endDateSet = false;
-  late DateTime joinByDate;
+  DateTime? joinByDate;
   bool joinByDateSet = false;
-  Location? country;
-  String? description;
-  String? category;
+  late Location country;
+  late String description;
+  late String category;
   String? subcategory;
   String? password;
 
   @override
   void initState() {
     super.initState();
-    startDate = DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day,
-    );
+    startDate = DateTime.now()
+        .copyWith(
+          second: 0,
+          millisecond: 0,
+          microsecond: 0,
+        )
+        .add(const Duration(minutes: 5));
     endDate = startDate.add(const Duration(minutes: 1));
     joinByDate = startDate;
+
+    _everySecond = Timer.periodic(const Duration(seconds: 1), (_) {
+      var now = DateTime.now();
+      if (now.second == 0) {
+        _onMinuteChange();
+        _everyMinute = Timer.periodic(
+            const Duration(minutes: 1), (Timer t) => _onMinuteChange());
+        _everySecond.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _everySecond.cancel();
+    _everyMinute.cancel();
   }
 
   @override
@@ -82,17 +105,18 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                     CollactionTextFormField(
                       label: "Subcategory",
                       width: halfWidth,
-                      validationCallback: validateEmptyTextField,
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollactionDateTimeFormField(
                       label: "Start date",
                       width: halfWidth,
                       selectedDate: startDate,
+                      earliestDate:
+                          DateTime.now().add(const Duration(minutes: 5)),
                       latestDate: endDateSet
                           ? endDate.subtract(const Duration(minutes: 1))
                           : null,
-                      validationCallback: validateDateTimeField,
+                      validationCallback: validateIncompleteDateTimeField,
                       callback: (bool error, DateTime dateTime) {
                         startDate = dateTime;
                         startDateSet = true;
@@ -104,10 +128,9 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       label: "End date",
                       width: halfWidth,
                       selectedDate: endDate,
-                      earliestDate: startDate.compareTo(joinByDate) > 0
-                          ? startDate.add(const Duration(minutes: 1))
-                          : joinByDate.add(const Duration(minutes: 1)),
-                      validationCallback: validateDateTimeField,
+                      earliestDate: _getEarliestEndDateTime(),
+                      validationCallback:
+                          validateIncompleteDateTimeField, // not required
                       callback: (bool error, DateTime dateTime) {
                         endDate = dateTime;
                         endDateSet = true;
@@ -119,10 +142,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       label: "Join end at",
                       width: halfWidth,
                       selectedDate: joinByDate,
+                      earliestDate:
+                          DateTime.now().add(const Duration(minutes: 5)),
                       latestDate: endDateSet
                           ? endDate.subtract(const Duration(minutes: 1))
                           : null,
-                      validationCallback: validateDateTimeField,
                       callback: (bool error, DateTime dateTime) {
                         joinByDate = dateTime;
                         joinByDateSet = true;
@@ -141,11 +165,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: fullWidth,
                       multiLine: true,
                       buttonTriggered: widget.buttonTriggered,
+                      validationCallback: validateEmptyTextField,
                     ),
                     CollactionTextFormField(
                       label: "Password",
                       width: fullWidth,
-                      validationCallback: validatePasswordSimple,
                       buttonTriggered: widget.buttonTriggered,
                     ),
                   ],
@@ -156,5 +180,30 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
         ],
       ),
     );
+  }
+
+  DateTime _getEarliestEndDateTime() {
+    if (!startDateSet && !joinByDateSet) {
+      return DateTime.now().add(const Duration(minutes: 6));
+    }
+
+    return startDate.compareTo(joinByDate!) > 0
+        ? startDate.add(const Duration(minutes: 1))
+        : joinByDate!.add(const Duration(minutes: 1));
+  }
+
+  void _onMinuteChange() {
+    var now = DateTime.now().add(const Duration(minutes: 5));
+    if (startDate.compareTo(now) < 0) {
+      startDate = now;
+    }
+    if (joinByDate!.compareTo(now) < 0) {
+      joinByDate = now;
+    }
+    now = now.add(const Duration(minutes: 1));
+    if (endDate.compareTo(now) < 0) {
+      endDate = now;
+    }
+    setState(() {});
   }
 }

@@ -7,7 +7,7 @@ class CollActionTimePicker extends StatefulWidget {
   final DateTime? selectedTime;
   final DateTime? earliestTime;
   final DateTime? latestTime;
-  final Function(DateTime)? onTimeSelected;
+  final Function? onTimeSelected;
   final Function()? onCancel;
   final TextEditingController minuteController = TextEditingController();
   final TextEditingController hourController = TextEditingController();
@@ -27,31 +27,18 @@ class CollActionTimePicker extends StatefulWidget {
 
 class _CollActionTimePickerState extends State<CollActionTimePicker> {
   late DateTime _time;
-  TimeOfDay _earliestTime = const TimeOfDay(hour: 0, minute: 0);
-  TimeOfDay _latestTime = const TimeOfDay(hour: 23, minute: 59);
 
   final NumberFormat formatter = NumberFormat("00");
 
   @override
   void initState() {
     super.initState();
-    _time = widget.selectedTime == null
-        ? DateTime.now().copyWith(hour: 0, minute: 0)
-        : widget.selectedTime!;
-
-    if (widget.earliestTime != null && _time.isSameDate(widget.earliestTime!)) {
-      _earliestTime = TimeOfDay.fromDateTime(widget.earliestTime!);
-    }
-
-    if (widget.latestTime != null && _time.isSameDate(widget.latestTime!)) {
-      _latestTime = TimeOfDay.fromDateTime(widget.latestTime!);
-    }
-
-    _validateTime();
+    _time = widget.selectedTime ?? DateTime.now().copyWith(hour: 0, minute: 0);
   }
 
   @override
   Widget build(BuildContext context) {
+    _validateTime();
     return Theme(
       data: Theme.of(context).copyWith(
         colorScheme: const ColorScheme.light(
@@ -148,17 +135,32 @@ class _CollActionTimePickerState extends State<CollActionTimePicker> {
     if (hour > 23) hour = 23;
     if (minute < 0) minute = _time.minute;
     if (minute > 59) minute = 59;
-    if (hour * 60 + minute >= _latestTime.hour * 60 + _latestTime.minute) {
-      hour = _latestTime.hour;
-      minute = _latestTime.minute;
+
+    var latestTime = _getLatestTime();
+    if (hour * 60 + minute >= latestTime.hour * 60 + latestTime.minute) {
+      hour = latestTime.hour;
+      minute = latestTime.minute;
     }
-    if (hour * 60 + minute <= _earliestTime.hour * 60 + _earliestTime.minute) {
-      hour = _earliestTime.hour;
-      minute = _earliestTime.minute;
+    var earliestTime = _getEarliestTime();
+    if (hour * 60 + minute <= earliestTime.hour * 60 + earliestTime.minute) {
+      hour = earliestTime.hour;
+      minute = earliestTime.minute;
     }
     _time = _time.copyWith(hour: hour, minute: minute);
     widget.hourController.text = formatter.format(hour);
     widget.minuteController.text = formatter.format(minute);
+  }
+
+  TimeOfDay _getEarliestTime() {
+    return widget.earliestTime != null && _time.isSameDate(widget.earliestTime!)
+        ? TimeOfDay.fromDateTime(widget.earliestTime!)
+        : const TimeOfDay(hour: 0, minute: 0);
+  }
+
+  TimeOfDay _getLatestTime() {
+    return widget.latestTime != null && _time.isSameDate(widget.latestTime!)
+        ? TimeOfDay.fromDateTime(widget.latestTime!)
+        : const TimeOfDay(hour: 23, minute: 59);
   }
 }
 

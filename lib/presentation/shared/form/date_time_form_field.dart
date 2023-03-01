@@ -41,14 +41,9 @@ class _CollactionDateTimeFormFieldState
   bool _timeSet = false;
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     _dateTime = _getCurrentDateTime();
     _validateDateTime();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
       error: widget.buttonTriggered && _mapValidationOutput.error
@@ -63,7 +58,7 @@ class _CollactionDateTimeFormFieldState
             DatePickerButton(
               readOnly: widget.readOnly,
               width: widget.width * 0.67,
-              selectedDate: _getCurrentDateTime(),
+              selectedDate: _dateTime,
               earliestDate: widget.earliestDate,
               latestDate: widget.latestDate,
               callback: (DateTime dateTime) {
@@ -81,7 +76,7 @@ class _CollactionDateTimeFormFieldState
             TimePickerButton(
               readOnly: widget.readOnly || !_dateSet,
               width: widget.width * 0.33 - 4,
-              selectedTime: _getCurrentDateTime(),
+              selectedTime: _dateTime,
               earliestTime: widget.earliestDate,
               latestTime: widget.latestDate,
               callback: (DateTime dateTime) {
@@ -102,27 +97,32 @@ class _CollactionDateTimeFormFieldState
   DateTime _getCurrentDateTime() {
     return _dateSet
         ? widget.selectedDate!
-        : widget.earliestDate != null
-            ? widget.earliestDate!
-            : DateTime.now().copyWith(hour: 0, minute: 0, second: 0);
+        : widget.earliestDate ??
+            DateTime.now().copyWith(hour: 0, minute: 0, second: 0);
   }
 
   void _validateDateTime() {
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
+        ? _mapValidationOutput = MapValidationOutput(
+            error: _timeSet,
+            output: "",
+          )
         : _mapValidationOutput = mapValidation(
             widget.validationCallback!(
               _dateTime,
               _dateSet,
               _timeSet,
-              widget.earliestDate,
-              widget.latestDate,
             ),
           );
 
-    _dateTime = _mapValidationOutput.error
+    _dateTime = _mapValidationOutput.error || _mapValidationOutput.output == ""
         ? _dateTime
         : DateTime.parse(_mapValidationOutput.output);
+
+    if (widget.latestDate != null &&
+        _dateTime.compareTo(widget.latestDate!) > 0) {
+      _dateTime = widget.latestDate!;
+    }
 
     if (widget.earliestDate != null &&
         _dateTime.compareTo(widget.earliestDate!) < 0) {
