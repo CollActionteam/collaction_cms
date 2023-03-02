@@ -15,6 +15,8 @@ class CollactionTextFormField extends StatefulWidget {
   final bool multiLine;
   final bool buttonTriggered;
   final TextStyle? style;
+  final bool actionSuffix;
+  final Function? suffixCallback;
 
   const CollactionTextFormField({
     super.key,
@@ -29,6 +31,8 @@ class CollactionTextFormField extends StatefulWidget {
     this.multiLine = false,
     this.buttonTriggered = false,
     this.style,
+    this.actionSuffix = false,
+    this.suffixCallback,
   });
 
   @override
@@ -83,6 +87,18 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
               ? TextAlignVertical.top
               : TextAlignVertical.center,
           decoration: InputDecoration(
+            suffixIcon: widget.actionSuffix != false
+                ? MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => widget.callback ?? {},
+                      child: const Icon(
+                        Icons.add_circle_outline,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
             contentPadding: EdgeInsets.fromLTRB(
               8,
               widget.multiLine ? 8 : 25,

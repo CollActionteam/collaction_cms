@@ -1,6 +1,6 @@
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/commitments_list.dart';
-import 'package:collaction_cms/presentation/shared/extra/list_data.dart';
+import 'package:collaction_cms/presentation/shared/extra/list_counter.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 

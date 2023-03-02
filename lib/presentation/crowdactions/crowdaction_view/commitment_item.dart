@@ -43,7 +43,7 @@ class CommitmentItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SelectableText(label,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       fontFamily: "Rubik",
                       color: Color(0xFF585858),
@@ -57,7 +57,7 @@ class CommitmentItem extends StatelessWidget {
                 const SizedBox(height: 5),
                 SelectableText.rich(TextSpan(
                     text: "Tags: ",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       fontFamily: "Rubik",
                       color: Color(0xFF585858),

@@ -43,3 +43,7 @@ const kEndedTagBackground = Color(0xFFF4F5AF);
 const kEndedTagText = Color(0xFFC8A21B);
 
 const kTextCompositionColor = Color(0xFF585858);
+
+//OutlinedButtons
+const addOutlinedColor = Color(0xFF2EB494);
+const removeOutlinedColor = Color(0xFFEC0000);

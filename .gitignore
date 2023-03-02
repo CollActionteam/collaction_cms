@@ -51,8 +51,5 @@ app.*.map.json
 *.freezed.dart
 *.g.dart 
 
-#Utils
-remove_temp_files.py
-
 #Firebase
 .firebase/
