@@ -1,4 +1,4 @@
-import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 
@@ -34,16 +34,16 @@ class CollActionInputField extends StatefulWidget {
 }
 
 class _CollActionInputFieldState extends State<CollActionInputField> {
-  late MapValidationOutput _mapValidationOutput;
+  late ValidationOutput _validationOutput;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
-        : _mapValidationOutput = mapValidation(
-            widget.validationCallback!(widget.initialValue ?? ""));
+        ? _validationOutput = ValidationOutput(error: false, output: "")
+        : _validationOutput =
+            widget.validationCallback!(widget.initialValue ?? "");
   }
 
   @override
@@ -60,14 +60,13 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
             focusNode: widget.focusNode,
             onChanged: (value) {
               widget.validationCallback == null
-                  ? _mapValidationOutput =
-                      MapValidationOutput(error: false, output: "")
-                  : _mapValidationOutput =
-                      mapValidation(widget.validationCallback!(value));
+                  ? _validationOutput =
+                      ValidationOutput(error: false, output: "")
+                  : _validationOutput = widget.validationCallback!(value);
               setState(() {});
               widget.callback == null
                   ? null
-                  : widget.callback!(_mapValidationOutput.error);
+                  : widget.callback!(_validationOutput.error);
             },
             cursorColor: kAccentColor,
             style: widget.password
@@ -102,7 +101,7 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     borderSide: BorderSide(color: Colors.transparent))),
           ),
-          _mapValidationOutput.error && widget.buttonTriggered!
+          _validationOutput.error && widget.buttonTriggered!
               ? Container(
                   transform: Matrix4.translationValues(0, 50, 0),
                   padding: const EdgeInsets.only(left: 10, top: 5),
@@ -117,7 +116,7 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
                       //     color: Colors.red,
                       //   )
                       // ),
-                      Text("${_mapValidationOutput.output}",
+                      Text("${_validationOutput.output}",
                           style: const TextStyle(
                               fontFamily: "Rubik",
                               color: Colors.red,

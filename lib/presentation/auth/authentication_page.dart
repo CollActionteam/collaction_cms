@@ -125,7 +125,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                     });
                                   },
                                   validationCallback: (value) {
-                                    return validatePasswordSimple(value);
+                                    return validateEmptyField(
+                                        value, "Password cannot be empty");
                                   },
                                 ),
                                 const SizedBox(height: 30.0),

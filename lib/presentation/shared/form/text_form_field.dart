@@ -1,5 +1,5 @@
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/form/form_field.dart';
-import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -41,23 +41,23 @@ class CollactionTextFormField extends StatefulWidget {
 }
 
 class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
-  late MapValidationOutput _mapValidationOutput;
+  late ValidationOutput _validationOutput;
 
   @override
   void initState() {
     super.initState();
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
-        : _mapValidationOutput = mapValidation(
-            widget.validationCallback!(widget.initialValue ?? ""));
+        ? _validationOutput = ValidationOutput(error: false, output: "")
+        : _validationOutput =
+            widget.validationCallback!(widget.initialValue ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.buttonTriggered && _mapValidationOutput.error
-          ? _mapValidationOutput.output
+      error: widget.buttonTriggered && _validationOutput.error
+          ? _validationOutput.output
           : null,
       label: widget.label,
       width: widget.width,
@@ -71,14 +71,12 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           focusNode: widget.focusNode,
           onChanged: (value) {
             widget.validationCallback == null
-                ? _mapValidationOutput =
-                    MapValidationOutput(error: false, output: "")
-                : _mapValidationOutput =
-                    mapValidation(widget.validationCallback!(value));
+                ? _validationOutput = ValidationOutput(error: false, output: "")
+                : _validationOutput = widget.validationCallback!(value);
             setState(() {});
             widget.callback == null
                 ? null
-                : widget.callback!(_mapValidationOutput.error);
+                : widget.callback!(_validationOutput.error);
           },
           cursorColor: kAccentColor,
           maxLines: widget.multiLine ? null : 1,

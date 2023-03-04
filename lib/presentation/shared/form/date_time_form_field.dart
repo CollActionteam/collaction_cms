@@ -1,7 +1,7 @@
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/shared/form/util/date_time/date_picker_button.dart';
 import 'package:collaction_cms/presentation/shared/form/util/date_time/time_picker_button.dart';
-import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
 import 'package:flutter/material.dart';
 
 class CollactionDateTimeFormField extends StatefulWidget {
@@ -35,7 +35,7 @@ class CollactionDateTimeFormField extends StatefulWidget {
 
 class _CollactionDateTimeFormFieldState
     extends State<CollactionDateTimeFormField> {
-  late MapValidationOutput _mapValidationOutput;
+  late ValidationOutput _validationOutput;
   late DateTime _dateTime;
   bool _dateSet = false;
   bool _timeSet = false;
@@ -46,8 +46,8 @@ class _CollactionDateTimeFormFieldState
     _validateDateTime();
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.buttonTriggered && _mapValidationOutput.error
-          ? _mapValidationOutput.output
+      error: widget.buttonTriggered && _validationOutput.error
+          ? _validationOutput.output
           : null,
       label: widget.label,
       width: widget.width,
@@ -68,7 +68,7 @@ class _CollactionDateTimeFormFieldState
                       minute: _timeSet ? _dateTime.minute : 0);
                   _dateSet = true;
                   _validateDateTime();
-                  widget.callback!(_mapValidationOutput.error, _dateTime);
+                  widget.callback!(_validationOutput.error, _dateTime);
                 });
               },
             ),
@@ -84,7 +84,7 @@ class _CollactionDateTimeFormFieldState
                   _dateTime = dateTime;
                   _timeSet = true;
                   _validateDateTime();
-                  widget.callback!(_mapValidationOutput.error, _dateTime);
+                  widget.callback!(_validationOutput.error, _dateTime);
                 });
               },
             ),
@@ -103,21 +103,19 @@ class _CollactionDateTimeFormFieldState
 
   void _validateDateTime() {
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(
+        ? _validationOutput = ValidationOutput(
             error: _timeSet,
             output: "",
           )
-        : _mapValidationOutput = mapValidation(
-            widget.validationCallback!(
-              _dateTime,
-              _dateSet,
-              _timeSet,
-            ),
+        : _validationOutput = widget.validationCallback!(
+            _dateTime,
+            _dateSet,
+            _timeSet,
           );
 
-    _dateTime = _mapValidationOutput.error || _mapValidationOutput.output == ""
+    _dateTime = _validationOutput.error || _validationOutput.output == ""
         ? _dateTime
-        : DateTime.parse(_mapValidationOutput.output);
+        : DateTime.parse(_validationOutput.output);
 
     if (widget.latestDate != null &&
         _dateTime.compareTo(widget.latestDate!) > 0) {
