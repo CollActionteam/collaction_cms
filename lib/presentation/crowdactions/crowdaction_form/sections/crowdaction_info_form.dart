@@ -24,7 +24,7 @@ class CrowdActionInfoForm extends StatefulWidget {
 
 class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   late Timer _everySecond;
-  late Timer _everyMinute;
+  Timer? _everyMinute;
   String? title;
   String? type;
   late DateTime startDate;
