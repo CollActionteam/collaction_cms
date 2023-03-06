@@ -67,7 +67,7 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   void dispose() {
     super.dispose();
     _everySecond.cancel();
-    _everyMinute.cancel();
+    _everyMinute?.cancel();
   }
 
   @override
