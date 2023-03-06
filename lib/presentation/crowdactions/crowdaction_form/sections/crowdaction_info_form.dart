@@ -24,7 +24,7 @@ class CrowdActionInfoForm extends StatefulWidget {
 
 class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   late Timer _everySecond;
-  late Timer _everyMinute;
+  Timer? _everyMinute;
   String? title;
   String? type;
   late DateTime startDate;
@@ -67,7 +67,7 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   void dispose() {
     super.dispose();
     _everySecond.cancel();
-    _everyMinute.cancel();
+    _everyMinute?.cancel();
   }
 
   @override
