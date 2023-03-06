@@ -59,6 +59,8 @@ dependencies:
   country_icons: ^2.0.2
   image_network: ^2.5.1
   tap_canvas: ^0.9.4
+  flutter_dropzone: ^3.0.5
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

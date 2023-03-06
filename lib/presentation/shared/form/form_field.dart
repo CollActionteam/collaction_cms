@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CollActionFormField extends StatelessWidget {
   final Widget child;
   final String? label;
+  final String? caption;
   final String? error;
   final double width;
   final bool readOnly;
@@ -12,6 +13,7 @@ class CollActionFormField extends StatelessWidget {
     super.key,
     required this.child,
     this.label,
+    this.caption,
     this.error,
     this.width = double.infinity,
     this.readOnly = false,
@@ -28,7 +30,13 @@ class CollActionFormField extends StatelessWidget {
             "$label:",
             style: CollactionTextStyles.bodyMedium14,
           ),
-          const SizedBox(height: 4),
+          if (caption != null) ...[
+            const SizedBox(height: 10),
+            Text(caption!, style: CollactionTextStyles.body14),
+            const SizedBox(height: 10),
+          ] else ...[
+            const SizedBox(height: 4),
+          ],
           IgnorePointer(
             ignoring: readOnly,
             child: child,

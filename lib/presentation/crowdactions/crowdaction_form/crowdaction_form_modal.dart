@@ -1,5 +1,6 @@
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info_form.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:defer_pointer/defer_pointer.dart';
@@ -84,7 +85,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                   buttonTriggered: _buttonTriggered,
                                 ),
                                 // replace with CrowdActionImagesForm
-                                CrowdActionInfoForm(
+                                CrowdActionImagesForm(
                                   width: halfWidth,
                                   buttonTriggered: _buttonTriggered,
                                 ),
