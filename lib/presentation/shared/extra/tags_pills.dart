@@ -1,3 +1,4 @@
+import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
 class TagPill extends StatelessWidget {
@@ -40,11 +41,9 @@ class TagPill extends StatelessWidget {
               const SizedBox(width: 5),
               Text(
                 value,
-                style: const TextStyle(
-                    fontFamily: "Rubik",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF585858)),
+                style: CollactionTextStyles.captionStyleBold.copyWith(
+                  color: const Color(0xFF585858),
+                ),
               )
             ],
           ),

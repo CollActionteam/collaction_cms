@@ -41,7 +41,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
   void initState() {
     super.initState();
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(error: false, output: "")
+        ? _validationOutput = ValidationOutput(error: false)
         : _validationOutput = widget.validationCallback!(widget.country);
   }
 
@@ -102,8 +102,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                       setState(() {
                     _selectedCountry = countryDetails;
                     widget.validationCallback == null
-                        ? _validationOutput =
-                            ValidationOutput(error: false, output: "")
+                        ? _validationOutput = ValidationOutput(error: false)
                         : _validationOutput =
                             widget.validationCallback!(_selectedCountry);
                     _showPopup = false;

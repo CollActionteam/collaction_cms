@@ -6,7 +6,7 @@ class ValidationOutput {
   final bool error;
   final String output;
 
-  ValidationOutput({required this.error, required this.output});
+  ValidationOutput({required this.error, this.output = ""});
 }
 
 ValidationOutput validateEmailAddress(String input) {
@@ -21,12 +21,12 @@ ValidationOutput validateEmailAddress(String input) {
     return ValidationOutput(error: true, output: "Email is not valid");
   }
 
-  if (!input.contains("@collaction.org")) {
+  if (!input.endsWith("@collaction.org")) {
     return ValidationOutput(
         error: true, output: "Must be a collaction.org email");
   }
 
-  return ValidationOutput(error: false, output: "");
+  return ValidationOutput(error: false);
 }
 
 ValidationOutput validatePassword(String input) {
@@ -36,10 +36,10 @@ ValidationOutput validatePassword(String input) {
   } else {
     if (!RegExp(charRegex).hasMatch(input)) {
       return ValidationOutput(
-          error: true, output: "Password cannot be less that 8 characters");
+          error: true, output: "Password cannot be less than 8 characters");
     }
 
-    return ValidationOutput(error: false, output: "");
+    return ValidationOutput(error: false);
   }
 }
 
@@ -52,7 +52,7 @@ ValidationOutput validateConfirmPassword(String input, String password) {
     return ValidationOutput(error: true, output: "The passwords don't match");
   }
 
-  return ValidationOutput(error: false, output: "");
+  return ValidationOutput(error: false);
 }
 
 ValidationOutput validateIncompleteDateTimeField(
@@ -68,20 +68,18 @@ ValidationOutput validateIncompleteDateTimeField(
     return ValidationOutput(error: true, output: "Time field must be filled");
   }
 
-  return ValidationOutput(error: false, output: "");
+  return ValidationOutput(error: false);
 }
 
 ValidationOutput validateEmptyField(dynamic input,
     [String customMessage = "Field cannot be emtpy"]) {
-  if (input is List<dynamic>) {
-    if (input.contains(null)) {
-      return ValidationOutput(error: true, output: customMessage);
-    }
-  } else {
-    if (input == null || (input is String && input.isEmpty)) {
-      return ValidationOutput(error: true, output: customMessage);
-    }
+  if (input is List<dynamic> && input.contains(null)) {
+    return ValidationOutput(error: true, output: customMessage);
   }
 
-  return ValidationOutput(error: false, output: "");
+  if (input == null || (input is String && input.isEmpty)) {
+    return ValidationOutput(error: true, output: customMessage);
+  }
+
+  return ValidationOutput(error: false);
 }

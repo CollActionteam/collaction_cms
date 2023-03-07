@@ -41,7 +41,7 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
     // TODO: implement initState
     super.initState();
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(error: false, output: "")
+        ? _validationOutput = ValidationOutput(error: false)
         : _validationOutput =
             widget.validationCallback!(widget.initialValue ?? "");
   }
@@ -60,8 +60,7 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
             focusNode: widget.focusNode,
             onChanged: (value) {
               widget.validationCallback == null
-                  ? _validationOutput =
-                      ValidationOutput(error: false, output: "")
+                  ? _validationOutput = ValidationOutput(error: false)
                   : _validationOutput = widget.validationCallback!(value);
               setState(() {});
               widget.callback == null

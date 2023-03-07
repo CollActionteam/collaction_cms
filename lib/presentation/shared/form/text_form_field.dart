@@ -47,7 +47,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   void initState() {
     super.initState();
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(error: false, output: "")
+        ? _validationOutput = ValidationOutput(error: false)
         : _validationOutput =
             widget.validationCallback!(widget.initialValue ?? "");
   }
@@ -71,7 +71,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           focusNode: widget.focusNode,
           onChanged: (value) {
             widget.validationCallback == null
-                ? _validationOutput = ValidationOutput(error: false, output: "")
+                ? _validationOutput = ValidationOutput(error: false)
                 : _validationOutput = widget.validationCallback!(value);
             setState(() {});
             widget.callback == null
@@ -85,7 +85,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
               ? TextAlignVertical.top
               : TextAlignVertical.center,
           decoration: InputDecoration(
-            suffixIcon: widget.actionSuffix != false
+            suffixIcon: widget.actionSuffix
                 ? MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(

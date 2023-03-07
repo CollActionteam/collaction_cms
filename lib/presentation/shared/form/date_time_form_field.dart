@@ -105,7 +105,6 @@ class _CollactionDateTimeFormFieldState
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(
             error: _timeSet,
-            output: "",
           )
         : _validationOutput = widget.validationCallback!(
             _dateTime,

@@ -45,7 +45,6 @@ class CommitmentItem extends StatelessWidget {
                 SelectableText(label,
                     style: const TextStyle(
                       fontSize: 15,
-                      fontFamily: "Rubik",
                       color: Color(0xFF585858),
                       fontWeight: FontWeight.w700,
                     )),
@@ -59,14 +58,14 @@ class CommitmentItem extends StatelessWidget {
                     text: "Tags: ",
                     style: const TextStyle(
                       fontSize: 15,
-                      fontFamily: "Rubik",
                       color: Color(0xFF585858),
                       fontWeight: FontWeight.w500,
                     ),
                     children: [
                       TextSpan(
-                          text: tagsPresentationOutput,
-                          style: CollactionTextStyles.body)
+                        text: tagsPresentationOutput,
+                        style: CollactionTextStyles.body,
+                      )
                     ])),
                 const SizedBox(height: 5),
                 SelectableText(
