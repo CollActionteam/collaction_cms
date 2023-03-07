@@ -1,8 +1,8 @@
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/shared/form/util/country_search.dart';
 import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
-import 'package:collaction_cms/presentation/shared/utils/map_domain_presentation/map_value_validators.dart';
 import 'package:collaction_cms/presentation/theme/button.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:country_codes/country_codes.dart';
@@ -33,7 +33,7 @@ class CollActionCountryField extends StatefulWidget {
 }
 
 class _CollActionCountryFieldState extends State<CollActionCountryField> {
-  late MapValidationOutput _mapValidationOutput;
+  late ValidationOutput _validationOutput;
   CountryDetails? _selectedCountry;
   bool _showPopup = false;
 
@@ -41,17 +41,16 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
   void initState() {
     super.initState();
     widget.validationCallback == null
-        ? _mapValidationOutput = MapValidationOutput(error: false, output: "")
-        : _mapValidationOutput =
-            mapValidation(widget.validationCallback!(widget.country));
+        ? _validationOutput = ValidationOutput(error: false)
+        : _validationOutput = widget.validationCallback!(widget.country);
   }
 
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.buttonTriggered && _mapValidationOutput.error
-          ? _mapValidationOutput.output
+      error: widget.buttonTriggered && _validationOutput.error
+          ? _validationOutput.output
           : null,
       label: widget.label,
       width: widget.width,
@@ -103,10 +102,9 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                       setState(() {
                     _selectedCountry = countryDetails;
                     widget.validationCallback == null
-                        ? _mapValidationOutput =
-                            MapValidationOutput(error: false, output: "")
-                        : _mapValidationOutput = mapValidation(
-                            widget.validationCallback!(_selectedCountry));
+                        ? _validationOutput = ValidationOutput(error: false)
+                        : _validationOutput =
+                            widget.validationCallback!(_selectedCountry);
                     _showPopup = false;
                   }),
                 ),

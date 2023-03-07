@@ -93,13 +93,13 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                     CollactionTextFormField(
                       label: "Title of CrowdAction",
                       width: fullWidth,
-                      validationCallback: validateEmptyTextField,
+                      validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollactionTextFormField(
                       label: "Category",
                       width: halfWidth,
-                      validationCallback: validateEmptyTextField,
+                      validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
                     ),
                     CollactionTextFormField(
@@ -158,14 +158,14 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       label: "Country",
                       width: halfWidth,
                       buttonTriggered: widget.buttonTriggered,
-                      validationCallback: validateCountryField,
+                      validationCallback: validateEmptyField,
                     ),
                     CollactionTextFormField(
                       label: "Description",
                       width: fullWidth,
                       multiLine: true,
                       buttonTriggered: widget.buttonTriggered,
-                      validationCallback: validateEmptyTextField,
+                      validationCallback: validateEmptyField,
                     ),
                     CollactionTextFormField(
                       label: "Password",
