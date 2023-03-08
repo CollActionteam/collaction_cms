@@ -68,7 +68,7 @@ class _CollactionDateTimeFormFieldState
                       minute: _timeSet ? _dateTime.minute : 0);
                   _dateSet = true;
                   _validateDateTime();
-                  widget.callback!(_validationOutput.error, _dateTime);
+                  widget.callback!(_validationOutput, _dateTime);
                 });
               },
             ),
@@ -84,7 +84,7 @@ class _CollactionDateTimeFormFieldState
                   _dateTime = dateTime;
                   _timeSet = true;
                   _validateDateTime();
-                  widget.callback!(_validationOutput.error, _dateTime);
+                  widget.callback!(_validationOutput, _dateTime);
                 });
               },
             ),
@@ -104,7 +104,8 @@ class _CollactionDateTimeFormFieldState
   void _validateDateTime() {
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(
-            error: _timeSet,
+            error: false,
+            output: _dateTime,
           )
         : _validationOutput = widget.validationCallback!(
             _dateTime,
@@ -112,9 +113,9 @@ class _CollactionDateTimeFormFieldState
             _timeSet,
           );
 
-    _dateTime = _validationOutput.error || _validationOutput.output == ""
-        ? _dateTime
-        : DateTime.parse(_validationOutput.output);
+    // _dateTime = _validationOutput.error || _validationOutput.output == ""
+    //     ? _dateTime
+    //     : DateTime.parse(_validationOutput.output);
 
     if (widget.latestDate != null &&
         _dateTime.compareTo(widget.latestDate!) > 0) {

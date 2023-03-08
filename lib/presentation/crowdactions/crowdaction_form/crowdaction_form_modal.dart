@@ -1,6 +1,7 @@
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/commitments_form.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info_form.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_form.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_controller.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:defer_pointer/defer_pointer.dart';
@@ -21,6 +22,8 @@ class CrowdActionFormModal extends StatefulWidget {
 class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
   late final String modalTitle;
   bool _buttonTriggered = false;
+  final CrowdActionInfoFormController _crowdActionInfoFormController =
+      CrowdActionInfoFormController();
 
   @override
   void initState() {
@@ -83,11 +86,13 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                 CrowdActionInfoForm(
                                   width: halfWidth,
                                   buttonTriggered: _buttonTriggered,
+                                  controller: _crowdActionInfoFormController,
                                 ),
                                 // replace with CrowdActionImagesForm
                                 CrowdActionInfoForm(
                                   width: halfWidth,
                                   buttonTriggered: _buttonTriggered,
+                                  controller: _crowdActionInfoFormController,
                                 ),
                                 // replace with CrowdActionCommitmentsForm
                                 const CrowdActionCommitmentsForm()
@@ -118,6 +123,8 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                     text: "Save CrowdAction",
                     onPressed: () => setState(() {
                       _buttonTriggered = true;
+                      print(
+                          "IS READY FOR THE BLOC: ${_crowdActionInfoFormController.isReadyForBloc()}");
                     }),
                     width: 157,
                     height: 37,
