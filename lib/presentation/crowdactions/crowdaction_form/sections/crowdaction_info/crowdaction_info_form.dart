@@ -29,7 +29,6 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   late Timer _everySecond;
   Timer? _everyMinute;
   String? title;
-  String? type;
   late DateTime startDate;
   bool startDateSet = false;
   late DateTime endDate;
