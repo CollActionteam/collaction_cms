@@ -76,7 +76,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
             setState(() {});
             widget.callback == null
                 ? null
-                : widget.callback!(_validationOutput.error);
+                : widget.callback!(_validationOutput);
           },
           cursorColor: kAccentColor,
           maxLines: widget.multiLine ? null : 1,
