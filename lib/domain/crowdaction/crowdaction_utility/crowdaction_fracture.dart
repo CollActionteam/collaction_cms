@@ -6,10 +6,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'crowdaction_fracture.freezed.dart';
 
 @freezed
-class CrowdActionFracture with _$CrowdActionFracture {
-  factory CrowdActionFracture({
-    required CrowdActionInfo? crowdActionInfo,
-    required List<Commitment>? crowdActionCommitments,
-    required CrowdActionImages crowdActionImages,
-  }) = _CrowdActionFracture;
+class CrowdActionFractured with _$CrowdActionFractured {
+  factory CrowdActionFractured({
+    CrowdActionInfo? crowdActionInfo,
+    List<Commitment>? crowdActionCommitments,
+    CrowdActionImages? crowdActionImages,
+  }) = _CrowdActionFractured;
 }
