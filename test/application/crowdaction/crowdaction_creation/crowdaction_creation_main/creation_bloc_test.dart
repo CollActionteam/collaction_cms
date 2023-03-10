@@ -16,7 +16,6 @@ void main() {
 
     setUp(() {
       mediatorBloc = MediatorBloc();
-      // mediatorStreamController = StreamController<MediatorState>();
       crowdActionCreationBloc = CrowdActionCreationBloc(mediatorBloc);
     });
 
@@ -35,6 +34,17 @@ void main() {
             crowdActionCommitments: tCommitmentsList,
             crowdActionImages: tImages))
       ],
+    );
+
+    blocTest(
+      "Testing bloc to bloc communication not completed",
+      build: () => crowdActionCreationBloc,
+      act: (bloc) {
+        mediatorBloc.add(MediatorEvent.loadCrowdActionInfo(tCrowdActionInfo));
+        mediatorBloc.add(
+            const MediatorEvent.loadCrowdActionCommitments(tCommitmentsList));
+      },
+      expect: () => [],
     );
   });
 }

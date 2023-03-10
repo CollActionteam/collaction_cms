@@ -48,7 +48,7 @@ class CrowdActionCreationBloc
     });
   }
 
-  //Implement repostoriess
+  //Implement repositories
   FutureOr<void> _mapCreateCrowdAction(
       Emitter<CrowdActionCreationState> emit, _CreateCrowdAction event) {
     emit(CrowdActionCreationState.crowdActionCreated(
