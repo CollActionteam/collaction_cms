@@ -60,6 +60,8 @@ class MediatorBloc extends Bloc<MediatorEvent, MediatorState> {
       state.mapOrNull(
         loaded: (value) =>
             crowdActionFracturedInitial = value.crowdActionFracture,
+        initial: (value) =>
+            crowdActionFracturedInitial = value.crowdActionFracture,
       );
       emit(MediatorState.loaded(crowdActionFracturedInitial!
           .copyWith(crowdActionCommitments: event.crowdActionCommitments)));
