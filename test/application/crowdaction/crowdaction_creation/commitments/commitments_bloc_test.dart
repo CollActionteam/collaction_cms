@@ -2,12 +2,8 @@ import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
-import 'package:collaction_cms/application/crowdaction/crowdaction_creation/main/crowdaction_creation_bloc.dart';
-import 'package:collaction_cms/application/crowdaction/crowdaction_creation/mediator/mediator_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_fracture.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../test_utilities.dart';
 
