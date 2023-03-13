@@ -5,12 +5,12 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdactio
 import 'package:dartz/dartz.dart';
 
 abstract class ICreateCrowdActionRepository {
-  Future<Either<CrowdActionCreationFailure, Unit>> createCrowdAction(
+  Future<Either<CrowdActionCreationFailure, String>> createCrowdAction(
       CrowdActionInfo crowdActionInfo,
       List<Commitment> commitments,
       CrowdActionImages crowdActionImages);
 
-  Future<Either<CrowdActionCreationFailure, Unit>> updateCrowdActionImages(
+  Future<Either<CrowdActionCreationFailure, String>> updateCrowdActionImages(
     CrowdActionImages crowdActionImages,
     String tokenId,
     String id,

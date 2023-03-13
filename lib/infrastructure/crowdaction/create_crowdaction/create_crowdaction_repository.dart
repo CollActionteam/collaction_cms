@@ -23,7 +23,7 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
       this._client, this._settingsRepository, this._authClientRepository);
 
   @override
-  Future<Either<CrowdActionCreationFailure, Unit>> createCrowdAction(
+  Future<Either<CrowdActionCreationFailure, String>> createCrowdAction(
     CrowdActionInfo crowdActionInfo,
     List<Commitment> commitments,
     CrowdActionImages crowdActionImages,
@@ -79,7 +79,7 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionCreationFailure, Unit>> updateCrowdActionImages(
+  Future<Either<CrowdActionCreationFailure, String>> updateCrowdActionImages(
     CrowdActionImages crowdActionImages,
     String tokenId,
     String id,
@@ -99,7 +99,7 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
           http.MultipartFile.fromBytes('banner', crowdActionImages.banner));
       var response = await request.send();
       if (response.statusCode == 201) {
-        return right(unit);
+        return right(id);
       } else {
         return left(const CrowdActionCreationFailure.networkRequestFailed(
             "Network Requested Failed"));

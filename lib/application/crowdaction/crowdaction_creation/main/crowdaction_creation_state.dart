@@ -5,10 +5,8 @@ class CrowdActionCreationState with _$CrowdActionCreationState {
   const factory CrowdActionCreationState.initial() = _Initial;
   const factory CrowdActionCreationState.loading() = _Loading;
 
-  /// Should be [CrowdAction] not [CrowdActionFractured] It's just for testing purposes,
-  /// Untill the repos are done
   const factory CrowdActionCreationState.crowdActionCreated(
-    final CrowdActionFractured crowdActionFractured,
+    final String crowdActionId,
   ) = _CrowdActionCreated;
 
   const factory CrowdActionCreationState.error(

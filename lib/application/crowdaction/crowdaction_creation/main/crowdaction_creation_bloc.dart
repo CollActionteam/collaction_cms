@@ -2,21 +2,24 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/mediator/mediator_bloc.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_creation/crowdaction_creation_failures.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_fracture.dart';
+import 'package:collaction_cms/domain/crowdaction/crowdaction_creation/i_create_crowdation_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'crowdaction_creation_event.dart';
 part 'crowdaction_creation_state.dart';
 part 'crowdaction_creation_bloc.freezed.dart';
 
+@injectable
 class CrowdActionCreationBloc
     extends Bloc<CrowdActionCreationEvent, CrowdActionCreationState> {
   final MediatorBloc _mediatorBloc;
   late StreamSubscription mediatorStreamSubscription;
+  final ICreateCrowdActionRepository _createCrowdActionRepository;
 
-  CrowdActionCreationBloc(this._mediatorBloc)
+  CrowdActionCreationBloc(this._mediatorBloc, this._createCrowdActionRepository)
       : super(const CrowdActionCreationState.initial()) {
     mediatorStreamSubscription = _mediatorBloc.stream.listen(
       (state) {
@@ -48,10 +51,16 @@ class CrowdActionCreationBloc
     });
   }
 
-  //Implement repositories
   FutureOr<void> _mapCreateCrowdAction(
-      Emitter<CrowdActionCreationState> emit, _CreateCrowdAction event) {
-    emit(CrowdActionCreationState.crowdActionCreated(
-        event.crowdActionFractured));
+      Emitter<CrowdActionCreationState> emit, _CreateCrowdAction event) async {
+    emit(const CrowdActionCreationState.loading());
+    final result = await _createCrowdActionRepository.createCrowdAction(
+        event.crowdActionFractured.crowdActionInfo!,
+        event.crowdActionFractured.crowdActionCommitments!,
+        event.crowdActionFractured.crowdActionImages!);
+    result.fold(
+        (failure) => emit(CrowdActionCreationState.error(failure)),
+        (crowdActionId) =>
+            emit(CrowdActionCreationState.crowdActionCreated(crowdActionId)));
   }
 }

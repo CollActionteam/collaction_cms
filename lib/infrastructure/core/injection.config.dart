@@ -10,23 +10,29 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:http/http.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../application/auth/auth_bloc.dart' as _i16;
+import '../../application/auth/auth_bloc.dart' as _i18;
+import '../../application/crowdaction/crowdaction_creation/main/crowdaction_creation_bloc.dart'
+    as _i19;
 import '../../application/crowdaction/crowdaction_creation/mediator/mediator_bloc.dart'
     as _i10;
 import '../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart'
-    as _i17;
+    as _i20;
 import '../../application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart'
     as _i4;
 import '../../application/crowdaction/pagination/pagination_cubit.dart' as _i11;
 import '../../domain/auth/i_auth_api_repository.dart' as _i12;
 import '../../domain/auth/i_auth_client_repository.dart' as _i6;
 import '../../domain/core/i_settings_repository.dart' as _i8;
-import '../../domain/crowdaction/i_crowdaction_repository.dart' as _i14;
+import '../../domain/crowdaction/crowdaction_creation/i_create_crowdation_repository.dart'
+    as _i14;
+import '../../domain/crowdaction/i_crowdaction_repository.dart' as _i16;
 import '../auth/api/api_auth_repository.dart' as _i13;
 import '../auth/firebase/firebase_auth_repository.dart' as _i7;
-import '../crowdaction/crowdaction_repository.dart' as _i15;
-import 'firebase_injectable.dart' as _i19;
-import 'http_singleton.dart' as _i18;
+import '../crowdaction/create_crowdaction/create_crowdaction_repository.dart'
+    as _i15;
+import '../crowdaction/crowdaction_repository.dart' as _i17;
+import 'firebase_injectable.dart' as _i22;
+import 'http_singleton.dart' as _i21;
 import 'settings_repository.dart'
     as _i9; // ignore_for_file: unnecessary_lambdas
 
@@ -58,22 +64,32 @@ _i1.GetIt $initGetIt(
         get<_i8.ISettingsRepository>(),
         get<_i6.IAuthClientRepository>(),
       ));
-  gh.lazySingleton<_i14.ICrowdActionRepository>(
-      () => _i15.CrowdActionRepository(
+  gh.lazySingleton<_i14.ICreateCrowdActionRepository>(
+      () => _i15.CreateCrowdActionRepository(
+            get<_i3.Client>(),
+            get<_i8.ISettingsRepository>(),
+            get<_i6.IAuthClientRepository>(),
+          ));
+  gh.lazySingleton<_i16.ICrowdActionRepository>(
+      () => _i17.CrowdActionRepository(
             get<_i3.Client>(),
             get<_i8.ISettingsRepository>(),
           ));
-  gh.factory<_i16.AuthBloc>(() => _i16.AuthBloc(
+  gh.factory<_i18.AuthBloc>(() => _i18.AuthBloc(
         get<_i6.IAuthClientRepository>(),
         get<_i12.IAuthApiRepository>(),
       ));
-  gh.factory<_i17.CrowdActionGetterBloc>(() => _i17.CrowdActionGetterBloc(
-        get<_i14.ICrowdActionRepository>(),
+  gh.factory<_i19.CrowdActionCreationBloc>(() => _i19.CrowdActionCreationBloc(
+        get<_i10.MediatorBloc>(),
+        get<_i14.ICreateCrowdActionRepository>(),
+      ));
+  gh.factory<_i20.CrowdActionGetterBloc>(() => _i20.CrowdActionGetterBloc(
+        get<_i16.ICrowdActionRepository>(),
         get<_i11.PaginationCubit>(),
       ));
   return get;
 }
 
-class _$HttpSingleton extends _i18.HttpSingleton {}
+class _$HttpSingleton extends _i21.HttpSingleton {}
 
-class _$FirebaseInjectable extends _i19.FirebaseInjectable {}
+class _$FirebaseInjectable extends _i22.FirebaseInjectable {}
