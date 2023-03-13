@@ -9,7 +9,7 @@ part 'crowdaction_images.freezed.dart';
 @freezed
 class CrowdActionImages with _$CrowdActionImages {
   factory CrowdActionImages({
-    required Uint8List card,
-    required Uint8List banner,
+    required Uint8List? card,
+    required Uint8List? banner,
   }) = _CrowdActionImages;
 }

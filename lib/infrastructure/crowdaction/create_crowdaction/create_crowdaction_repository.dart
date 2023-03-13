@@ -67,8 +67,14 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
       if (response.statusCode == 201) {
         crowdActionId =
             (jsonDecode(response.body) as Map<String, dynamic>)['id'];
-        return await updateCrowdActionImages(
-            crowdActionImages, await tokenId, crowdActionId);
+        //Add logic that checks for null values in CrowdActionImages
+        if (crowdActionImages.banner == null &&
+            crowdActionImages.card == null) {
+          return await updateCrowdActionImages(
+              crowdActionImages, await tokenId, crowdActionId);
+        } else {
+          return right(crowdActionId);
+        }
       } else {
         return left(const CrowdActionCreationFailure.networkRequestFailed(
             "Network request failed"));
@@ -93,10 +99,17 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
         "Authorization": "Bearer $tokenId"
       };
       request.headers.addAll(headers);
-      request.files
-          .add(http.MultipartFile.fromBytes('card', crowdActionImages.card));
-      request.files.add(
-          http.MultipartFile.fromBytes('banner', crowdActionImages.banner));
+      //Handle possible null values
+      if (crowdActionImages.card != null) {
+        request.files
+            .add(http.MultipartFile.fromBytes('card', crowdActionImages.card!));
+      }
+
+      if (crowdActionImages.banner != null) {
+        request.files.add(
+            http.MultipartFile.fromBytes('banner', crowdActionImages.banner!));
+      }
+
       var response = await request.send();
       if (response.statusCode == 201) {
         return right(id);
