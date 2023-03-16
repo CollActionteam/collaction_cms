@@ -21,8 +21,7 @@ class ImageField extends StatefulWidget {
   const ImageField({
     super.key,
     required this.label,
-    this.caption = "Image should be a PNG or JPEG file. "
-        "Dimensions of the image should be 500 x 600 px",
+    this.caption = "Image should be a PNG or JPEG file.",
     this.width = double.infinity,
     this.imageSize,
     this.callback,
