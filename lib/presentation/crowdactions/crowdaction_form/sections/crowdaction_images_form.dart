@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
 import 'package:collaction_cms/presentation/shared/form/image_field.dart';
 import 'package:flutter/widgets.dart';
@@ -17,9 +20,9 @@ class CrowdActionImagesForm extends StatefulWidget {
 }
 
 class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
-  Image? cardImage;
+  Uint8List? cardImage;
   bool cardImageSet = false;
-  Image? bannerImage;
+  Uint8List? bannerImage;
   bool bannerImageSet = false;
 
   @override
@@ -38,14 +41,16 @@ class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
                 ImageField(
                   label: "Card",
                   buttonTriggered: widget.buttonTriggered,
-                  //validationCallback: validateEmptyField,
-                  callback: (Image image) => cardImage = image,
+                  validationCallback: validateEmptyField,
+                  callback: (Uint8List image) => cardImage = image,
+                  imageSize: const Size(100, 120),
                 ),
                 ImageField(
                   label: "Banner",
                   buttonTriggered: widget.buttonTriggered,
-                  //validationCallback: validateEmptyField,
-                  callback: (Image image) => bannerImage = image,
+                  validationCallback: validateEmptyField,
+                  callback: (Uint8List image) => bannerImage = image,
+                  imageSize: const Size(410, 310),
                 ),
               ],
             ),
