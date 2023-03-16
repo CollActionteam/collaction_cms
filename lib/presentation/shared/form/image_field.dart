@@ -114,6 +114,7 @@ class _ImageFieldState extends State<ImageField> {
                               Text(
                                 message,
                                 style: CollactionTextStyles.body14,
+                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),
