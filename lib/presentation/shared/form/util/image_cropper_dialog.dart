@@ -31,7 +31,7 @@ Future<Uint8List?> showImageCropperModal(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: width,
+              width: width + 48,
               child: Center(
                 child: Column(
                   children: [
@@ -43,52 +43,56 @@ Future<Uint8List?> showImageCropperModal(
                         style: CollactionTextStyles.titleStyleCMS,
                       ),
                     ),
-                    SizedBox(
-                      height: height,
-                      child: Stack(
-                        children: [
-                          Crop(
-                            baseColor: Colors.black,
-                            radius: 5,
-                            image: image,
-                            onCropped: (Uint8List image) =>
-                                Navigator.of(context).pop(
-                              image,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: SizedBox(
+                        width: width,
+                        height: height,
+                        child: Stack(
+                          children: [
+                            Crop(
+                              baseColor: Colors.black,
+                              radius: 5,
+                              image: image,
+                              onCropped: (Uint8List image) =>
+                                  Navigator.of(context).pop(
+                                image,
+                              ),
+                              controller: controller,
+                              aspectRatio: aspectRatio,
+                              interactive: true,
+                              initialSize: 1.0,
+                              fixArea: true,
+                              cornerDotBuilder: (size, edgeAlignment) =>
+                                  const SizedBox.shrink(),
+                              initialAreaBuilder: (rect) {
+                                return Rect.fromLTRB(
+                                  rect.left + cropperMargin,
+                                  rect.top + cropperMargin,
+                                  rect.right - cropperMargin,
+                                  rect.bottom - cropperMargin,
+                                );
+                              },
                             ),
-                            controller: controller,
-                            aspectRatio: aspectRatio,
-                            interactive: true,
-                            initialSize: 1.0,
-                            fixArea: true,
-                            cornerDotBuilder: (size, edgeAlignment) =>
-                                const SizedBox.shrink(),
-                            initialAreaBuilder: (rect) {
-                              return Rect.fromLTRB(
-                                rect.left + cropperMargin,
-                                rect.top + cropperMargin,
-                                rect.right - cropperMargin,
-                                rect.bottom - cropperMargin,
-                              );
-                            },
-                          ),
-                          Positioned(
-                            right: cropperMargin,
-                            bottom: cropperMargin,
-                            child: IgnorePointer(
-                              child: Container(
-                                width: cropperWidth,
-                                height: cropperHeight,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: kBlackPrimary0,
-                                    width: 2,
+                            Positioned(
+                              right: cropperMargin,
+                              bottom: cropperMargin,
+                              child: IgnorePointer(
+                                child: Container(
+                                  width: cropperWidth,
+                                  height: cropperHeight,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: kBlackPrimary0,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
