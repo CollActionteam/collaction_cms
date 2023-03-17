@@ -1,6 +1,7 @@
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/assigned_commitments.dart';
 import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/assign_commitments.dart';
 import 'package:flutter/material.dart';
 
 class CrowdActionCommitmentsForm extends StatelessWidget {
@@ -18,9 +19,8 @@ class CrowdActionCommitmentsForm extends StatelessWidget {
             alignment: Alignment.topLeft,
             padding: const EdgeInsets.symmetric(horizontal: 23),
             child: Wrap(
-              children: [
-                AssignedCommitments(),
-              ],
+              spacing: 80,
+              children: const [AssignedCommitments(), AssignCommitments()],
             ),
           ),
         ],

@@ -17,6 +17,7 @@ class CollactionTextFormField extends StatefulWidget {
   final TextStyle? style;
   final bool actionSuffix;
   final Function? suffixCallback;
+  final Color backgroundColor;
 
   const CollactionTextFormField({
     super.key,
@@ -33,6 +34,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.style,
     this.actionSuffix = false,
     this.suffixCallback,
+    this.backgroundColor = Colors.transparent,
   });
 
   @override
@@ -106,7 +108,8 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
             enabledBorder: CollActionBorderStyles.formFieldBorderSide,
             border: CollActionBorderStyles.formFieldBorderSide,
             focusedBorder: CollActionBorderStyles.formFieldBorderSide,
-            fillColor: widget.readOnly ? kBlackPrimary0 : Colors.transparent,
+            fillColor:
+                widget.readOnly ? kBlackPrimary0 : widget.backgroundColor,
             filled: true,
           ),
           mouseCursor: widget.readOnly

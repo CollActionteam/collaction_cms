@@ -61,7 +61,6 @@ class _CommitmentItemState extends State<CommitmentItem>
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        // mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 53,

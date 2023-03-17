@@ -57,6 +57,7 @@ class CollActionButtonRectangle extends StatelessWidget {
     this.height = 32,
     this.padding = 12,
     this.inverted = false,
+    this.fontSize = 16,
   }) : super(key: key);
 
   final String text;
@@ -67,6 +68,7 @@ class CollActionButtonRectangle extends StatelessWidget {
   final double height;
   final double padding;
   final bool inverted;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +104,10 @@ class CollActionButtonRectangle extends StatelessWidget {
               ],
               Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: "Rubik",
                   fontWeight: FontWeight.w400,
-                  fontSize: 16,
+                  fontSize: fontSize,
                 ),
               ),
             ],
