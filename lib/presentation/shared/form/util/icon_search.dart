@@ -70,7 +70,7 @@ class _IconSearchState extends State<IconSearch> {
                         ),
                       ),
                     ),
-                    onChanged: _searchCountry,
+                    onChanged: _searchIcon,
                   ),
                 ),
               )
@@ -80,7 +80,7 @@ class _IconSearchState extends State<IconSearch> {
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                var key = crowdActionCommitmentIcons.keys.elementAt(index);
+                var key = _sortedMap.keys.elementAt(index);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: InkWell(
@@ -94,7 +94,7 @@ class _IconSearchState extends State<IconSearch> {
                       child: Row(
                         children: [
                           Icon(
-                            crowdActionCommitmentIcons[key],
+                            _sortedMap[key],
                             size: 28,
                             color: kAccentColor,
                           ),
@@ -112,7 +112,7 @@ class _IconSearchState extends State<IconSearch> {
                   ),
                 );
               },
-              itemCount: crowdActionCommitmentIcons.length,
+              itemCount: _sortedMap.length,
             ),
           )
         ],
@@ -120,20 +120,18 @@ class _IconSearchState extends State<IconSearch> {
     );
   }
 
-  /// Find country name matching search pattern
-  void _searchCountry(String text) {
-    _sortedMap.clear;
-
+  /// Find icon name matching search pattern
+  void _searchIcon(String text) {
+    _sortedMap.clear();
     setState(() {
       if (text.isEmpty) {
-        _sortedMap.addAll(crowdActionCommitmentIcons);
+        _sortedMap.addAll(SplayTreeMap.from(
+            crowdActionCommitmentIcons, (a, b) => a.compareTo(b)));
       } else {
         _sortedMap.addAll(
-          Map.from(crowdActionCommitmentIcons)
-            ..removeWhere(
-              (key, value) =>
-                  key.toLowerCase().contains(text.toLowerCase()) == false,
-            ),
+          SplayTreeMap.from(crowdActionCommitmentIcons)
+            ..removeWhere((key, value) =>
+                !key.toLowerCase().contains(text.toLowerCase())),
         );
       }
     });

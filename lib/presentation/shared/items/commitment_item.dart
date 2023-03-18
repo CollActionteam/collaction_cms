@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +14,11 @@ class CommitmentItem extends StatefulWidget {
     required this.iconData,
     required this.label,
     required this.commitmentItemType,
-    this.expandableChildWidget,
   });
 
   final IconData iconData;
   final String label;
   final CommitmentItemType commitmentItemType;
-  final Widget? expandableChildWidget;
 
   @override
   State<CommitmentItem> createState() => _CommitmentItemState();
@@ -26,8 +26,11 @@ class CommitmentItem extends StatefulWidget {
 
 class _CommitmentItemState extends State<CommitmentItem>
     with SingleTickerProviderStateMixin {
-  bool? _itemStatusFields;
+  bool? _itemStatusFields = true;
   bool _isExpanded = false;
+
+  CommitmentFormController _commitmentFormController =
+      CommitmentFormController();
 
   late AnimationController _dropdownController;
   late Animation<double> _dropdownAnimation;
@@ -138,7 +141,10 @@ class _CommitmentItemState extends State<CommitmentItem>
             visible: _isExpanded,
             child: Container(
               padding: const EdgeInsets.only(right: 10),
-              child: widget.expandableChildWidget,
+              child: CommitmentItemForm(
+                controller: _commitmentFormController,
+                backgroundColor: Colors.white,
+              ),
             ),
           )
         ],

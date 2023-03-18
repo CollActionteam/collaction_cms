@@ -20,9 +20,6 @@ class AssignedCommitmentsList extends StatelessWidget {
               iconData: mapIcon("no-beef"),
               label: "No beef for one week",
               commitmentItemType: CommitmentItemType.statusChecker,
-              expandableChildWidget: const CommitmentItemForm(
-                labelValue: "No beef for one week",
-              ),
             ),
           );
         });

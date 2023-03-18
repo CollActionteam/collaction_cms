@@ -1,4 +1,5 @@
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/assigned_commitments_list.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/buttons/combo_buttons.dart';
@@ -16,6 +17,8 @@ class AssignCommitments extends StatefulWidget {
 
 class _AssignCommitmentsState extends State<AssignCommitments> {
   bool onOrOff = false;
+  CommitmentFormController _commitmentFormController =
+      CommitmentFormController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,8 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                 : Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
-                    child: const CommitmentItemForm(
+                    child: CommitmentItemForm(
+                      controller: _commitmentFormController,
                       backgroundColor: Colors.white,
                     ),
                   ))

@@ -1,4 +1,5 @@
 import 'package:collaction_cms/domain/core/value_validators.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/shared/form/icon_field.dart';
 import 'package:collaction_cms/presentation/shared/form/tags_field.dart';
 import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
@@ -8,11 +9,13 @@ class CommitmentItemForm extends StatefulWidget {
   const CommitmentItemForm({
     super.key,
     this.labelValue,
+    required this.controller,
     this.backgroundColor = Colors.transparent,
   });
 
   final String? labelValue;
   final Color backgroundColor;
+  final CommitmentFormController controller;
 
   @override
   State<CommitmentItemForm> createState() => _CommitmentItemFormState();
@@ -26,9 +29,13 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
       children: [
         const SizedBox(height: 10),
         CollactionTextFormField(
-          label: "Label",
+          label: "Title",
           initialValue: widget.labelValue ?? '',
           backgroundColor: widget.backgroundColor,
+          validationCallback: validateEmptyField,
+          callback: (ValidationOutput validationOutput) {
+            widget.controller.validationOutputTitle = validationOutput;
+          },
         ),
         CollActionTagsField(
           backgroundColor: widget.backgroundColor,
@@ -49,6 +56,10 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
               child: CollactionTextFormField(
                 label: "Points",
                 backgroundColor: widget.backgroundColor,
+                validationCallback: validateEmptyField,
+                callback: (ValidationOutput validationOutput) {
+                  widget.controller.validationOutputPoints = validationOutput;
+                },
               ),
             ),
             const SizedBox(width: 16),
@@ -56,7 +67,9 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
                 child: CollActionIconField(
               validationCallback: validateEmptyField,
               label: "Icons",
-              callback: (ValidationOutput validationOutput) {},
+              callback: (ValidationOutput validationOutput) {
+                widget.controller.validationOutputIcon = validationOutput;
+              },
             ))
           ],
         ),
