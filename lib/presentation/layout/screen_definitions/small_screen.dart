@@ -1,18 +1,18 @@
-
-import 'package:collaction_cms/presentation/navigation/top_bar.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../navigation/top_bar.dart';
+import '../../theme/constants.dart';
 
 class SmallScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final GlobalKey<NavigatorState> navigatorKey;
 
-  const SmallScreen({
-    Key? key,
-    required this.scaffoldKey,
-    required this.navigatorKey,
-    required this.child
-  }) : super(key: key);
+  const SmallScreen(
+      {Key? key,
+      required this.scaffoldKey,
+      required this.navigatorKey,
+      required this.child})
+      : super(key: key);
 
   final Widget child;
 

@@ -1,6 +1,7 @@
-import 'package:collaction_cms/presentation/navigation/widgets/menu.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../theme/constants.dart';
+import 'widgets/menu.dart';
 
 class SideNavigation extends StatelessWidget {
   const SideNavigation({Key? key}) : super(key: key);

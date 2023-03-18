@@ -1,5 +1,6 @@
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../domain/crowdaction/crowdaction.dart';
 
 part 'crowdaction_dto.g.dart';
 

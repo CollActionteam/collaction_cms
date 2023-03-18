@@ -1,5 +1,6 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme/constants.dart';
 
 enum SmallOutlinedButtonType { add, remove }
 
@@ -11,7 +12,7 @@ class SmallOutlinedButton extends StatelessWidget {
   });
 
   final SmallOutlinedButtonType smallOutlinedButtonType;
-  final Function callback;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class SmallOutlinedButton extends StatelessWidget {
                 ),
               ),
             )),
-        onPressed: () => callback(),
-        child: Container(
+        onPressed: callback,
+        child: Align(
           alignment: Alignment.center,
           child: Text(
             smallOutlinedButtonType == SmallOutlinedButtonType.add

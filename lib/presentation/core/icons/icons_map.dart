@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import './collaction_icons.dart';
+import 'collaction_icons.dart';
 
 const crowdActionCommitmentIcons = <String, IconData>{
   'no-beef': CollactionIcons.no_beef,

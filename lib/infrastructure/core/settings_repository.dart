@@ -1,8 +1,7 @@
-import 'dart:html';
-
-import 'package:collaction_cms/domain/core/i_settings_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/core/i_settings_repository.dart';
 
 @LazySingleton(as: ISettingsRepository)
 class SettingRepository implements ISettingsRepository {

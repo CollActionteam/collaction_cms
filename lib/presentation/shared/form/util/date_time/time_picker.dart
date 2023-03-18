@@ -1,7 +1,9 @@
-import 'package:collaction_cms/presentation/shared/form/util/number_field.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../theme/constants.dart';
+import '../../../../utils/datetime_util.dart';
+import '../number_field.dart';
 
 class CollActionTimePicker extends StatefulWidget {
   final DateTime? selectedTime;
@@ -136,16 +138,18 @@ class _CollActionTimePickerState extends State<CollActionTimePicker> {
     if (minute < 0) minute = _time.minute;
     if (minute > 59) minute = 59;
 
-    var latestTime = _getLatestTime();
+    final latestTime = _getLatestTime();
     if (hour * 60 + minute >= latestTime.hour * 60 + latestTime.minute) {
       hour = latestTime.hour;
       minute = latestTime.minute;
     }
-    var earliestTime = _getEarliestTime();
+
+    final earliestTime = _getEarliestTime();
     if (hour * 60 + minute <= earliestTime.hour * 60 + earliestTime.minute) {
       hour = earliestTime.hour;
       minute = earliestTime.minute;
     }
+
     _time = _time.copyWith(hour: hour, minute: minute);
     widget.hourController.text = formatter.format(hour);
     widget.minuteController.text = formatter.format(minute);
@@ -165,7 +169,6 @@ class _CollActionTimePickerState extends State<CollActionTimePicker> {
 }
 
 extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
+  bool isSameDate(DateTime other) =>
+      year == other.year && month == other.month && day == other.day;
 }

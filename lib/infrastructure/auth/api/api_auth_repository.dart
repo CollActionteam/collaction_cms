@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:collaction_cms/domain/auth/preauth_credential.dart';
-import 'package:collaction_cms/infrastructure/auth/api/preauth_credential_dto.dart';
-import 'package:http/http.dart' as http;
 
-import 'package:collaction_cms/domain/auth/auth_failure.dart';
-import 'package:collaction_cms/domain/auth/i_auth_client_repository.dart';
-import 'package:collaction_cms/domain/auth/i_auth_api_repository.dart';
-import 'package:collaction_cms/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+
+import '../../../domain/auth/auth_failure.dart';
+import '../../../domain/auth/i_auth_api_repository.dart';
+import '../../../domain/auth/i_auth_client_repository.dart';
+import '../../../domain/auth/preauth_credential.dart';
+import '../../../domain/core/i_settings_repository.dart';
+import 'preauth_credential_dto.dart';
 
 @LazySingleton(as: IAuthApiRepository)
 class AuthApiRepository implements IAuthApiRepository {
@@ -29,6 +30,7 @@ class AuthApiRepository implements IAuthApiRepository {
     try {
       final user = await _authClientRepository.user.first;
       late final Future<String> tokenId;
+
       user.map((user) async {
         tokenId = user.getIdToken();
       });
@@ -36,23 +38,25 @@ class AuthApiRepository implements IAuthApiRepository {
       final uri = Uri.parse(
           '${await _settingsRepository.baseApiEndpointUrl}/v1/auth/invite-admin');
 
-      final response = await _client.post(uri,
-          headers: <String, String>{
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${await tokenId}'
-          },
-          body: jsonEncode({
-            'email': email,
-          }));
+      final response = await _client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${await tokenId}'
+        },
+        body: jsonEncode({
+          'email': email,
+        }),
+      );
 
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
-      } else {
-        print(response.body);
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
+
+      return left(
+        const AuthFailure.networkRequestFailed("Network request failed"),
+      );
     } catch (e) {
-      print(e);
       return left(const AuthFailure.serverError("Server error"));
     }
   }
@@ -71,22 +75,24 @@ class AuthApiRepository implements IAuthApiRepository {
           body: jsonEncode({'email': email, 'url': url}));
 
       if (response.statusCode.toString().startsWith("20")) {
-        if(response.body.isEmpty) {
-          return left( const AuthFailure.missingValues("Missing values from backend response"));
+        if (response.body.isEmpty) {
+          return left(
+            const AuthFailure.missingValues(
+              "Missing values from backend response",
+            ),
+          );
         }
 
-        final PreAuthCredentialDto preAuthCredentialDto = 
-            PreAuthCredentialDto.fromJson(
-              (jsonDecode(response.body) as Map<String, dynamic>)
-            );
-        
+        final preAuthCredentialDto = PreAuthCredentialDto.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>);
+
         return right(preAuthCredentialDto.toDomain());
-            
-      } else {
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
+
+      return left(
+        const AuthFailure.networkRequestFailed("Network request failed"),
+      );
     } catch (e) {
-      print(e);
       return left(const AuthFailure.serverError("Server error"));
     }
   }
@@ -102,16 +108,17 @@ class AuthApiRepository implements IAuthApiRepository {
           headers: <String, String>{
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token'
-            },
+          },
           body: jsonEncode({'password': password}));
 
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
-      } else {
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
       }
+
+      return left(
+        const AuthFailure.networkRequestFailed("Network request failed"),
+      );
     } catch (e) {
-      print(e);
       return left(const AuthFailure.serverError("Server error"));
     }
   }

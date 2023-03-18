@@ -1,7 +1,11 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
-ButtonStyle formFieldButtonStyle({bool readOnly = false, double height = 32}) {
+import 'constants.dart';
+
+ButtonStyle formFieldButtonStyle({
+  bool readOnly = false,
+  double height = 32,
+}) {
   return ButtonStyle(
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
@@ -13,10 +17,7 @@ ButtonStyle formFieldButtonStyle({bool readOnly = false, double height = 32}) {
       readOnly ? kBlackPrimary0 : Colors.transparent,
     ),
     fixedSize: MaterialStateProperty.all<Size>(
-      Size(
-        double.infinity,
-        height,
-      ),
+      Size(double.infinity, height),
     ),
     mouseCursor: MaterialStateProperty.all<MouseCursor>(
       readOnly ? SystemMouseCursors.basic : SystemMouseCursors.click,

@@ -1,14 +1,15 @@
-import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/core/enums/enums.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/crowdaction_form_modal.dart';
-import 'package:collaction_cms/presentation/crowdactions/table.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/shared/filters/dropdown.dart';
-import 'package:collaction_cms/presentation/shared/filters/search_input.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../domain/crowdaction/crowdaction.dart';
+import '../core/enums/enums.dart';
+import '../shared/buttons/buttons.dart';
+import '../shared/filters/dropdown.dart';
+import '../shared/filters/search_input.dart';
+import '../theme/constants.dart';
+import 'crowdaction_form/crowdaction_form_modal.dart';
+import 'table.dart';
 
 class CrowdActionsPage extends StatefulWidget {
   const CrowdActionsPage({Key? key}) : super(key: key);
@@ -40,13 +41,14 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                 style: CollactionTextStyles.titleStyleCMS,
               ),
             ),
-            const SizedBox(
-              height: 20,
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: const SelectableText(
+                "Single search",
+                style: CollactionTextStyles.bodyMedium14,
+              ),
             ),
-            Container(
-                alignment: Alignment.centerLeft,
-                child: const SelectableText("Single search",
-                    style: CollactionTextStyles.bodyMedium14)),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -70,21 +72,25 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                             dropdownItemsSearchBy.first) ==
                         "Title") {
                       BlocProvider.of<CrowdActionGetterBloc>(context).add(
-                          CrowdActionGetterEvent.fetchSingleCrowdAction(
-                              null, _searchInputController.text.toLowerCase()));
+                        CrowdActionGetterEvent.fetchSingleCrowdAction(
+                          null,
+                          _searchInputController.text.toLowerCase(),
+                        ),
+                      );
                     }
 
                     if (dropdownItemSearchByValue == "Id") {
                       BlocProvider.of<CrowdActionGetterBloc>(context).add(
-                          CrowdActionGetterEvent.fetchSingleCrowdAction(
-                              _searchInputController.text.toLowerCase(), null));
+                        CrowdActionGetterEvent.fetchSingleCrowdAction(
+                          _searchInputController.text.toLowerCase(),
+                          null,
+                        ),
+                      );
                     }
                   },
                   controller: _searchInputController,
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
+                const SizedBox(width: 20),
                 const Spacer(),
                 CollActionButtonRectangle.wrapped(
                   text: "Add CrowdAction",
@@ -94,7 +100,7 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
               ],
             ),
             const SizedBox(height: 10),
-            Container(
+            Align(
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
@@ -102,10 +108,11 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                     TextSpan(
                       text: "Group search",
                       style: CollactionTextStyles.bodyMedium14,
-                      children: <TextSpan>[
+                      children: [
                         TextSpan(
-                            text: " by status",
-                            style: CollactionTextStyles.captionStyleLight)
+                          text: " by status",
+                          style: CollactionTextStyles.captionStyleLight,
+                        )
                       ],
                     ),
                     strutStyle: StrutStyle(height: 1.4),
@@ -134,22 +141,26 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                   ),
                   const SizedBox(width: 10),
                   SearchIcon(
-                      callback: () => {
-                            BlocProvider.of<CrowdActionGetterBloc>(context).add(
-                                CrowdActionGetterEvent.fetchCrowdActions(1, 8,
-                                    Status.enumOf(dropdownItemSearchByStatus)))
-                          })
+                    callback: () =>
+                        BlocProvider.of<CrowdActionGetterBloc>(context).add(
+                      CrowdActionGetterEvent.fetchCrowdActions(
+                        1,
+                        8,
+                        Status.enumOf(dropdownItemSearchByStatus),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: Container(
-                  alignment: Alignment.topLeft, child: CrowdActionsTable()),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: CrowdActionsTable(),
+              ),
             ),
-            SizedBox(
-              height: 50,
-            )
+            const SizedBox(height: 50)
           ],
         ),
       ),

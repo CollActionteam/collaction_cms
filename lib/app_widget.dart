@@ -1,14 +1,14 @@
-import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
-import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
-import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
-import 'package:collaction_cms/infrastructure/core/injection.dart';
-import 'package:collaction_cms/presentation/theme/theme.dart';
+import 'application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
+import 'application/crowdaction/pagination/pagination_cubit.dart';
+import 'infrastructure/core/injection.dart';
+import 'presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:collaction_cms/application/auth/auth_bloc.dart';
+import 'application/auth/auth_bloc.dart';
 
-import './presentation/go_routing/go_routing.dart';
-import './application/navigation/navigation_bloc.dart';
+import 'presentation/go_routing/go_routing.dart';
+import 'application/navigation/navigation_bloc.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -66,7 +66,7 @@ class AppWidget extends StatelessWidget {
               final goRouter = getRouter(context);
               return BlocListener<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  print(state);
+                  // TODO: Use or remove
                 },
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,

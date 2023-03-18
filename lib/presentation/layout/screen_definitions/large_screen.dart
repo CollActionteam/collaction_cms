@@ -1,19 +1,19 @@
-import 'package:collaction_cms/presentation/navigation/side_navigation.dart';
-import 'package:collaction_cms/presentation/navigation/top_bar.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../navigation/side_navigation.dart';
+import '../../navigation/top_bar.dart';
+import '../../theme/constants.dart';
 
 class LargeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final GlobalKey<NavigatorState> navigatorKey;
 
-  const LargeScreen({
-    Key? key,
-    required this.scaffoldKey,
-    required this.navigatorKey,
-    required this.child
-  }) : super(key: key);
+  const LargeScreen(
+      {Key? key,
+      required this.scaffoldKey,
+      required this.navigatorKey,
+      required this.child})
+      : super(key: key);
 
   final Widget child;
 

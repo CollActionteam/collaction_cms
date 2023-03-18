@@ -1,6 +1,7 @@
-import 'package:collaction_cms/domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'auth_failure.dart';
 
 abstract class IAuthClientRepository {
   Stream<Option<User>> get user;
@@ -10,7 +11,7 @@ abstract class IAuthClientRepository {
   Stream<Option<String>> get roleOption;
 
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword({
-    String email, 
+    String email,
     String password,
   });
 
@@ -24,5 +25,5 @@ abstract class IAuthClientRepository {
     String emailLink,
   });
 
-  Future<void> signOut(); 
+  Future<void> signOut();
 }

@@ -1,17 +1,12 @@
-import 'package:collaction_cms/presentation/shared/notifications/info.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
-class SuccessfulInviteMessage extends StatefulWidget {
-  SuccessfulInviteMessage({Key? key}) : super(key: key);
+import '../shared/notifications/info.dart';
+import '../theme/constants.dart';
 
-  @override
-  State<SuccessfulInviteMessage> createState() =>
-      _SuccessfulInviteMessageState();
-}
+class SuccessfulInviteMessage extends StatelessWidget {
+  const SuccessfulInviteMessage({Key? key}) : super(key: key);
 
-class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,24 +22,23 @@ class _SuccessfulInviteMessageState extends State<SuccessfulInviteMessage> {
             ),
           ),
         ),
-        Container(
+        Padding(
           padding: const EdgeInsets.only(top: 25),
           child: const SelectableText(
             "Invitation sent successfully",
             style: CollactionTextStyles.title2Style,
           ),
         ),
-        Container(
+        Padding(
           padding: const EdgeInsets.only(top: 10),
           child: const SelectableText(
-              "The guest admin will receive the verification link",
-              style: CollactionTextStyles.captionStyleLight),
+            "The guest admin will receive the verification link",
+            style: CollactionTextStyles.captionStyleLight,
+          ),
         ),
         const SizedBox(height: 24),
         const InfoNotification(),
-        const SizedBox(
-          height: 48,
-        )
+        const SizedBox(height: 48)
       ],
     );
   }

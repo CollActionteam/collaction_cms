@@ -1,6 +1,7 @@
-import 'package:collaction_cms/presentation/shared/form/tags_field.dart';
-import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../shared/form/tags_field.dart';
+import '../../../../../shared/form/text_form_field.dart';
 
 class CommitmentItemForm extends StatefulWidget {
   const CommitmentItemForm({

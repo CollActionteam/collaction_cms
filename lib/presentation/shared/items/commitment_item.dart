@@ -1,8 +1,9 @@
 import 'dart:math' as math;
 
-import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme/constants.dart';
+import '../buttons/button_outlined.dart';
 
 enum CommitmentItemType { simple, addButton, statusChecker }
 
@@ -82,7 +83,7 @@ class _CommitmentItemState extends State<CommitmentItem>
                   ),
                 ),
                 const SizedBox(width: 10),
-                Container(
+                SizedBox(
                   width: 150,
                   child: SelectableText(
                     widget.label,
@@ -137,7 +138,7 @@ class _CommitmentItemState extends State<CommitmentItem>
           ),
           Visibility(
             visible: _isExpanded,
-            child: Container(
+            child: Padding(
               padding: const EdgeInsets.only(right: 10),
               child: widget.expandableChildWidget,
             ),

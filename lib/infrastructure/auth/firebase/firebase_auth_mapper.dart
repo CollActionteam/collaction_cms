@@ -25,7 +25,6 @@ extension FirebaseUserX on firebase_auth.User? {
 
 extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
   AuthFailure toFailure() {
-    print(code);
     if (code == 'network-request-failed') {
       return const AuthFailure.networkRequestFailed("Network request failed");
     }
@@ -48,9 +47,7 @@ extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
 
     if (code == "argument-error") {
       return const AuthFailure.invalidUri("Invalid invitation");
-    } 
-    
-    else {
+    } else {
       return const AuthFailure.serverError("Server error");
     }
   }

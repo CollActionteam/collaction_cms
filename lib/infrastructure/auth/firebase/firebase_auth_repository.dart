@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:collaction_cms/domain/auth/auth_failure.dart';
-import 'package:collaction_cms/domain/auth/i_auth_client_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:collaction_cms/infrastructure/auth/firebase/firebase_auth_mapper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:injectable/injectable.dart';
+
+import '../../../domain/auth/auth_failure.dart';
+import '../../../domain/auth/i_auth_client_repository.dart';
+import 'firebase_auth_mapper.dart';
 
 @LazySingleton(as: IAuthClientRepository)
 class AuthRepository implements IAuthClientRepository {
@@ -34,10 +35,10 @@ class AuthRepository implements IAuthClientRepository {
   Stream<Option<String>> get roleOption => firebaseAuth
           .authStateChanges()
           .asyncMap<Option<String>>((currentUser) async {
-        final role = await currentUser?.getIdTokenResult().then(
-            (idTokenResult) => idTokenResult.claims!.containsKey("role")
-                ? idTokenResult.claims!["role"] as String
-                : null);
+        final role = await currentUser
+            ?.getIdTokenResult()
+            .then((idTokenResult) => idTokenResult.claims?["role"] as String?);
+
         return optionOf(role);
       });
 
@@ -45,16 +46,23 @@ class AuthRepository implements IAuthClientRepository {
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
       {String? email, String? password}) async {
     if (email == null || password == null) {
-      return left(const AuthFailure.invalidEmail("Invalid email or password"));
+      return left(const AuthFailure.invalidEmail(
+        "Must enter both an email and a password",
+      ));
     }
 
     try {
       await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
 
-      return await roleOption.first.then((option) => option.fold(
+      return roleOption.first.then(
+        (option) => option.fold(
           () => incorrectRole(),
-          (role) => role == 'ADMIN' ? right(unit) : incorrectRole()));
+          (role) => role == 'ADMIN' ? right(unit) : incorrectRole(),
+        ),
+      );
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
@@ -69,9 +77,12 @@ class AuthRepository implements IAuthClientRepository {
     if (email == null || actionCodeSettings == null) {
       return left(const AuthFailure.invalidUri("Invalid Uri"));
     }
+
     try {
       await firebaseAuth.sendSignInLinkToEmail(
-          email: email, actionCodeSettings: actionCodeSettings);
+        email: email,
+        actionCodeSettings: actionCodeSettings,
+      );
 
       return right(unit);
     } on firebase_auth.FirebaseAuthException catch (error) {
@@ -86,7 +97,9 @@ class AuthRepository implements IAuthClientRepository {
       {String? email, String? emailLink}) async {
     try {
       final userCredential = await firebaseAuth.signInWithEmailLink(
-          email: email!, emailLink: emailLink!);
+        email: email!,
+        emailLink: emailLink!,
+      );
 
       return right(userCredential.user!);
     } on firebase_auth.FirebaseAuthException catch (error) {
@@ -99,6 +112,9 @@ class AuthRepository implements IAuthClientRepository {
   @override
   Future<void> signOut() => firebaseAuth.signOut();
 
-  Either<AuthFailure, Unit> incorrectRole() =>
-      left(const AuthFailure.incorrectRole("Admin role not found"));
+  Either<AuthFailure, Unit> incorrectRole() => left(
+        const AuthFailure.incorrectRole(
+          "You do not have permission to perform this action",
+        ),
+      );
 }

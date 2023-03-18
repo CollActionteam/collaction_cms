@@ -1,14 +1,15 @@
-import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
-import 'package:collaction_cms/presentation/modals/invite_admin.dart';
-import 'package:collaction_cms/presentation/navigation/widgets/navigation_item.dart';
-import 'package:collaction_cms/presentation/navigation/widgets/special_navigation_item.dart';
-import 'package:collaction_cms/presentation/go_routing/routes.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
-import 'package:collaction_cms/application/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tap_canvas/tap_canvas.dart';
+
+import '../../../application/auth/auth_bloc.dart';
+import '../../../application/navigation/navigation_bloc.dart';
+import '../../go_routing/routes.dart';
+import '../../modals/invite_admin.dart';
+import '../../theme/constants.dart';
+import 'navigation_item.dart';
+import 'special_navigation_item.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -107,10 +108,10 @@ class Menu extends StatelessWidget {
                         child: Text(
                           "Sign Out",
                           style: TextStyle(
-                              fontFamily: "Rubik",
-                              color: Colors.red[400],
-                              fontSize: 15,
-                              fontWeight: FontWeight.w300),
+                            color: Colors.red[400],
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       ),
                     ],

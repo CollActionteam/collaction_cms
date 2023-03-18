@@ -1,24 +1,19 @@
-import 'package:collaction_cms/domain/core/i_settings_repository.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/infrastructure/core/injection.dart';
-import 'package:collaction_cms/infrastructure/core/settings_repository.dart';
-import 'package:collaction_cms/presentation/go_routing/routes.dart';
-import 'package:collaction_cms/presentation/shared/composition/image_composition.dart';
-import 'package:collaction_cms/presentation/shared/options/selection_option.dart';
-import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
-import 'package:collaction_cms/presentation/shared/utils/data_parse/date.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:image_network/image_network.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../shared/composition/image_composition.dart';
+import '../../shared/composition/text_composition.dart';
+import '../../shared/utils/data_parse/date.dart';
+import '../../theme/constants.dart';
 
 class InfoPanel extends StatelessWidget {
-  InfoPanel(
-      {Key? key,
-      required this.location,
-      required this.category,
-      required this.subcategory,
-      required this.description})
-      : super(key: key);
+  const InfoPanel({
+    Key? key,
+    required this.location,
+    required this.category,
+    required this.subcategory,
+    required this.description,
+  }) : super(key: key);
 
   final Location location;
   final String category;
@@ -32,28 +27,32 @@ class InfoPanel extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         TextComposition(
-            label: "Location:",
-            content: location.name,
-            textCompositionSize: TextCompositionSize.small),
+          label: "Location:",
+          content: location.name,
+          textCompositionSize: TextCompositionSize.small,
+        ),
         const SizedBox(height: 20),
         Row(
           children: [
             TextComposition(
-                label: "Category:",
-                content: category,
-                textCompositionSize: TextCompositionSize.small),
+              label: "Category:",
+              content: category,
+              textCompositionSize: TextCompositionSize.small,
+            ),
             const SizedBox(width: 80),
             TextComposition(
-                label: "Subcategory:",
-                content: subcategory,
-                textCompositionSize: TextCompositionSize.small),
+              label: "Subcategory:",
+              content: subcategory,
+              textCompositionSize: TextCompositionSize.small,
+            ),
           ],
         ),
         const SizedBox(height: 20),
         TextComposition(
-            label: "Description:",
-            content: description,
-            textCompositionSize: TextCompositionSize.long)
+          label: "Description:",
+          content: description,
+          textCompositionSize: TextCompositionSize.long,
+        )
       ],
     );
   }
@@ -79,14 +78,16 @@ class ImagesPanel extends StatelessWidget {
                 displayableUrl: card,
                 width: 100,
                 height: 128,
-                fallback: const SelectableText("Image not found", style: CollactionTextStyles.body)),
+                fallback: const SelectableText("Image not found",
+                    style: CollactionTextStyles.body)),
             const SizedBox(width: 80),
             ImageComposition(
                 label: "Banner:",
                 displayableUrl: banner,
                 width: 340,
                 height: 310,
-                fallback: const SelectableText("Image not found", style: CollactionTextStyles.body)),
+                fallback: const SelectableText("Image not found",
+                    style: CollactionTextStyles.body)),
           ],
         ),
       ],

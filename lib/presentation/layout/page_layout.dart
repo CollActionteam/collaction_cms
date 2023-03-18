@@ -1,10 +1,10 @@
-import 'package:collaction_cms/presentation/layout/responsiveness.dart';
-import 'package:collaction_cms/presentation/layout/screen_definitions/large_screen.dart';
-import 'package:collaction_cms/presentation/layout/screen_definitions/small_screen.dart';
-import 'package:collaction_cms/presentation/navigation/widgets/menu.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../navigation/widgets/menu.dart';
+import '../theme/constants.dart';
+import 'responsiveness.dart';
+import 'screen_definitions/large_screen.dart';
+import 'screen_definitions/small_screen.dart';
 
 class PageLayout extends StatefulWidget {
   const PageLayout({Key? key, required this.child}) : super(key: key);
@@ -18,7 +18,6 @@ class PageLayout extends StatefulWidget {
 class _PageLayoutState extends State<PageLayout> {
   late GlobalKey<ScaffoldState> scaffoldKey;
   late GlobalKey<NavigatorState> navigatorKey;
-
 
   @override
   void initState() {

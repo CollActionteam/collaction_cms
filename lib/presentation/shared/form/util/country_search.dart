@@ -1,6 +1,7 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
+
+import '../../../theme/constants.dart';
 
 class CountrySearch extends StatefulWidget {
   final Function? onCountrySelected;
@@ -32,7 +33,7 @@ class _CountrySearchState extends State<CountrySearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,

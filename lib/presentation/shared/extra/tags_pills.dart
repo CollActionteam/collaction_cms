@@ -1,5 +1,6 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme/constants.dart';
 
 class TagPill extends StatelessWidget {
   const TagPill({
@@ -9,7 +10,7 @@ class TagPill extends StatelessWidget {
   });
 
   final String value;
-  final Function callback;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +21,19 @@ class TagPill extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(
-                color: const Color(0xFF707070).withOpacity(0.5),
-              )),
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: const Color(0xFF707070).withOpacity(0.5),
+            ),
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => callback(),
+                  onTap: callback,
                   child: const Icon(
                     Icons.close,
                     size: 14,

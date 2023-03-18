@@ -1,7 +1,8 @@
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/presentation/shared/form/form_field.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/core/value_validators.dart';
+import '../../theme/constants.dart';
+import 'form_field.dart';
 
 class CollactionTextFormField extends StatefulWidget {
   final String? label;
@@ -48,8 +49,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
     super.initState();
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
-        : _validationOutput =
-            widget.validationCallback!(widget.initialValue ?? "");
+        : _validationOutput = widget.validationCallback!(widget.initialValue);
   }
 
   @override
@@ -73,10 +73,9 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
             widget.validationCallback == null
                 ? _validationOutput = ValidationOutput(error: false)
                 : _validationOutput = widget.validationCallback!(value);
+
             setState(() {});
-            widget.callback == null
-                ? null
-                : widget.callback!(_validationOutput);
+            widget.callback?.call(_validationOutput);
           },
           cursorColor: kAccentColor,
           maxLines: widget.multiLine ? null : 1,
@@ -89,7 +88,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
                 ? MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      onTap: () => widget.callback ?? {},
+                      onTap: () => widget.callback,
                       child: const Icon(
                         Icons.add_circle_outline,
                         color: Colors.grey,

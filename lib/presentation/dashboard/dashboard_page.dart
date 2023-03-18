@@ -1,33 +1,15 @@
-
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/header.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/fields_panels.dart';
-import 'package:collaction_cms/presentation/shared/composition/crowdaction_title.dart';
-import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatefulWidget {
+import '../theme/constants.dart';
+
+class DashboardPage extends StatelessWidget {
   const DashboardPage({Key? key}) : super(key: key);
-
-  @override
-  State<DashboardPage> createState() => _DashboardPageState();
-}
-
-class _DashboardPageState extends State<DashboardPage> {
-  late ScrollController _statsScrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _statsScrollController = ScrollController();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [],
+      children: const [],
     );
   }
 }

@@ -1,6 +1,7 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../../theme/constants.dart';
 
 class NumberField extends StatefulWidget {
   final String? label;
@@ -19,6 +20,8 @@ class NumberField extends StatefulWidget {
 }
 
 class _NumberFieldState extends State<NumberField> {
+  // TODO: Use or remove
+  // ignore: unused_field
   bool _edited = false;
   bool _editing = false;
   late FocusNode _focusNode;
@@ -69,11 +72,6 @@ class _NumberFieldState extends State<NumberField> {
       onEditingComplete: () {
         widget.onChanged(int.parse(widget.controller.value.text));
         _edited = false;
-      },
-      onTapOutside: (event) {
-        if (_edited) widget.onChanged(int.parse(widget.controller.text));
-        _edited = false;
-        FocusScope.of(context).unfocus();
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
+
+import '../../theme/constants.dart';
 
 class CollActionButton extends StatelessWidget {
   const CollActionButton({
@@ -11,7 +12,7 @@ class CollActionButton extends StatelessWidget {
   }) : super(key: key);
 
   final double width;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final bool loading;
   final String text;
 
@@ -22,26 +23,24 @@ class CollActionButton extends StatelessWidget {
       height: 52,
       child: TextButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(kAccentColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
+          backgroundColor: MaterialStateProperty.all(kAccentColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
-            ))),
-        onPressed: () => onPressed(),
+            ),
+          ),
+        ),
+        onPressed: onPressed,
         child: !loading
             ? Text(
                 text,
-                style: const TextStyle(
-                  fontFamily: "Rubik",
-                  fontWeight: FontWeight.w700,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.w700),
               )
             : const SizedBox(
                 width: 20,
                 height: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                )),
+                child: CircularProgressIndicator(color: Colors.white),
+              ),
       ),
     );
   }
@@ -62,7 +61,7 @@ class CollActionButtonRectangle extends StatelessWidget {
   final String text;
   final IconData? iconData;
   final Color _backgroundColor = kAccentColor;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final double? width;
   final double height;
   final double padding;
@@ -88,22 +87,19 @@ class CollActionButtonRectangle extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () => onPressed(),
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
+        onPressed: onPressed,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: padding),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (iconData != null) ...[
-                _iconWidget(iconData),
+                Icon(iconData),
                 const SizedBox(width: 15)
               ],
               Text(
                 text,
                 style: const TextStyle(
-                  fontFamily: "Rubik",
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                 ),
@@ -113,13 +109,5 @@ class CollActionButtonRectangle extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _iconWidget(IconData? iconData) {
-    if (iconData != null) {
-      return Icon(iconData);
-    } else {
-      return const SizedBox.shrink();
-    }
   }
 }

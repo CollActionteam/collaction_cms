@@ -1,27 +1,34 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/constants.dart';
+
 class SelectionOption extends StatefulWidget {
-  SelectionOption({
+  final IconData iconData;
+  final String text;
+  final Function callback;
+  final bool isSelected;
+
+  const SelectionOption({
     Key? key,
     required this.iconData,
     required this.text,
     required this.callback,
-    this.isSelected = false
-    }) : super(key: key);
-
-    final IconData iconData;
-    final String text;
-    final Function callback;
-    bool isSelected;
+    this.isSelected = false,
+  }) : super(key: key);
 
   @override
   State<SelectionOption> createState() => _SelectionOptionState();
 }
 
 class _SelectionOptionState extends State<SelectionOption> {
-
   bool onHover = false;
+  late bool isSelected;
+
+  @override
+  void initState() {
+    super.initState();
+    isSelected = widget.isSelected;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,31 +36,18 @@ class _SelectionOptionState extends State<SelectionOption> {
       splashColor: kAccentColor,
       onTap: () {
         widget.callback();
-        setState(() {
-          widget.isSelected = true;
-        });
+        setState(() => isSelected = true);
       },
-      onHover: (value) {
-        if(value) {
-          setState(() {
-            onHover = true;
-          });
-        } else {
-          setState(() {
-            onHover = false;
-          });
-        }
-      },
+      onHover: (value) => setState(() => onHover = value),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: onHover || widget.isSelected ? const Color(0xFFEAEAEA) : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: const Color(0xFFE7E7E7)
-          )
-        ),
+            color: onHover || widget.isSelected
+                ? const Color(0xFFEAEAEA)
+                : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFFE7E7E7))),
         child: Row(
           children: [
             Icon(

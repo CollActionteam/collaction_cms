@@ -1,5 +1,6 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme/constants.dart';
 
 class FormHeader extends StatelessWidget {
   final String title;
@@ -28,10 +29,9 @@ class FormHeader extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontFamily: "Rubik",
               color: Color(0xFF707070),
-              fontSize: 18,
               fontWeight: FontWeight.w300,
+              fontSize: 18,
             ),
           )
         ],

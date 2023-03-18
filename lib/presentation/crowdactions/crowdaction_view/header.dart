@@ -1,9 +1,10 @@
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/shared/tags/status.dart';
-import 'package:collaction_cms/presentation/shared/composition/crowdaction_title.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../shared/buttons/buttons.dart';
+import '../../shared/composition/crowdaction_title.dart';
+import '../../shared/tags/status.dart';
+import '../../theme/constants.dart';
 
 class CrowdActionHeader extends StatelessWidget {
   const CrowdActionHeader(
@@ -34,7 +35,9 @@ class CrowdActionHeader extends StatelessWidget {
               CrowdActionTitle(joinStatus: joinStatus, title: title),
               const Spacer(),
               CollActionButtonRectangle.wrapped(
-                  text: "Edit CrowdAction", onPressed: () => {})
+                text: "Edit CrowdAction",
+                onPressed: () => {},
+              )
             ],
           ),
           const SizedBox(height: 20),

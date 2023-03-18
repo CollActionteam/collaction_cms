@@ -1,9 +1,10 @@
-import 'package:collaction_cms/presentation/shared/form/util/date_time/date_picker_dialog.dart';
-import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
-import 'package:collaction_cms/presentation/theme/button.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../theme/button.dart';
+import '../../../../theme/constants.dart';
+import '../field_popup.dart';
+import 'date_picker_dialog.dart';
 
 class DatePickerButton extends StatefulWidget {
   final double width;
@@ -66,7 +67,6 @@ class _DatePickerButtonState extends State<DatePickerButton> {
                         ? DateFormat('dd/MM/yyyy').format(widget.selectedDate!)
                         : "DD/MM/YYYY",
                     style: const TextStyle(
-                      fontFamily: 'Rubik',
                       fontWeight: FontWeight.w300,
                       color: kBlackPrimary300,
                       fontSize: 15,

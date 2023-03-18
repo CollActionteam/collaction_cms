@@ -1,9 +1,10 @@
-import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
-import 'package:collaction_cms/presentation/shared/form/util/date_time/time_picker.dart';
-import 'package:collaction_cms/presentation/theme/button.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../theme/button.dart';
+import '../../../../theme/constants.dart';
+import '../field_popup.dart';
+import 'time_picker.dart';
 
 class TimePickerButton extends StatefulWidget {
   final double width;
@@ -67,7 +68,6 @@ class _TimePickerButtonState extends State<TimePickerButton> {
                           ? DateFormat.Hm().format(widget.selectedTime!)
                           : "--:--",
                       style: const TextStyle(
-                        fontFamily: 'Rubik',
                         fontWeight: FontWeight.w300,
                         color: kBlackPrimary300,
                         fontSize: 15,

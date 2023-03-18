@@ -1,20 +1,21 @@
-import 'package:collaction_cms/presentation/core/enums/enums.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/enums/enums.dart';
+import '../../theme/constants.dart';
+
 class SearchInput extends StatefulWidget {
-  SearchInput(
-      {Key? key,
-      required this.rectSide,
-      this.searchBy,
-      this.callback,
-      required this.controller})
-      : super(key: key);
+  const SearchInput({
+    Key? key,
+    required this.rectSide,
+    required this.controller,
+    this.searchBy,
+    this.callback,
+  }) : super(key: key);
 
   final RectSide rectSide;
-  final String? searchBy;
-  final Function? callback;
   final TextEditingController controller;
+  final String? searchBy;
+  final VoidCallback? callback;
 
   @override
   State<SearchInput> createState() => _SearchInputState();
@@ -23,47 +24,47 @@ class SearchInput extends StatefulWidget {
 class _SearchInputState extends State<SearchInput> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          showIconLeft(widget.rectSide),
-          Container(
-            width: 380,
-            height: 34,
-            decoration: BoxDecoration(border: _border(widget.rectSide)),
-            child: TextFormField(
-              controller: widget.controller,
-              style: CollactionTextStyles.body14,
-              cursorColor: kAccentColor,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                labelText: "Search by ${widget.searchBy}...",
-                labelStyle: CollactionTextStyles.body14,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-              ),
+    return Row(
+      children: [
+        showIconLeft(widget.rectSide),
+        Container(
+          width: 380,
+          height: 34,
+          decoration: BoxDecoration(border: _border(widget.rectSide)),
+          child: TextFormField(
+            controller: widget.controller,
+            style: CollactionTextStyles.body14,
+            cursorColor: kAccentColor,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              labelText: "Search by ${widget.searchBy}...",
+              labelStyle: CollactionTextStyles.body14,
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
             ),
           ),
-          showIconRight(widget.rectSide)
-        ],
-      ),
+        ),
+        showIconRight(widget.rectSide)
+      ],
     );
   }
 
   Border _border(RectSide rectSide) {
     if (rectSide == RectSide.left) {
       return Border(
-          top: CollActionBorderStyles.inputBorderSide,
-          bottom: CollActionBorderStyles.inputBorderSide,
-          left: CollActionBorderStyles.inputBorderSide);
+        top: CollActionBorderStyles.inputBorderSide,
+        bottom: CollActionBorderStyles.inputBorderSide,
+        left: CollActionBorderStyles.inputBorderSide,
+      );
     } else {
       return Border(
-          top: CollActionBorderStyles.inputBorderSide,
-          bottom: CollActionBorderStyles.inputBorderSide,
-          right: CollActionBorderStyles.inputBorderSide);
+        top: CollActionBorderStyles.inputBorderSide,
+        bottom: CollActionBorderStyles.inputBorderSide,
+        right: CollActionBorderStyles.inputBorderSide,
+      );
     }
   }
 
@@ -71,7 +72,7 @@ class _SearchInputState extends State<SearchInput> {
     if (rectSide == RectSide.left) {
       return SearchIcon(
         rectSide: rectSide,
-        callback: widget.callback!,
+        callback: widget.callback ?? () {},
       );
     } else {
       return const SizedBox.shrink();
@@ -82,7 +83,7 @@ class _SearchInputState extends State<SearchInput> {
     if (rectSide == RectSide.right) {
       return SearchIcon(
         rectSide: rectSide,
-        callback: widget.callback!,
+        callback: widget.callback ?? () {},
       );
     } else {
       return const SizedBox.shrink();

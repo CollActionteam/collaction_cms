@@ -1,8 +1,8 @@
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 final appTheme = ThemeData(
-  fontFamily: "Rubik",
   scaffoldBackgroundColor: kScaffoldColorWhite,
   textSelectionTheme:
       const TextSelectionThemeData(selectionColor: kSelectionColor),

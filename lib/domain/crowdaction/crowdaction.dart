@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:collaction_cms/presentation/core/icons/icons_map.dart';
+
+import '../../presentation/core/icons/icons_map.dart';
 
 //Check if freezed is necessary here.
 part 'crowdaction.freezed.dart';

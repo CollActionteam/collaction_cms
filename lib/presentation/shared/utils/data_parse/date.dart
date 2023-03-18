@@ -6,8 +6,8 @@ class DateParse {
   static returnCollActionDate(
       DateTime dateTime, DateFormatOutput dateFormatOutput) {
     final DateFormat format = DateFormat("MMMM");
-    var month = format.format(dateTime);
-    var day = dateTime.day;
+    final month = format.format(dateTime);
+    final day = dateTime.day;
     String ordinalDay;
 
     if (day >= 11 && day <= 13) {
@@ -34,8 +34,7 @@ class DateParse {
     }
 
     if (dateFormatOutput == DateFormatOutput.withYear) {
-      var year = dateTime.year;
-      return "$month $ordinalDay, $year";
+      return "$month $ordinalDay, ${dateTime.year}";
     }
   }
 }

@@ -1,17 +1,18 @@
-import 'package:collaction_cms/presentation/auth/authentication_page.dart';
-import 'package:collaction_cms/presentation/auth/create_credentials.dart';
-import 'package:collaction_cms/presentation/auth/link_auth_page.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/crowdaction_view.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdactions_page.dart';
-import 'package:collaction_cms/presentation/dashboard/dashboard_page.dart';
-import 'package:collaction_cms/presentation/go_routing/listenables.dart';
-import 'package:collaction_cms/presentation/layout/loader.dart';
-import 'package:collaction_cms/presentation/layout/page_layout.dart';
-import 'package:collaction_cms/presentation/moderation_queue/moderation_queue_page.dart';
-import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../application/navigation/navigation_bloc.dart';
+import '../auth/authentication_page.dart';
+import '../auth/create_credentials.dart';
+import '../auth/link_auth_page.dart';
+import '../crowdactions/crowdaction_view/crowdaction_view.dart';
+import '../crowdactions/crowdactions_page.dart';
+import '../dashboard/dashboard_page.dart';
+import '../layout/loader.dart';
+import '../layout/page_layout.dart';
+import '../moderation_queue/moderation_queue_page.dart';
+import 'listenables.dart';
 
 GoRouter getRouter(BuildContext context) {
   final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -26,6 +27,8 @@ GoRouter getRouter(BuildContext context) {
             BlocProvider.of<NavigationBloc>(context).state.route) {
           return BlocProvider.of<NavigationBloc>(context).state.route;
         }
+
+        return null;
       },
       routes: [
         GoRoute(
@@ -74,11 +77,10 @@ GoRouter getRouter(BuildContext context) {
                     return const CrowdActionsPage();
                   })),
               GoRoute(
-                path: '/cms/crowdaction',
-                builder: (BuildContext context, GoRouterState state) {
-                  return CrowdActionPage();
-                }
-              ),
+                  path: '/cms/crowdaction',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return CrowdActionPage();
+                  }),
               GoRoute(
                 path: '/cms/moderation-queue',
                 name: 'moderation-queue',

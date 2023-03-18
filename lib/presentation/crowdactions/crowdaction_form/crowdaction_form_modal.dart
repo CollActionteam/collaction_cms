@@ -1,13 +1,14 @@
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/commitments_form.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_form.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_controller.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images/crowdaction_images_form.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
 import 'package:tap_canvas/tap_canvas.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../shared/buttons/buttons.dart';
+import '../../theme/constants.dart';
+import 'sections/commitments_section/commitments_form.dart';
+import 'sections/crowdaction_images/crowdaction_images_form.dart';
+import 'sections/crowdaction_info/crowdaction_info_controller.dart';
+import 'sections/crowdaction_info/crowdaction_info_form.dart';
 
 class CrowdActionFormModal extends StatefulWidget {
   final CrowdAction? crowdAction;
@@ -45,7 +46,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
     return SizedBox(
       width: 1032,
       height: 875,
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -71,7 +72,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
             Expanded(
               child: SingleChildScrollView(
                 child: DeferredPointerHandler(
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [

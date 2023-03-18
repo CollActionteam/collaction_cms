@@ -1,14 +1,15 @@
-import 'package:collaction_cms/application/auth/auth_bloc.dart';
-import 'package:collaction_cms/application/navigation/navigation_bloc.dart';
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/presentation/layout/responsiveness.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/shared/form/input_field.dart';
-import 'package:collaction_cms/presentation/shared/notifications/error.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/auth/auth_bloc.dart';
+import '../../application/navigation/navigation_bloc.dart';
+import '../../domain/core/value_validators.dart';
+import '../layout/responsiveness.dart';
+import '../shared/buttons/buttons.dart';
+import '../shared/form/input_field.dart';
+import '../shared/notifications/error.dart';
+import '../theme/constants.dart';
 
 class CreateCredentialsPage extends StatefulWidget {
   const CreateCredentialsPage({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
+                  Padding(
                     padding:
                         const EdgeInsets.only(top: 40, bottom: 40, left: 5),
                     child: Image.asset(
@@ -186,7 +187,7 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
                                     }
                                   },
                                 ),
-                                Container(
+                                Padding(
                                   padding: const EdgeInsets.only(
                                     top: 25,
                                     bottom: 40,
@@ -225,18 +226,6 @@ class _CreateCredentialsPageState extends State<CreateCredentialsPage> {
         );
       },
     );
-  }
-
-  String _getInitialEmail(AuthState state) {
-    late String initialEmail;
-
-    state.mapOrNull(
-      preAuthenticated: (value) {
-        initialEmail = value.preAuthCredential!.email!;
-      },
-    );
-
-    return initialEmail;
   }
 
   bool _isItLoading(AuthState state) {

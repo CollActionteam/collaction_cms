@@ -1,8 +1,9 @@
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/assigned_commitments_list.dart';
-import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
-import 'package:collaction_cms/presentation/shared/extra/list_counter.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../shared/composition/text_composition.dart';
+import '../../../../../shared/extra/list_counter.dart';
+import '../../../../../theme/constants.dart';
+import 'assigned_commitments_list.dart';
 
 class AssignedCommitments extends StatelessWidget {
   const AssignedCommitments({Key? key}) : super(key: key);
@@ -23,12 +24,13 @@ These commitments are going to be assigned to the crowdAction. Click to expand t
           width: 405,
           height: 574,
           decoration: BoxDecoration(
-              color: const Color(0xFFF9F9F9),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: const Color(0xFFDADADA),
-              )),
-          child: Container(
+            color: const Color(0xFFF9F9F9),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: const Color(0xFFDADADA),
+            ),
+          ),
+          child: Padding(
             padding: const EdgeInsets.all(18),
             child: Column(
               children: [
@@ -46,22 +48,20 @@ These commitments are going to be assigned to the crowdAction. Click to expand t
                     children: [
                       Row(
                         children: const [
-                          SelectableText("Commitments Selected",
-                              style: CollactionTextStyles.bodySemiBold),
+                          SelectableText(
+                            "Commitments Selected",
+                            style: CollactionTextStyles.bodySemiBold,
+                          ),
                           SizedBox(width: 10),
                           Counter(counter: 5),
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15),
                     ],
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    child: AssignedCommitmentsList(),
-                  ),
+                  child: AssignedCommitmentsList(),
                 )
               ],
             ),

@@ -1,12 +1,13 @@
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/shared/form/form_field.dart';
-import 'package:collaction_cms/presentation/shared/form/util/country_search.dart';
-import 'package:collaction_cms/presentation/shared/form/util/field_popup.dart';
-import 'package:collaction_cms/presentation/theme/button.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/core/value_validators.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../theme/button.dart';
+import '../../theme/constants.dart';
+import 'form_field.dart';
+import 'util/country_search.dart';
+import 'util/field_popup.dart';
 
 class CollActionCountryField extends StatefulWidget {
   final String? label;
@@ -76,10 +77,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                         softWrap: false,
                       ),
                     ),
-                  ] else
-                    const Expanded(
-                      child: Text(""),
-                    ),
+                  ],
                   SizedBox(
                     width: 21,
                     child: Icon(
@@ -101,10 +99,10 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                   onCountrySelected: (CountryDetails countryDetails) =>
                       setState(() {
                     _selectedCountry = countryDetails;
-                    widget.validationCallback == null
-                        ? _validationOutput = ValidationOutput(error: false)
-                        : _validationOutput =
-                            widget.validationCallback!(_selectedCountry);
+                    _validationOutput = widget.validationCallback == null
+                        ? ValidationOutput(error: false)
+                        : widget.validationCallback!(_selectedCountry);
+
                     _showPopup = false;
                     widget.callback!(_validationOutput);
                   }),

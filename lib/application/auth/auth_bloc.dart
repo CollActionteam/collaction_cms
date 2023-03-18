@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_cms/domain/auth/auth_failure.dart';
-import 'package:collaction_cms/domain/auth/i_auth_api_repository.dart';
-import 'package:collaction_cms/domain/auth/i_auth_client_repository.dart';
-import 'package:collaction_cms/domain/auth/preauth_credential.dart';
+import 'package:dartz/dartz.dart';
+import '../../domain/auth/auth_failure.dart';
+import '../../domain/auth/i_auth_api_repository.dart';
+import '../../domain/auth/i_auth_client_repository.dart';
+import '../../domain/auth/preauth_credential.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:dartz/dartz.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -22,6 +22,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   User? authedUser;
 
+  // TODO: Fix this issue
+  // ignore: unused_field
   late StreamSubscription<Option<User>> _authenticationSubscription;
 
   AuthBloc(this.authRepository, this.authApiRepository)
@@ -82,6 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _mapSignInWithEmailAndPassword(
       Emitter<AuthState> emit, _SignInWithEmailAndPassword event) async {
     emit(const AuthState.signingInUser());
+
     final result = await authRepository.signInWithEmailAndPassword(
         email: event.email, password: event.password);
 

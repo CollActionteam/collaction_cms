@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:collaction_cms/infrastructure/web_service/browser_notifier.dart';
+
+import '../../infrastructure/web_service/browser_notifier.dart';
 
 part 'navigation_event.dart';
 part 'navigation_state.dart';

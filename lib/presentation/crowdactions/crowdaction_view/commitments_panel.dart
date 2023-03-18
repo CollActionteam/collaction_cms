@@ -1,8 +1,9 @@
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_view/commitments_list.dart';
-import 'package:collaction_cms/presentation/shared/extra/list_counter.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../shared/extra/list_counter.dart';
+import '../../theme/constants.dart';
+import 'commitments_list.dart';
 
 class CommitmentsPanel extends StatelessWidget {
   const CommitmentsPanel({
@@ -21,8 +22,10 @@ class CommitmentsPanel extends StatelessWidget {
         const SizedBox(height: 35),
         Row(
           children: [
-            const SelectableText("Commitments",
-                style: CollactionTextStyles.subtitleStyleCMS),
+            const SelectableText(
+              "Commitments",
+              style: CollactionTextStyles.subtitleStyleCMS,
+            ),
             const SizedBox(width: 7),
             Counter(counter: commitments.length)
           ],
@@ -36,9 +39,7 @@ class CommitmentsPanel extends StatelessWidget {
               border: Border.all(color: const Color(0xFFE7E7E7))),
           height: 460,
           width: 470,
-          child: CommitmentsList(
-            commitments: commitments,
-          ),
+          child: CommitmentsList(commitments: commitments),
         )
       ],
     );

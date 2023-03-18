@@ -1,12 +1,13 @@
-import 'package:collaction_cms/application/auth/auth_bloc.dart';
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/presentation/layout/responsiveness.dart';
-import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
-import 'package:collaction_cms/presentation/shared/form/input_field.dart';
-import 'package:collaction_cms/presentation/shared/notifications/error.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/auth/auth_bloc.dart';
+import '../../domain/core/value_validators.dart';
+import '../layout/responsiveness.dart';
+import '../shared/buttons/buttons.dart';
+import '../shared/form/input_field.dart';
+import '../shared/notifications/error.dart';
+import '../theme/constants.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -28,12 +29,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   late String authErrorMessage;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
@@ -49,7 +44,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
+                  Padding(
                     padding:
                         const EdgeInsets.only(top: 40, bottom: 40, left: 5),
                     child: Image.asset(
@@ -131,27 +126,31 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                 ),
                                 const SizedBox(height: 30.0),
                                 CollActionButton(
-                                    text: "Sign in",
-                                    loading: _isItLoading(state),
-                                    onPressed: () {
-                                      setState(() {
-                                        buttonTriggered = true;
-                                      });
-                                      if (!emailValidationError &&
-                                          !passwordValidationError) {
-                                        BlocProvider.of<AuthBloc>(context).add(
-                                            AuthEvent
-                                                .signInWithEmailAndPassword(
-                                                    emailController.value.text,
-                                                    passwordController
-                                                        .value.text));
-                                      }
-                                      if (emailValidationError)
-                                        return emailFocusNode.requestFocus();
+                                  text: "Sign in",
+                                  loading: _isItLoading(state),
+                                  onPressed: () {
+                                    setState(() {
+                                      buttonTriggered = true;
+                                    });
+                                    if (!emailValidationError &&
+                                        !passwordValidationError) {
+                                      BlocProvider.of<AuthBloc>(context).add(
+                                        AuthEvent.signInWithEmailAndPassword(
+                                          emailController.value.text,
+                                          passwordController.value.text,
+                                        ),
+                                      );
+                                    }
 
-                                      if (passwordValidationError)
-                                        return passwordFocusNode.requestFocus();
-                                    })
+                                    if (emailValidationError) {
+                                      return emailFocusNode.requestFocus();
+                                    }
+
+                                    if (passwordValidationError) {
+                                      return passwordFocusNode.requestFocus();
+                                    }
+                                  },
+                                )
                               ],
                             ),
                           ),

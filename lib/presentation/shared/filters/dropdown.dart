@@ -1,15 +1,16 @@
-import 'package:collaction_cms/presentation/core/enums/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
+
+import '../../core/enums/enums.dart';
+import '../../theme/constants.dart';
 
 class DropdownFilter extends StatefulWidget {
-  const DropdownFilter(
-      {Key? key,
-      required this.items,
-      this.rectSide,
-      this.getValueCallback,
-      this.label})
-      : super(key: key);
+  const DropdownFilter({
+    Key? key,
+    required this.items,
+    this.rectSide,
+    this.getValueCallback,
+    this.label,
+  }) : super(key: key);
 
   final List<String> items;
   final RectSide? rectSide;
@@ -48,7 +49,7 @@ class _DropdownFilterState extends State<DropdownFilter> {
                   borderSide: CollActionBorderStyles.inputBorderSide),
             ),
             value: _dropdownValue ?? widget.items.first,
-            icon: Container(
+            icon: Align(
               alignment: Alignment.center,
               child: const Icon(
                 Icons.arrow_drop_down_rounded,
@@ -64,9 +65,7 @@ class _DropdownFilterState extends State<DropdownFilter> {
             onChanged: (value) {
               setState(() {
                 _dropdownValue = value;
-                widget.getValueCallback != null
-                    ? widget.getValueCallback!(value)
-                    : null;
+                widget.getValueCallback?.call(value);
               });
             },
           ),

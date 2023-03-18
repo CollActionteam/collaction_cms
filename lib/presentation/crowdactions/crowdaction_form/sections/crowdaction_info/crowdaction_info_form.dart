@@ -1,13 +1,15 @@
 import 'dart:async';
 
-import 'package:collaction_cms/domain/core/value_validators.dart';
-import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/shared/form/country_field.dart';
-import 'package:collaction_cms/presentation/shared/form/date_time_form_field.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_controller.dart';
-import 'package:collaction_cms/presentation/shared/form/form_header.dart';
-import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../../../domain/core/value_validators.dart';
+import '../../../../../domain/crowdaction/crowdaction.dart';
+import '../../../../shared/form/country_field.dart';
+import '../../../../shared/form/date_time_form_field.dart';
+import '../../../../shared/form/form_header.dart';
+import '../../../../shared/form/text_form_field.dart';
+import '../../../../utils/datetime_util.dart';
+import 'crowdaction_info_controller.dart';
 
 class CrowdActionInfoForm extends StatefulWidget {
   final double width;
@@ -51,11 +53,12 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
           microsecond: 0,
         )
         .add(const Duration(minutes: 5));
+
     endDate = startDate.add(const Duration(minutes: 1));
     joinByDate = startDate;
 
     _everySecond = Timer.periodic(const Duration(seconds: 1), (_) {
-      var now = DateTime.now();
+      final now = DateTime.now();
       if (now.second == 0) {
         _onMinuteChange();
         _everyMinute = Timer.periodic(
@@ -67,9 +70,9 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
 
   @override
   void dispose() {
-    super.dispose();
     _everySecond.cancel();
     _everyMinute?.cancel();
+    super.dispose();
   }
 
   @override
@@ -81,11 +84,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
         children: [
           const FormHeader(title: "Basic Information"),
           const SizedBox(height: 18),
-          Container(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 23),
             child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                bool shrink = constraints.maxWidth < 405;
+              builder: (context, constraints) {
+                final shrink = constraints.maxWidth < 405;
                 double fullWidth = shrink ? constraints.maxWidth : 405;
                 double halfWidth = shrink ? constraints.maxWidth : 192;
                 return Wrap(
@@ -228,17 +231,20 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   }
 
   void _onMinuteChange() {
-    var now = DateTime.now().add(const Duration(minutes: 5));
+    DateTime now = DateTime.now().add(const Duration(minutes: 5));
     if (startDate.compareTo(now) < 0) {
       startDate = now;
     }
+
     if (joinByDate!.compareTo(now) < 0) {
       joinByDate = now;
     }
+
     now = now.add(const Duration(minutes: 1));
     if (endDate.compareTo(now) < 0) {
       endDate = now;
     }
+
     setState(() {});
   }
 }
