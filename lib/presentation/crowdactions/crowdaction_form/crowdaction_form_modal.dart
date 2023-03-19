@@ -95,7 +95,9 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                   controller: _crowdActionInfoFormController,
                                 ),
                                 // replace with CrowdActionCommitmentsForm
-                                const CrowdActionCommitmentsForm()
+                                CrowdActionCommitmentsForm(
+                                  buttonTriggered: _buttonTriggered,
+                                )
                               ],
                             );
                           },

@@ -14,11 +14,13 @@ class CommitmentItem extends StatefulWidget {
     required this.iconData,
     required this.label,
     required this.commitmentItemType,
+    this.buttonTriggered = false,
   });
 
   final IconData iconData;
   final String label;
   final CommitmentItemType commitmentItemType;
+  final bool buttonTriggered;
 
   @override
   State<CommitmentItem> createState() => _CommitmentItemState();
@@ -26,10 +28,9 @@ class CommitmentItem extends StatefulWidget {
 
 class _CommitmentItemState extends State<CommitmentItem>
     with SingleTickerProviderStateMixin {
-  bool? _itemStatusFields = true;
   bool _isExpanded = false;
 
-  CommitmentFormController _commitmentFormController =
+  final CommitmentFormController _commitmentFormController =
       CommitmentFormController();
 
   late AnimationController _dropdownController;
@@ -142,6 +143,10 @@ class _CommitmentItemState extends State<CommitmentItem>
             child: Container(
               padding: const EdgeInsets.only(right: 10),
               child: CommitmentItemForm(
+                buttonTriggered: widget.buttonTriggered,
+                stateModifier: () {
+                  setState(() {});
+                },
                 controller: _commitmentFormController,
                 backgroundColor: Colors.white,
               ),
@@ -165,7 +170,7 @@ class _CommitmentItemState extends State<CommitmentItem>
     }
 
     if (commitmentItemType == CommitmentItemType.statusChecker) {
-      if (_itemStatusFields == true) {
+      if (_commitmentFormController.isReadyForBloc() == true) {
         return const Icon(
           Icons.check_circle_rounded,
           color: addOutlinedColor,

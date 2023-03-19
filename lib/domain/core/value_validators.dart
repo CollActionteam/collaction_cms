@@ -72,7 +72,7 @@ ValidationOutput validateIncompleteDateTimeField(
 }
 
 ValidationOutput validateEmptyField(dynamic input,
-    [String customMessage = "Field cannot be emtpy"]) {
+    [String customMessage = "Field cannot be empty"]) {
   if (input is List<dynamic> && input.contains(null)) {
     return ValidationOutput(error: true, output: customMessage);
   }

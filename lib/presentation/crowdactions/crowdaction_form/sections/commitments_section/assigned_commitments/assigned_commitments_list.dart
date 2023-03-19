@@ -4,7 +4,11 @@ import 'package:collaction_cms/presentation/shared/items/commitment_item.dart';
 import 'package:flutter/material.dart';
 
 class AssignedCommitmentsList extends StatelessWidget {
-  AssignedCommitmentsList({Key? key}) : super(key: key);
+  final bool buttonTriggered;
+  AssignedCommitmentsList({
+    Key? key,
+    this.buttonTriggered = false,
+  }) : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
 
@@ -17,6 +21,7 @@ class AssignedCommitmentsList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(top: 10),
             child: CommitmentItem(
+              buttonTriggered: buttonTriggered,
               iconData: mapIcon("no-beef"),
               label: "No beef for one week",
               commitmentItemType: CommitmentItemType.statusChecker,

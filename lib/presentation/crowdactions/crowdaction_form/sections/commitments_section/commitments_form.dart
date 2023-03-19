@@ -5,7 +5,12 @@ import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sectio
 import 'package:flutter/material.dart';
 
 class CrowdActionCommitmentsForm extends StatelessWidget {
-  const CrowdActionCommitmentsForm({Key? key}) : super(key: key);
+  final bool buttonTriggered;
+
+  const CrowdActionCommitmentsForm({
+    Key? key,
+    this.buttonTriggered = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,12 @@ class CrowdActionCommitmentsForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 23),
             child: Wrap(
               spacing: 80,
-              children: const [AssignedCommitments(), AssignCommitments()],
+              children: [
+                AssignedCommitments(
+                  buttonTriggered: buttonTriggered,
+                ),
+                const AssignCommitments()
+              ],
             ),
           ),
         ],

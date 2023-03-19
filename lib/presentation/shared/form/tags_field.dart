@@ -1,3 +1,4 @@
+import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
 import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,17 @@ class CollActionTagsField extends StatefulWidget {
     required this.tagsList,
     required this.suffixCallback,
     required this.tagsCallback,
+    this.validationCallback,
     this.backgroundColor = Colors.transparent,
+    this.callback,
   });
 
   final List<String> tagsList;
   final Function suffixCallback;
   final Function tagsCallback;
   final Color backgroundColor;
+  final Function? validationCallback;
+  final Function? callback;
 
   @override
   State<CollActionTagsField> createState() => _CollActionTagsFieldState();
@@ -22,6 +27,17 @@ class CollActionTagsField extends StatefulWidget {
 
 class _CollActionTagsFieldState extends State<CollActionTagsField> {
   final TextEditingController _textEditingController = TextEditingController();
+  late ValidationOutput _validationOutput;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.validationCallback == null
+        ? _validationOutput = ValidationOutput(error: false)
+        : _validationOutput = widget.validationCallback!(widget.tagsList);
+
+    widget.callback == null ? null : widget.callback!(_validationOutput);
+  }
 
   @override
   Widget build(BuildContext context) {

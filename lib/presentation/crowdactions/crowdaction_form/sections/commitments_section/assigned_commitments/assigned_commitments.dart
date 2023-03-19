@@ -5,7 +5,12 @@ import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
 class AssignedCommitments extends StatelessWidget {
-  const AssignedCommitments({Key? key}) : super(key: key);
+  final bool buttonTriggered;
+
+  const AssignedCommitments({
+    Key? key,
+    this.buttonTriggered = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +65,9 @@ These commitments are going to be assigned to the crowdAction. Click to expand t
                 ),
                 Expanded(
                   child: Container(
-                    child: AssignedCommitmentsList(),
+                    child: AssignedCommitmentsList(
+                      buttonTriggered: buttonTriggered,
+                    ),
                   ),
                 )
               ],
