@@ -6,11 +6,13 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_creation/crowdaction_creation_failures.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_fracture.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'commitments_event.dart';
 part 'commitments_state.dart';
 part 'commitments_bloc.freezed.dart';
 
+@injectable
 class CommitmentsBloc extends Bloc<CommitmentsEvent, CommitmentsState> {
   CommitmentsBloc() : super(const CommitmentsState.initial(<Commitment>[])) {
     on<CommitmentsEvent>((event, emit) {

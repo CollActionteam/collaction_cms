@@ -1,12 +1,15 @@
+import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/assigned_commitments_list.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
+import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:collaction_cms/presentation/shared/buttons/buttons.dart';
 import 'package:collaction_cms/presentation/shared/buttons/combo_buttons.dart';
 import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
 import 'package:collaction_cms/presentation/shared/extra/list_counter.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssignCommitments extends StatefulWidget {
   const AssignCommitments({Key? key}) : super(key: key);
@@ -17,7 +20,8 @@ class AssignCommitments extends StatefulWidget {
 
 class _AssignCommitmentsState extends State<AssignCommitments> {
   bool onOrOff = false;
-  CommitmentFormController _commitmentFormController =
+  bool _buttonTriggered = false;
+  final CommitmentFormController _commitmentFormController =
       CommitmentFormController();
 
   @override
@@ -64,8 +68,23 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
                     child: CommitmentItemForm(
+                      buttonTriggered: _buttonTriggered,
                       controller: _commitmentFormController,
                       backgroundColor: Colors.white,
+                      smallOutlinedButtonType: SmallOutlinedButtonType.add,
+                      buttonCallback: () => {
+                        setState(() {
+                          _buttonTriggered = true;
+                        }),
+                        if (_commitmentFormController.isReadyForBloc())
+                          {
+                            BlocProvider.of<CommitmentsBloc>(context).add(
+                              CommitmentsEvent.addCommitment(
+                                _commitmentFormController.commitmentFactory(),
+                              ),
+                            )
+                          }
+                      },
                     ),
                   ))
       ],

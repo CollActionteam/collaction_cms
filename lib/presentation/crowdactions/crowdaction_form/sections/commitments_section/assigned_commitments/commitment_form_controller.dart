@@ -1,4 +1,6 @@
 import 'package:collaction_cms/domain/core/value_validators.dart';
+import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:uuid/uuid.dart';
 
 class CommitmentFormController {
   CommitmentFormController();
@@ -9,7 +11,6 @@ class CommitmentFormController {
   late ValidationOutput validationOutputTags;
   ValidationOutput validationOutputDescription = ValidationOutput(error: false);
   late ValidationOutput validationOutputPoints;
-  ValidationOutput validationOutputBlocks = ValidationOutput(error: false);
   late ValidationOutput validationOutputIcon;
 
   bool isReadyForBloc() {
@@ -18,7 +19,6 @@ class CommitmentFormController {
           validationOutputTags.error ||
           validationOutputDescription.error ||
           validationOutputPoints.error ||
-          validationOutputBlocks.error ||
           validationOutputIcon.error) {
         return false;
       } else {
@@ -27,5 +27,15 @@ class CommitmentFormController {
     } catch (e) {
       return false;
     }
+  }
+
+  Commitment commitmentFactory() {
+    return Commitment(
+      id: const Uuid().toString(),
+      tags: validationOutputTags.output as List<String>,
+      label: validationOutputTitle.output as String,
+      points: validationOutputPoints.output as int,
+      blocks: <String>[],
+    );
   }
 }

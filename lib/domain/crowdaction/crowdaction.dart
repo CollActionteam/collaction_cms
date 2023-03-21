@@ -106,10 +106,10 @@ class Commitment with _$Commitment {
 
   const factory Commitment({
     required String id,
-    required List<String?> tags,
+    required List<String> tags,
     required String label,
     required int points,
-    required List<String?> blocks,
+    required List<String> blocks,
     String? description,
     @Default(null) String? iconId,
   }) = _Commitment;

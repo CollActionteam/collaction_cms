@@ -3,6 +3,11 @@ import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
+/// USE ONLY [channelValidationOutput] if the validation is going to be externally, like [CollActionTagsField]
+/// In that case, the validator is validating, not the value of the [TextField] but the list of tags stored in
+/// [CollActionTagsField], so the [ValidationOutput] shouldn't be produced inside [CollActionTextFormField], but passed through.
+///
+///Is important to mention that if you are using the [channelValidationOutput] property you shouldn't pass a [ValidationCallback]
 class CollactionTextFormField extends StatefulWidget {
   final String? label;
   final double width;
@@ -18,6 +23,7 @@ class CollactionTextFormField extends StatefulWidget {
   final bool actionSuffix;
   final Function? suffixCallback;
   final Color backgroundColor;
+  final ValidationOutput? channelValidationOutput;
 
   const CollactionTextFormField({
     super.key,
@@ -35,6 +41,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.actionSuffix = false,
     this.suffixCallback,
     this.backgroundColor = Colors.transparent,
+    this.channelValidationOutput,
   });
 
   @override
@@ -48,19 +55,22 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   @override
   void initState() {
     super.initState();
-    widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(error: false)
-        : _validationOutput =
-            widget.validationCallback!(widget.initialValue ?? "");
+    if (widget.channelValidationOutput == null) {
+      widget.validationCallback == null
+          ? _validationOutput = ValidationOutput(error: false)
+          : _validationOutput =
+              widget.validationCallback!(widget.initialValue ?? "");
+    } else {
+      ///This prevents [LateInitializationError] complications
+      _validationOutput = widget.channelValidationOutput!;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: widget.buttonTriggered && _validationOutput.error
-          ? _validationOutput.output
-          : null,
+      error: _passingError(),
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -72,9 +82,11 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           controller: widget.initialValue == null ? widget.controller : null,
           focusNode: widget.focusNode,
           onChanged: (value) {
-            widget.validationCallback == null
-                ? _validationOutput = ValidationOutput(error: false)
-                : _validationOutput = widget.validationCallback!(value);
+            if (widget.channelValidationOutput == null) {
+              widget.validationCallback == null
+                  ? _validationOutput = ValidationOutput(error: false)
+                  : _validationOutput = widget.validationCallback!(value);
+            }
             setState(() {});
             widget.callback == null
                 ? null
@@ -91,7 +103,7 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
                 ? MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      onTap: () => widget.callback ?? {},
+                      onTap: () => widget.suffixCallback?.call(),
                       child: const Icon(
                         Icons.add_circle_outline,
                         color: Colors.grey,
@@ -123,5 +135,18 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
         ),
       ),
     );
+  }
+
+  String? _passingError() {
+    if (widget.channelValidationOutput?.error == true &&
+        widget.buttonTriggered) {
+      return widget.channelValidationOutput!.output;
+    }
+
+    if (widget.buttonTriggered && _validationOutput.error) {
+      return _validationOutput.output;
+    }
+
+    return null;
   }
 }

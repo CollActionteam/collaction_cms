@@ -24,7 +24,7 @@ class CommitmentsPanel extends StatelessWidget {
             const SelectableText("Commitments",
                 style: CollactionTextStyles.subtitleStyleCMS),
             const SizedBox(width: 7),
-            Counter(counter: commitments.length)
+            Counter(counter: commitments.length.toString())
           ],
         ),
         const SizedBox(height: 20),

@@ -1,5 +1,7 @@
 import 'package:collaction_cms/domain/core/value_validators.dart';
+import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
+import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:collaction_cms/presentation/shared/form/icon_field.dart';
 import 'package:collaction_cms/presentation/shared/form/tags_field.dart';
 import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
@@ -8,19 +10,23 @@ import 'package:flutter/material.dart';
 class CommitmentItemForm extends StatefulWidget {
   const CommitmentItemForm({
     super.key,
-    this.labelValue,
     required this.controller,
     this.backgroundColor = Colors.transparent,
     this.stateModifier,
     this.buttonTriggered = false,
+    required this.smallOutlinedButtonType,
+    required this.buttonCallback,
+    this.commitmentInitialValue,
   });
 
-  final String? labelValue;
   final bool buttonTriggered;
   final Color backgroundColor;
   final CommitmentFormController controller;
   //This is going to update the status checker icon of the parent widget.
   final Function? stateModifier;
+  final SmallOutlinedButtonType smallOutlinedButtonType;
+  final VoidCallback? buttonCallback;
+  final Commitment? commitmentInitialValue;
 
   @override
   State<CommitmentItemForm> createState() => _CommitmentItemFormState();
@@ -36,25 +42,18 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
         CollactionTextFormField(
           buttonTriggered: widget.buttonTriggered,
           label: "Title",
-          initialValue: widget.labelValue ?? '',
+          initialValue: widget.commitmentInitialValue?.label ?? '',
           backgroundColor: widget.backgroundColor,
           validationCallback: validateEmptyField,
           callback: (ValidationOutput validationOutput) {
             widget.controller.validationOutputTitle = validationOutput;
-            widget.stateModifier != null ? widget.stateModifier!() : null;
+            widget.stateModifier?.call();
           },
         ),
         CollActionTagsField(
+            buttonTriggered: widget.buttonTriggered,
             backgroundColor: widget.backgroundColor,
-            tagsList: const [
-              "Example",
-              "Example",
-              "Example",
-              "Example",
-              "Example",
-            ],
-            suffixCallback: () => {},
-            tagsCallback: () => {},
+            initialTagsList: const ["Hola"],
             validationCallback: validateEmptyField,
             callback: (ValidationOutput validationOutput) {
               widget.controller.validationOutputTags = validationOutput;
@@ -67,10 +66,10 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
                 buttonTriggered: widget.buttonTriggered,
                 label: "Points",
                 backgroundColor: widget.backgroundColor,
-                validationCallback: validateEmptyField,
+                validationCallback: shouldBeInt,
                 callback: (ValidationOutput validationOutput) {
                   widget.controller.validationOutputPoints = validationOutput;
-                  widget.stateModifier != null ? widget.stateModifier!() : null;
+                  widget.stateModifier?.call();
                 },
               ),
             ),
@@ -82,7 +81,7 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
               label: "Icons",
               callback: (ValidationOutput validationOutput) {
                 widget.controller.validationOutputIcon = validationOutput;
-                widget.stateModifier != null ? widget.stateModifier!() : null;
+                widget.stateModifier?.call();
               },
             ))
           ],
@@ -91,6 +90,14 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
           backgroundColor: widget.backgroundColor,
           label: "Description",
           multiLine: true,
+        ),
+        SmallOutlinedButton(
+          width: 69,
+          smallOutlinedButtonType: widget.smallOutlinedButtonType,
+          callback: widget.buttonCallback,
+        ),
+        const SizedBox(
+          height: 10,
         )
       ],
     );

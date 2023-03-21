@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Counter extends StatelessWidget {
   const Counter({Key? key, required this.counter}) : super(key: key);
 
-  final int counter;
+  final String counter;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Counter extends StatelessWidget {
       child: Container(
         transform: Matrix4.translationValues(2.2, 0, 0),
         child: SelectableText(
-          "$counter",
+          counter,
           style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,

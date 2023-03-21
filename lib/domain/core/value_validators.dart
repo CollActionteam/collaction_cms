@@ -73,7 +73,7 @@ ValidationOutput validateIncompleteDateTimeField(
 
 ValidationOutput validateEmptyField(dynamic input,
     [String customMessage = "Field cannot be empty"]) {
-  if (input is List<dynamic> && input.contains(null)) {
+  if (input is List<dynamic> && (input.contains(null) || input.isEmpty)) {
     return ValidationOutput(error: true, output: customMessage);
   }
 
@@ -82,4 +82,17 @@ ValidationOutput validateEmptyField(dynamic input,
   }
 
   return ValidationOutput(error: false, output: input);
+}
+
+ValidationOutput shouldBeInt(dynamic input,
+    [String customMessage = "Needs to be natural number"]) {
+  if (input == null || input == '') {
+    return ValidationOutput(error: true, output: "Field cannot be empty");
+  }
+
+  if (int.tryParse(input) is! int) {
+    return ValidationOutput(error: true, output: customMessage);
+  }
+
+  return ValidationOutput(error: false, output: int.parse(input));
 }

@@ -6,20 +6,18 @@ import 'package:flutter/material.dart';
 class CollActionTagsField extends StatefulWidget {
   CollActionTagsField({
     super.key,
-    required this.tagsList,
-    required this.suffixCallback,
-    required this.tagsCallback,
+    this.initialTagsList = const <String>[],
+    this.buttonTriggered = false,
     this.validationCallback,
     this.backgroundColor = Colors.transparent,
     this.callback,
   });
 
-  final List<String> tagsList;
-  final Function suffixCallback;
-  final Function tagsCallback;
+  final List<String> initialTagsList;
   final Color backgroundColor;
   final Function? validationCallback;
   final Function? callback;
+  final bool buttonTriggered;
 
   @override
   State<CollActionTagsField> createState() => _CollActionTagsFieldState();
@@ -28,15 +26,27 @@ class CollActionTagsField extends StatefulWidget {
 class _CollActionTagsFieldState extends State<CollActionTagsField> {
   final TextEditingController _textEditingController = TextEditingController();
   late ValidationOutput _validationOutput;
+  final ValueNotifier<List<String>> _tagsNotifier = ValueNotifier(<String>[]);
+
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
+
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
-        : _validationOutput = widget.validationCallback!(widget.tagsList);
+        : _validationOutput =
+            widget.validationCallback!(widget.initialTagsList);
 
-    widget.callback == null ? null : widget.callback!(_validationOutput);
+    _tagsNotifier.value = widget.initialTagsList;
+    _tagsNotifier.addListener(() {
+      widget.validationCallback == null
+          ? _validationOutput = ValidationOutput(error: false)
+          : _validationOutput = widget.validationCallback!(_tagsNotifier.value);
+
+      widget.callback?.call(_validationOutput);
+    });
+
+    super.initState();
   }
 
   @override
@@ -44,11 +54,24 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
     return Column(
       children: [
         CollactionTextFormField(
+          buttonTriggered: widget.buttonTriggered,
           controller: _textEditingController,
           label: "Tags",
           actionSuffix: true,
-          suffixCallback: widget.suffixCallback,
+          suffixCallback: () {
+            if (!_isIncluded(
+                _tagsNotifier.value, _textEditingController.text)) {
+              setState(() {
+                _tagsNotifier.value = [
+                  ..._tagsNotifier.value,
+                  _textEditingController.text
+                ];
+                _textEditingController.text = "";
+              });
+            }
+          },
           backgroundColor: widget.backgroundColor,
+          channelValidationOutput: _validationOutput,
         ),
         Container(
           width: double.infinity,
@@ -57,13 +80,19 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
             runSpacing: 7.5,
             direction: Axis.horizontal,
             children: [
-              for (var tag in widget.tagsList)
+              for (var tag in _tagsNotifier.value)
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: TagPill(
                     backgroundColor: widget.backgroundColor,
                     value: tag,
-                    callback: widget.tagsCallback,
+                    callback: () {
+                      setState(() {
+                        _tagsNotifier.value = _tagsNotifier.value
+                            .where((element) => element != tag)
+                            .toList();
+                      });
+                    },
                   ),
                 )
             ],
@@ -71,5 +100,15 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
         )
       ],
     );
+  }
+
+  bool _isIncluded(List<String> tags, String newTag) {
+    bool isIncluded = false;
+    for (var tag in tags) {
+      if (tag.toLowerCase() == newTag.toLowerCase()) {
+        isIncluded = true;
+      }
+    }
+    return isIncluded;
   }
 }

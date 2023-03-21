@@ -15,12 +15,14 @@ class CommitmentItem extends StatefulWidget {
     required this.label,
     required this.commitmentItemType,
     this.buttonTriggered = false,
+    this.buttonCallback,
   });
 
   final IconData iconData;
   final String label;
   final CommitmentItemType commitmentItemType;
   final bool buttonTriggered;
+  final VoidCallback? buttonCallback;
 
   @override
   State<CommitmentItem> createState() => _CommitmentItemState();
@@ -143,10 +145,12 @@ class _CommitmentItemState extends State<CommitmentItem>
             child: Container(
               padding: const EdgeInsets.only(right: 10),
               child: CommitmentItemForm(
+                smallOutlinedButtonType: SmallOutlinedButtonType.remove,
                 buttonTriggered: widget.buttonTriggered,
                 stateModifier: () {
                   setState(() {});
                 },
+                buttonCallback: widget.buttonCallback,
                 controller: _commitmentFormController,
                 backgroundColor: Colors.white,
               ),
