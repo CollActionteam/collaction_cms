@@ -18,6 +18,7 @@ class CollActionIconField extends StatefulWidget {
   final Function? validationCallback;
   final bool readOnly;
   final bool buttonTriggered;
+  final String? initialData;
 
   const CollActionIconField({
     super.key,
@@ -28,6 +29,7 @@ class CollActionIconField extends StatefulWidget {
     this.validationCallback,
     this.readOnly = false,
     this.buttonTriggered = false,
+    this.initialData,
   });
 
   @override
@@ -42,6 +44,7 @@ class _CollActionIconFieldState extends State<CollActionIconField> {
 
   @override
   void initState() {
+    print("COLLACTION ICON FIELD: ${widget.initialData}");
     super.initState();
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
@@ -66,16 +69,17 @@ class _CollActionIconFieldState extends State<CollActionIconField> {
                   readOnly: widget.readOnly, backgroundColor: Colors.white),
               child: Row(
                 children: [
-                  if (_selectedIcon != null) ...[
+                  if (_selectedIcon != null || widget.initialData != null) ...[
                     Icon(
-                      crowdActionCommitmentIcons[_selectedIcon],
+                      crowdActionCommitmentIcons[
+                          _selectedIcon ?? widget.initialData],
                       size: 18,
                       color: kAccentColor,
                     ),
                     const SizedBox(width: 5),
                     Expanded(
                       child: Text(
-                        _selectedIcon!,
+                        _selectedIcon ?? widget.initialData!,
                         style: CollactionTextStyles.body,
                         softWrap: false,
                       ),

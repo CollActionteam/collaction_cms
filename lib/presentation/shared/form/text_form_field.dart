@@ -24,6 +24,7 @@ class CollactionTextFormField extends StatefulWidget {
   final Function? suffixCallback;
   final Color backgroundColor;
   final ValidationOutput? channelValidationOutput;
+  final VoidCallback? stateModifierCallback;
 
   const CollactionTextFormField({
     super.key,
@@ -42,6 +43,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.suffixCallback,
     this.backgroundColor = Colors.transparent,
     this.channelValidationOutput,
+    this.stateModifierCallback,
   });
 
   @override
@@ -57,13 +59,16 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
     super.initState();
     if (widget.channelValidationOutput == null) {
       widget.validationCallback == null
-          ? _validationOutput = ValidationOutput(error: false)
+          ? _validationOutput =
+              ValidationOutput(error: false, output: widget.initialValue)
           : _validationOutput =
               widget.validationCallback!(widget.initialValue ?? "");
     } else {
       ///This prevents [LateInitializationError] complications
       _validationOutput = widget.channelValidationOutput!;
     }
+
+    widget.callback?.call(_validationOutput);
   }
 
   @override
@@ -84,10 +89,12 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           onChanged: (value) {
             if (widget.channelValidationOutput == null) {
               widget.validationCallback == null
-                  ? _validationOutput = ValidationOutput(error: false)
+                  ? _validationOutput =
+                      ValidationOutput(error: false, output: value)
                   : _validationOutput = widget.validationCallback!(value);
             }
             setState(() {});
+            widget.stateModifierCallback?.call();
             widget.callback == null
                 ? null
                 : widget.callback!(_validationOutput);
@@ -143,7 +150,9 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
       return widget.channelValidationOutput!.output;
     }
 
-    if (widget.buttonTriggered && _validationOutput.error) {
+    if (widget.buttonTriggered &&
+        _validationOutput.error &&
+        widget.channelValidationOutput == null) {
       return _validationOutput.output;
     }
 

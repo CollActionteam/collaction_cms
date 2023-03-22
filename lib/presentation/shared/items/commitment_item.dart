@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_cms/presentation/core/icons/icons_map.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
@@ -16,6 +18,7 @@ class CommitmentItem extends StatefulWidget {
     required this.commitmentItemType,
     this.buttonTriggered = false,
     this.buttonCallback,
+    required this.commitment,
   });
 
   final IconData iconData;
@@ -23,6 +26,7 @@ class CommitmentItem extends StatefulWidget {
   final CommitmentItemType commitmentItemType;
   final bool buttonTriggered;
   final VoidCallback? buttonCallback;
+  final Commitment commitment;
 
   @override
   State<CommitmentItem> createState() => _CommitmentItemState();
@@ -40,6 +44,7 @@ class _CommitmentItemState extends State<CommitmentItem>
 
   @override
   void initState() {
+    print("COMMITMENT ITEM INTI STATE: ${widget.commitment.iconId}");
     super.initState();
     _dropdownController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
@@ -81,8 +86,8 @@ class _CommitmentItemState extends State<CommitmentItem>
                     color: Color(0xFFF9F9F9),
                   ),
                   child: Icon(
+                    widget.commitment.icon,
                     size: 20,
-                    widget.iconData,
                     color: kAccentColor,
                   ),
                 ),
@@ -90,7 +95,7 @@ class _CommitmentItemState extends State<CommitmentItem>
                 Container(
                   width: 150,
                   child: SelectableText(
-                    widget.label,
+                    widget.commitment.label,
                     style: CollactionTextStyles.bodyLabelRegular,
                   ),
                 ),
@@ -145,6 +150,7 @@ class _CommitmentItemState extends State<CommitmentItem>
             child: Container(
               padding: const EdgeInsets.only(right: 10),
               child: CommitmentItemForm(
+                commitmentInitialValue: widget.commitment,
                 smallOutlinedButtonType: SmallOutlinedButtonType.remove,
                 buttonTriggered: widget.buttonTriggered,
                 stateModifier: () {
@@ -174,7 +180,7 @@ class _CommitmentItemState extends State<CommitmentItem>
     }
 
     if (commitmentItemType == CommitmentItemType.statusChecker) {
-      if (_commitmentFormController.isReadyForBloc() == true) {
+      if (_commitmentFormController.isReadyForBloc(true) == true) {
         return const Icon(
           Icons.check_circle_rounded,
           color: addOutlinedColor,

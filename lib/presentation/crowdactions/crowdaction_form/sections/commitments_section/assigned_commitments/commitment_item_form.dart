@@ -23,7 +23,7 @@ class CommitmentItemForm extends StatefulWidget {
   final Color backgroundColor;
   final CommitmentFormController controller;
   //This is going to update the status checker icon of the parent widget.
-  final Function? stateModifier;
+  final VoidCallback? stateModifier;
   final SmallOutlinedButtonType smallOutlinedButtonType;
   final VoidCallback? buttonCallback;
   final Commitment? commitmentInitialValue;
@@ -33,6 +33,14 @@ class CommitmentItemForm extends StatefulWidget {
 }
 
 class _CommitmentItemFormState extends State<CommitmentItemForm> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(
+        "COMMITMENT ITEM FORM INIT STATE: ${widget.commitmentInitialValue?.iconId}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,49 +55,58 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
           validationCallback: validateEmptyField,
           callback: (ValidationOutput validationOutput) {
             widget.controller.validationOutputTitle = validationOutput;
-            widget.stateModifier?.call();
           },
+          stateModifierCallback: widget.stateModifier,
         ),
         CollActionTagsField(
-            buttonTriggered: widget.buttonTriggered,
-            backgroundColor: widget.backgroundColor,
-            initialTagsList: const ["Hola"],
-            validationCallback: validateEmptyField,
-            callback: (ValidationOutput validationOutput) {
-              widget.controller.validationOutputTags = validationOutput;
-            }),
+          buttonTriggered: widget.buttonTriggered,
+          backgroundColor: widget.backgroundColor,
+          initialTagsList: widget.commitmentInitialValue?.tags ?? [],
+          validationCallback: validateEmptyField,
+          callback: (ValidationOutput validationOutput) {
+            widget.controller.validationOutputTags = validationOutput;
+          },
+          stateModifierCallback: widget.stateModifier,
+        ),
         const SizedBox(height: 12),
         Row(
           children: [
             Expanded(
               child: CollactionTextFormField(
+                initialValue:
+                    widget.commitmentInitialValue?.points.toString() ?? '',
                 buttonTriggered: widget.buttonTriggered,
                 label: "Points",
                 backgroundColor: widget.backgroundColor,
                 validationCallback: shouldBeInt,
                 callback: (ValidationOutput validationOutput) {
                   widget.controller.validationOutputPoints = validationOutput;
-                  widget.stateModifier?.call();
                 },
+                stateModifierCallback: widget.stateModifier,
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
                 child: CollActionIconField(
+              initialData: widget.commitmentInitialValue?.iconId,
               buttonTriggered: widget.buttonTriggered,
               validationCallback: validateEmptyField,
               label: "Icons",
               callback: (ValidationOutput validationOutput) {
                 widget.controller.validationOutputIcon = validationOutput;
-                widget.stateModifier?.call();
               },
             ))
           ],
         ),
         CollactionTextFormField(
+          initialValue: widget.commitmentInitialValue?.description ?? '',
           backgroundColor: widget.backgroundColor,
           label: "Description",
           multiLine: true,
+          callback: (ValidationOutput validationOutput) {
+            widget.controller.validationOutputDescription = validationOutput;
+          },
+          stateModifierCallback: widget.stateModifier,
         ),
         SmallOutlinedButton(
           width: 69,

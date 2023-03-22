@@ -11,6 +11,7 @@ class CollActionTagsField extends StatefulWidget {
     this.validationCallback,
     this.backgroundColor = Colors.transparent,
     this.callback,
+    this.stateModifierCallback,
   });
 
   final List<String> initialTagsList;
@@ -18,6 +19,7 @@ class CollActionTagsField extends StatefulWidget {
   final Function? validationCallback;
   final Function? callback;
   final bool buttonTriggered;
+  final VoidCallback? stateModifierCallback;
 
   @override
   State<CollActionTagsField> createState() => _CollActionTagsFieldState();
@@ -44,6 +46,7 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
           : _validationOutput = widget.validationCallback!(_tagsNotifier.value);
 
       widget.callback?.call(_validationOutput);
+      widget.stateModifierCallback?.call();
     });
 
     super.initState();

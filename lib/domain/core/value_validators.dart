@@ -86,7 +86,7 @@ ValidationOutput validateEmptyField(dynamic input,
 
 ValidationOutput shouldBeInt(dynamic input,
     [String customMessage = "Needs to be natural number"]) {
-  if (input == null || input == '') {
+  if (input == null || input == '' || input.isEmpty) {
     return ValidationOutput(error: true, output: "Field cannot be empty");
   }
 

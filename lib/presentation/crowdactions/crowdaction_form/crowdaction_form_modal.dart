@@ -125,8 +125,6 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                     text: "Save CrowdAction",
                     onPressed: () => setState(() {
                       _buttonTriggered = true;
-                      print(
-                          "IS READY FOR THE BLOC: ${_crowdActionInfoFormController.isReadyForBloc()}");
                     }),
                     width: 157,
                     height: 37,

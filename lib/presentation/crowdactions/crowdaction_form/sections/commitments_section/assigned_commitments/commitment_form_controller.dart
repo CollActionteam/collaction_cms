@@ -13,7 +13,23 @@ class CommitmentFormController {
   late ValidationOutput validationOutputPoints;
   late ValidationOutput validationOutputIcon;
 
-  bool isReadyForBloc() {
+  bool isReadyForBloc([bool skipInitialValidation = false]) {
+    if (skipInitialValidation == true) {
+      try {
+        if (validationOutputTitle.error ||
+            validationOutputTags.error ||
+            validationOutputDescription.error ||
+            validationOutputPoints.error ||
+            validationOutputIcon.error) {
+          return false;
+        } else {
+          return true;
+        }
+      } catch (e) {
+        return true;
+      }
+    }
+
     try {
       if (validationOutputTitle.error ||
           validationOutputTags.error ||
@@ -31,7 +47,9 @@ class CommitmentFormController {
 
   Commitment commitmentFactory() {
     return Commitment(
-      id: const Uuid().toString(),
+      id: const Uuid().v4(),
+      iconId: validationOutputIcon.output as String,
+      description: validationOutputDescription.output as String,
       tags: validationOutputTags.output as List<String>,
       label: validationOutputTitle.output as String,
       points: validationOutputPoints.output as int,
