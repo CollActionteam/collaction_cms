@@ -44,7 +44,6 @@ class _CommitmentItemState extends State<CommitmentItem>
 
   @override
   void initState() {
-    print("COMMITMENT ITEM INTI STATE: ${widget.commitment.iconId}");
     super.initState();
     _dropdownController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));

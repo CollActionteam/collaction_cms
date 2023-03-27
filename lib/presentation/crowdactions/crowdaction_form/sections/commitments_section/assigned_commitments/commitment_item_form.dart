@@ -37,8 +37,6 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(
-        "COMMITMENT ITEM FORM INIT STATE: ${widget.commitmentInitialValue?.iconId}");
   }
 
   @override
@@ -54,7 +52,7 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
           backgroundColor: widget.backgroundColor,
           validationCallback: validateEmptyField,
           callback: (ValidationOutput validationOutput) {
-            widget.controller.validationOutputTitle = validationOutput;
+            widget.controller.setValidationOutput("title", validationOutput);
           },
           stateModifierCallback: widget.stateModifier,
         ),
@@ -64,7 +62,7 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
           initialTagsList: widget.commitmentInitialValue?.tags ?? [],
           validationCallback: validateEmptyField,
           callback: (ValidationOutput validationOutput) {
-            widget.controller.validationOutputTags = validationOutput;
+            widget.controller.setValidationOutput("tags", validationOutput);
           },
           stateModifierCallback: widget.stateModifier,
         ),
@@ -80,7 +78,8 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
                 backgroundColor: widget.backgroundColor,
                 validationCallback: shouldBeInt,
                 callback: (ValidationOutput validationOutput) {
-                  widget.controller.validationOutputPoints = validationOutput;
+                  widget.controller
+                      .setValidationOutput("points", validationOutput);
                 },
                 stateModifierCallback: widget.stateModifier,
               ),
@@ -93,7 +92,7 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
               validationCallback: validateEmptyField,
               label: "Icons",
               callback: (ValidationOutput validationOutput) {
-                widget.controller.validationOutputIcon = validationOutput;
+                widget.controller.setValidationOutput("icon", validationOutput);
               },
             ))
           ],
@@ -104,7 +103,8 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
           label: "Description",
           multiLine: true,
           callback: (ValidationOutput validationOutput) {
-            widget.controller.validationOutputDescription = validationOutput;
+            widget.controller
+                .setValidationOutput("description", validationOutput);
           },
           stateModifierCallback: widget.stateModifier,
         ),

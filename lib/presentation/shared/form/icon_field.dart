@@ -44,7 +44,6 @@ class _CollActionIconFieldState extends State<CollActionIconField> {
 
   @override
   void initState() {
-    print("COLLACTION ICON FIELD: ${widget.initialData}");
     super.initState();
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
