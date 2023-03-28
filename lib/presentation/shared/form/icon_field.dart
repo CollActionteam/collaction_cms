@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 
 class CollActionIconField extends StatefulWidget {
   final String? label;
-  final String? icon;
   final double width;
   final Function? callback;
   final Function? validationCallback;
@@ -23,7 +22,6 @@ class CollActionIconField extends StatefulWidget {
   const CollActionIconField({
     super.key,
     this.label,
-    this.icon,
     this.width = double.infinity,
     this.callback,
     this.validationCallback,
@@ -47,7 +45,9 @@ class _CollActionIconFieldState extends State<CollActionIconField> {
     super.initState();
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
-        : _validationOutput = widget.validationCallback!(widget.icon);
+        : _validationOutput = widget.validationCallback!(widget.initialData);
+
+    widget.callback?.call(_validationOutput);
   }
 
   @override

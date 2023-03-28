@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class CommitmentFormController with ChangeNotifier {
   CommitmentFormController();
 
-  List<ValidationOutput> validationOutputList = [];
+  String? _id;
 
   final Map<String, ValidationOutput?> _validationOutputs = {
     'title': null,
@@ -16,12 +16,29 @@ class CommitmentFormController with ChangeNotifier {
     'icon': null
   };
 
+  String? get id => _id;
+
+  void setId(String id) {
+    _id = id;
+  }
+
   Map<String, ValidationOutput?> get validationOutputs => _validationOutputs;
 
   void setValidationOutput(
       String fieldName, ValidationOutput validationOutput) {
     _validationOutputs[fieldName] = validationOutput;
-    notifyListeners();
+    bool verificationCompleted = true;
+
+    for (var value in _validationOutputs.values) {
+      if (value == null) {
+        verificationCompleted = false;
+      }
+    }
+
+    /// HERE IS THE PROBLEM:
+    if (verificationCompleted) {
+      notifyListeners();
+    }
   }
 
   /// the [skipInitialValidation] is used only to handle edge cases. In the commitmentItem a validation is needed before the child widget is
@@ -62,7 +79,7 @@ class CommitmentFormController with ChangeNotifier {
 
   Commitment commitmentFactory() {
     return Commitment(
-      id: const Uuid().v4(),
+      id: _id ?? const Uuid().v4(),
       iconId: _validationOutputs["icon"]!.output as String,
       description: _validationOutputs["description"]!.output as String,
       tags: _validationOutputs["tags"]!.output as List<String>,

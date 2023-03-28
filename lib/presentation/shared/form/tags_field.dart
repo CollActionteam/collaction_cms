@@ -49,6 +49,8 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
       widget.stateModifierCallback?.call();
     });
 
+    widget.callback?.call(_validationOutput);
+
     super.initState();
   }
 

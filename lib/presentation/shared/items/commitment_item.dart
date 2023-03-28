@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_cms/presentation/core/icons/icons_map.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
@@ -19,6 +18,7 @@ class CommitmentItem extends StatefulWidget {
     this.buttonTriggered = false,
     this.buttonCallback,
     required this.commitment,
+    this.formOnChange,
   });
 
   final IconData iconData;
@@ -27,6 +27,7 @@ class CommitmentItem extends StatefulWidget {
   final bool buttonTriggered;
   final VoidCallback? buttonCallback;
   final Commitment commitment;
+  final Function? formOnChange;
 
   @override
   State<CommitmentItem> createState() => _CommitmentItemState();
@@ -158,6 +159,7 @@ class _CommitmentItemState extends State<CommitmentItem>
                 buttonCallback: widget.buttonCallback,
                 controller: _commitmentFormController,
                 backgroundColor: Colors.white,
+                formOnChange: widget.formOnChange,
               ),
             ),
           )

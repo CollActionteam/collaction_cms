@@ -17,6 +17,7 @@ class CommitmentItemForm extends StatefulWidget {
     required this.smallOutlinedButtonType,
     required this.buttonCallback,
     this.commitmentInitialValue,
+    this.formOnChange,
   });
 
   final bool buttonTriggered;
@@ -27,6 +28,7 @@ class CommitmentItemForm extends StatefulWidget {
   final SmallOutlinedButtonType smallOutlinedButtonType;
   final VoidCallback? buttonCallback;
   final Commitment? commitmentInitialValue;
+  final Function? formOnChange;
 
   @override
   State<CommitmentItemForm> createState() => _CommitmentItemFormState();
@@ -37,6 +39,15 @@ class _CommitmentItemFormState extends State<CommitmentItemForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    if (widget.commitmentInitialValue != null) {
+      widget.controller.setId(widget.commitmentInitialValue!.id);
+    }
+    widget.controller.addListener(() {
+      if (widget.controller.isReadyForBloc()) {
+        widget.formOnChange?.call(widget.controller.commitmentFactory());
+      }
+    });
   }
 
   @override

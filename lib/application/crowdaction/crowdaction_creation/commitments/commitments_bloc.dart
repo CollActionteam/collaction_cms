@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as Math;
 
 import 'package:bloc/bloc.dart';
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/mediator/mediator_bloc.dart';
@@ -56,12 +57,21 @@ class CommitmentsBloc extends Bloc<CommitmentsEvent, CommitmentsState> {
 
     List<Commitment> commitmentsNew = commitmentOld.map((commitment) {
       if (commitment.id == event.commitment.id) {
-        return event.commitment;
+        return event.commitment.copyWith(id: commitment.id);
       } else {
         return commitment;
       }
     }).toList();
 
-    emit(CommitmentsState.commitmentsSet(commitmentsNew));
+    // emit(CommitmentsState.commitmentsSet([
+    //   Commitment(
+    //       blocks: [],
+    //       id: "dasd2",
+    //       tags: ["Asdsa"],
+    //       points: Math.Random().nextInt(100),
+    //       label: "Asdas")
+    // ]));
+
+    emit(CommitmentsState.commitmentsSet([...commitmentsNew]));
   }
 }

@@ -7,7 +7,7 @@ import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AssignedCommitmentsList extends StatelessWidget {
+class AssignedCommitmentsList extends StatefulWidget {
   final bool buttonTriggered;
   final List<Commitment> commitments;
   AssignedCommitmentsList({
@@ -16,30 +16,38 @@ class AssignedCommitmentsList extends StatelessWidget {
     required this.commitments,
   }) : super(key: key);
 
+  @override
+  State<AssignedCommitmentsList> createState() =>
+      _AssignedCommitmentsListState();
+}
+
+class _AssignedCommitmentsListState extends State<AssignedCommitmentsList> {
   final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return commitments.isNotEmpty
+    return widget.commitments.isNotEmpty
         ? ListView.builder(
             controller: _scrollController,
-            itemCount: commitments.length,
+            itemCount: widget.commitments.length,
             itemBuilder: (BuildContext context, int index) {
-              print(commitments[index].id);
               return Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: CommitmentItem(
-                  commitment: commitments[index],
-                  buttonTriggered: buttonTriggered,
-                  iconData: mapIcon("no-beef"),
-                  label: "No beef for one week",
-                  commitmentItemType: CommitmentItemType.statusChecker,
-                  buttonCallback: () {
-                    BlocProvider.of<CommitmentsBloc>(context).add(
-                        CommitmentsEvent.removeCommitment(
-                            commitments[index].id));
-                  },
-                ),
+                    commitment: widget.commitments[index],
+                    buttonTriggered: widget.buttonTriggered,
+                    iconData: mapIcon("no-beef"),
+                    label: "No beef for one week",
+                    commitmentItemType: CommitmentItemType.statusChecker,
+                    buttonCallback: () {
+                      BlocProvider.of<CommitmentsBloc>(context).add(
+                          CommitmentsEvent.removeCommitment(
+                              widget.commitments[index].id));
+                    },
+                    formOnChange: (Commitment commitment) {
+                      BlocProvider.of<CommitmentsBloc>(context)
+                          .add(CommitmentsEvent.editCommitment(commitment));
+                    }),
               );
             })
         : Container(
