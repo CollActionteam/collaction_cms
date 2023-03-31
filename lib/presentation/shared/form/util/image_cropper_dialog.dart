@@ -7,16 +7,17 @@ import 'package:flutter/material.dart';
 
 Future<Uint8List?> showImageCropperModal(
   BuildContext context,
-  Size imageSize,
+  Size targetSize,
   Uint8List image, {
   Function? callback,
-  double width = 400,
+  double horizontalPadding = 24,
+  double cropperWidth = 400,
   double cropperMargin = 30,
 }) async {
   CropController controller = CropController();
-  double aspectRatio = imageSize.width / imageSize.height;
-  final height = width / aspectRatio;
-  final cropperWidth = width - 2 * cropperMargin;
+  double aspectRatio = targetSize.width / targetSize.height;
+  final height = cropperWidth / aspectRatio;
+  final croppercropperWidth = cropperWidth - 2 * cropperMargin;
   final cropperHeight = height - 2 * cropperMargin;
 
   return showDialog<Uint8List>(
@@ -31,7 +32,7 @@ Future<Uint8List?> showImageCropperModal(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: width + 48,
+              width: cropperWidth + horizontalPadding * 2,
               child: Center(
                 child: Column(
                   children: [
@@ -46,7 +47,7 @@ Future<Uint8List?> showImageCropperModal(
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: SizedBox(
-                        width: width,
+                        width: cropperWidth,
                         height: height,
                         child: Stack(
                           children: [
@@ -79,7 +80,7 @@ Future<Uint8List?> showImageCropperModal(
                               bottom: cropperMargin,
                               child: IgnorePointer(
                                 child: Container(
-                                  width: cropperWidth,
+                                  width: croppercropperWidth,
                                   height: cropperHeight,
                                   decoration: BoxDecoration(
                                     border: Border.all(
