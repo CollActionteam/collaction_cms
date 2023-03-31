@@ -35,7 +35,6 @@ class CommitmentFormController with ChangeNotifier {
       }
     }
 
-    /// HERE IS THE PROBLEM:
     if (verificationCompleted) {
       notifyListeners();
     }
@@ -81,9 +80,9 @@ class CommitmentFormController with ChangeNotifier {
     return Commitment(
       id: _id ?? const Uuid().v4(),
       iconId: _validationOutputs["icon"]!.output as String,
-      description: _validationOutputs["description"]!.output as String,
+      description: (_validationOutputs["description"]!.output as String).trim(),
       tags: _validationOutputs["tags"]!.output as List<String>,
-      label: _validationOutputs["title"]!.output as String,
+      label: (_validationOutputs["title"]!.output as String).trim(),
       points: _validationOutputs["points"]!.output as int,
       blocks: <String>[],
     );

@@ -92,9 +92,10 @@ class CollActionButtonRectangle extends StatelessWidget {
         ),
         onPressed: () => onPressed(),
         child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
+          alignment: Alignment.center,
+          // padding: EdgeInsets.symmetric(
+          //   horizontal: padding,
+          // ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

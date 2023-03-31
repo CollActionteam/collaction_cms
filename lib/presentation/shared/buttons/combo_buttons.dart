@@ -37,7 +37,7 @@ class _ComboButtonsOnOffState extends State<ComboButtonsOnOff> {
     return Wrap(
       children: [
         CollActionButtonRectangle.wrapped(
-          text: "Choose from templates",
+          text: "Choose templates",
           onPressed: () => {
             setState(() {
               onOrOffNotifier.value = false;

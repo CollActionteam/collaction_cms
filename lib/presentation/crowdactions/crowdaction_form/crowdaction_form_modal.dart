@@ -80,6 +80,10 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                             double halfWidth = constraints.maxWidth < 640
                                 ? double.infinity
                                 : constraints.maxWidth * 0.5 - 5;
+                            double halfWidthCommitments =
+                                constraints.maxWidth < 760
+                                    ? double.infinity
+                                    : constraints.maxWidth * 0.5 - 5;
                             return Wrap(
                               spacing: 10,
                               children: [
@@ -94,8 +98,8 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                   buttonTriggered: _buttonTriggered,
                                   controller: _crowdActionInfoFormController,
                                 ),
-                                // replace with CrowdActionCommitmentsForm
                                 CrowdActionCommitmentsForm(
+                                  width: halfWidthCommitments,
                                   buttonTriggered: _buttonTriggered,
                                 )
                               ],

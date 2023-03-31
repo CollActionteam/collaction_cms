@@ -65,7 +65,8 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
           actionSuffix: true,
           suffixCallback: () {
             if (!_isIncluded(
-                _tagsNotifier.value, _textEditingController.text)) {
+                    _tagsNotifier.value, _textEditingController.text) &&
+                _textEditingController.text.isNotEmpty) {
               setState(() {
                 _tagsNotifier.value = [
                   ..._tagsNotifier.value,
