@@ -21,9 +21,7 @@ class CrowdActionImagesForm extends StatefulWidget {
 
 class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
   Uint8List? cardImage;
-  bool cardImageSet = false;
   Uint8List? bannerImage;
-  bool bannerImageSet = false;
 
   @override
   Widget build(BuildContext context) {
