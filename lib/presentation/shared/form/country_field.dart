@@ -106,6 +106,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                         : _validationOutput =
                             widget.validationCallback!(_selectedCountry);
                     _showPopup = false;
+                    widget.callback!(_validationOutput);
                   }),
                 ),
                 onTapOutside: _closePopup,

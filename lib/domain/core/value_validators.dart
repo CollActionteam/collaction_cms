@@ -4,7 +4,7 @@ import 'package:collaction_cms/domain/core/value_failures.dart';
 
 class ValidationOutput {
   final bool error;
-  final String output;
+  final dynamic output;
 
   ValidationOutput({required this.error, this.output = ""});
 }
@@ -26,7 +26,7 @@ ValidationOutput validateEmailAddress(String input) {
         error: true, output: "Must be a collaction.org email");
   }
 
-  return ValidationOutput(error: false);
+  return ValidationOutput(error: false, output: input);
 }
 
 ValidationOutput validatePassword(String input) {
@@ -39,7 +39,7 @@ ValidationOutput validatePassword(String input) {
           error: true, output: "Password cannot be less than 8 characters");
     }
 
-    return ValidationOutput(error: false);
+    return ValidationOutput(error: false, output: input);
   }
 }
 
@@ -52,7 +52,7 @@ ValidationOutput validateConfirmPassword(String input, String password) {
     return ValidationOutput(error: true, output: "The passwords don't match");
   }
 
-  return ValidationOutput(error: false);
+  return ValidationOutput(error: false, output: input);
 }
 
 ValidationOutput validateIncompleteDateTimeField(
@@ -68,7 +68,7 @@ ValidationOutput validateIncompleteDateTimeField(
     return ValidationOutput(error: true, output: "Time field must be filled");
   }
 
-  return ValidationOutput(error: false);
+  return ValidationOutput(error: false, output: input);
 }
 
 ValidationOutput validateEmptyField(dynamic input,
@@ -81,5 +81,5 @@ ValidationOutput validateEmptyField(dynamic input,
     return ValidationOutput(error: true, output: customMessage);
   }
 
-  return ValidationOutput(error: false);
+  return ValidationOutput(error: false, output: input);
 }

@@ -4,6 +4,7 @@ import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/shared/form/country_field.dart';
 import 'package:collaction_cms/presentation/shared/form/date_time_form_field.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_controller.dart';
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
 import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,11 +12,13 @@ import 'package:flutter/cupertino.dart';
 class CrowdActionInfoForm extends StatefulWidget {
   final double width;
   final bool buttonTriggered;
+  final CrowdActionInfoFormController controller;
 
   const CrowdActionInfoForm({
     super.key,
     this.width = double.infinity,
     this.buttonTriggered = false,
+    required this.controller,
   });
 
   @override
@@ -26,7 +29,6 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
   late Timer _everySecond;
   Timer? _everyMinute;
   String? title;
-  String? type;
   late DateTime startDate;
   bool startDateSet = false;
   late DateTime endDate;
@@ -95,17 +97,29 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: fullWidth,
                       validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputLabel =
+                            validationOutput;
+                      },
                     ),
                     CollactionTextFormField(
                       label: "Category",
                       width: halfWidth,
                       validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputCategory =
+                            validationOutput;
+                      },
                     ),
                     CollactionTextFormField(
                       label: "Subcategory",
                       width: halfWidth,
                       buttonTriggered: widget.buttonTriggered,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputSubcategory =
+                            validationOutput;
+                      },
                     ),
                     CollactionDateTimeFormField(
                       label: "Start date",
@@ -117,7 +131,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                           ? endDate.subtract(const Duration(minutes: 1))
                           : null,
                       validationCallback: validateIncompleteDateTimeField,
-                      callback: (bool error, DateTime dateTime) {
+                      callback: (ValidationOutput validationOutput,
+                          DateTime dateTime) {
+                        widget.controller.validationOutputStartDate =
+                            validationOutput;
                         startDate = dateTime;
                         startDateSet = true;
                         setState(() {});
@@ -131,7 +148,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       earliestDate: _getEarliestEndDateTime(),
                       validationCallback:
                           validateIncompleteDateTimeField, // not required
-                      callback: (bool error, DateTime dateTime) {
+                      callback: (ValidationOutput validationOutput,
+                          DateTime dateTime) {
+                        widget.controller.validationOutputEndDate =
+                            validationOutput;
                         endDate = dateTime;
                         endDateSet = true;
                         setState(() {});
@@ -147,7 +167,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       latestDate: endDateSet
                           ? endDate.subtract(const Duration(minutes: 1))
                           : null,
-                      callback: (bool error, DateTime dateTime) {
+                      callback: (ValidationOutput validationOutput,
+                          DateTime dateTime) {
+                        widget.controller.validationOutputJoinEndAt =
+                            validationOutput;
                         joinByDate = dateTime;
                         joinByDateSet = true;
                         setState(() {});
@@ -159,6 +182,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: halfWidth,
                       buttonTriggered: widget.buttonTriggered,
                       validationCallback: validateEmptyField,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputCountry =
+                            validationOutput;
+                      },
                     ),
                     CollactionTextFormField(
                       label: "Description",
@@ -166,11 +193,19 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       multiLine: true,
                       buttonTriggered: widget.buttonTriggered,
                       validationCallback: validateEmptyField,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputDescription =
+                            validationOutput;
+                      },
                     ),
                     CollactionTextFormField(
                       label: "Password",
                       width: fullWidth,
                       buttonTriggered: widget.buttonTriggered,
+                      callback: (ValidationOutput validationOutput) {
+                        widget.controller.validationOutputPassword =
+                            validationOutput;
+                      },
                     ),
                   ],
                 );
