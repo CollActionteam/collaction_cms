@@ -5,17 +5,16 @@ import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 
-Future<Uint8List?> showImageCropperModal(
-  BuildContext context,
-  Size targetSize,
-  Uint8List image, {
+Future<Uint8List?> showImageCropperModal({
+  required BuildContext context,
+  required double aspectRatio,
+  required Uint8List image,
   Function? callback,
   double horizontalPadding = 24,
   double cropperWidth = 400,
   double cropperMargin = 30,
 }) async {
   CropController controller = CropController();
-  double aspectRatio = targetSize.width / targetSize.height;
   final height = cropperWidth / aspectRatio;
   final croppercropperWidth = cropperWidth - 2 * cropperMargin;
   final cropperHeight = height - 2 * cropperMargin;
