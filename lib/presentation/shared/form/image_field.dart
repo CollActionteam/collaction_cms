@@ -12,7 +12,7 @@ class ImageField extends StatefulWidget {
   final String label;
   final String caption;
   final double width;
-  final Size? imageSize;
+  final double? aspectRatio;
   final Function? callback;
   final Function? validationCallback;
   final bool readOnly;
@@ -23,7 +23,7 @@ class ImageField extends StatefulWidget {
     required this.label,
     this.caption = "Image should be a PNG or JPEG file.",
     this.width = double.infinity,
-    this.imageSize,
+    this.aspectRatio,
     this.callback,
     this.validationCallback,
     this.readOnly = false,
@@ -45,6 +45,13 @@ class _ImageFieldState extends State<ImageField> {
   bool _loading = false;
   Uint8List? _image;
   String message = "Drag and drop your files here or choose file";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _validate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,9 +144,7 @@ class _ImageFieldState extends State<ImageField> {
     widget.validationCallback == null
         ? _validationOutput = ValidationOutput(error: false)
         : _validationOutput = widget.validationCallback!(_image);
-    widget.callback == null
-        ? null
-        : widget.callback!(_validationOutput.error ? null : _image);
+    widget.callback?.call(_validationOutput.error ? null : _image);
   }
 
   Future<void> _processUploadedImage(dynamic file) async {
@@ -159,11 +164,11 @@ class _ImageFieldState extends State<ImageField> {
       return;
     }
 
-    if (widget.imageSize != null) {
+    if (widget.aspectRatio != null) {
       _image = await showImageCropperModal(
-        context,
-        widget.imageSize!,
-        _image!,
+        context: context,
+        aspectRatio: widget.aspectRatio!,
+        image: _image!,
       );
     }
 
