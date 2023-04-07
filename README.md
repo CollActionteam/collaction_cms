@@ -1,8 +1,8 @@
 # :thinking: **What is a CMS?**
 
-The CMS(Content Manager System) aims to allow users to create/modify/delete/supervise content in a user-friendly way without coding or accessing any service console such as Firebase or AWS.
+The Content Managment System _(CMS)_ aims to allow users to create/modify/delete/supervise content in a user-friendly way, without coding or accessing any service console such as Google/Firebase or connecting directly to the database.
 
-Examples of CMS-like applications:
+Examples of CMS applications:
 - **Wordpress**: Users are able to add, modify or remove articles, content or shopping items
 - **Medium**: Users are able to add, modify, or remove articles.
 
@@ -17,9 +17,9 @@ To test the app, please use the following link:
 https://github.com/CollActionteam/collaction_cms.git
 
 ## Fill environment variables
-Make a copy of the `env.example` file, name it `env` and fill out the missing secrets. You can ask to other members of the team for the secrets, but also you can find the secrets in **Firebase console / Collaction-development project  / Project Settings** and in **Your apps** section choose **API - WEB APP**. You’ll find the secrets below **SDK setup and configuration**, just copy and paste the values of `firebaseConfig` into `env` file accordingly.
+Make a copy of the `env.example` file, name it `env`, and fill out the missing secrets. You can ask other members of the team for the secrets, but also you can find the secrets in **Firebase console / Collaction-development project  / Project Settings** and in **Your apps** section choose **API - WEB APP**. You’ll find the secrets below **SDK setup and configuration**, just copy and paste the values of `firebaseConfig` into the `env` file accordingly.
 
-:warning: It’s important to name the `env` file as env without the `.` prefix, because right now Firebase hosting has a rule that ignores files with `.env`.
+:warning: It’s important to name the `env` file as env without the `.` prefix, because right now Firebase hosting has a rule that ignores files with `.` prefix like `.env`.
 
 ## Api config
 To test the api locally fill the variable `BASE_API_ENDPOINT_URL` with `http://localhost:3000/api` and run the api locally, you can follow the tutorial to set up the api locally. To test the api on development, just fill `BASE_API_ENDPOINT_URL` with `https://devapi.collaction.org`.
@@ -29,6 +29,8 @@ On the root path of the project run `flutter pub get` on the command.
 
 ## Firebase configuration
 Firebase config is managed by `FirebaseOptionsFactory` inside `generate_firebase_options.dart` this factory is going to generate a `FirebaseOptions` object based on `env` values. So no action is needed.
+
+Check firebase configuration documentation [here](https://docs.collaction.org/configuring-firebase)
 
 ## Generating Code
 In order to generate code related to `freezed` , `injectable` , `json_serializable`. Choose a command to run when you need to build or re-build these files.
@@ -59,4 +61,4 @@ Run the command  `flutter run -d chrome --web-port=<ADMINCMS_URL port>`.
 
 :warning: **Considerations**
 
-It has been reported some memory problems because flutter appears to generate files in `.../Local/AppData/Temp` folder when running on chrome `flutter run -d chrome` . So from time to time is recommended to check that folder if there is presence of `flutter_tools` folders and erase them. 
+It has been reported some memory problems because Flutter appears to generate files in `.../Local/AppData/Temp` folder when running on Chrome `flutter run -d chrome` . Therefore it is recommended to check that folder for the presence of `flutter_tools` folders and erase them. 
