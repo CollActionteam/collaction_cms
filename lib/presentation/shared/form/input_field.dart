@@ -60,7 +60,7 @@ class _CollActionInputFieldState extends State<CollActionInputField> {
             onChanged: (value) {
               _validationOutput = widget.validationCallback == null
                   ? ValidationOutput(error: false)
-                  : widget.validationCallback!(widget.initialValue ?? "");
+                  : widget.validationCallback!(value);
 
               setState(() {});
               widget.callback?.call(_validationOutput.error);

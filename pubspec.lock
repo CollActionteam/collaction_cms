@@ -306,6 +306,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  ffi:
+    dependency: transitive
+    description:
+      name: ffi
+      sha256: a38574032c5f1dd06c4aee541789906c12ccaab8ba01446e800d9c5b79c4a978
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -427,10 +435,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
+      sha256: "12006889e2987c549c4c1ec1a5ba4ec4b24d34d2469ee5f9476c926dcecff266"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.6"
+    version: "2.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -541,18 +549,18 @@ packages:
     dependency: "direct main"
     description:
       name: injectable
-      sha256: f71eb879124ed286cbd2210337b91ff5f345f146187c1f1891c172e0ac06443a
+      sha256: c0cc829eb71c950889e2ae363f0755a9686852b5ea21584b5aefc106bce64d0c
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.4"
+    version: "2.1.1"
   injectable_generator:
     dependency: "direct dev"
     description:
       name: injectable_generator
-      sha256: "1f5bbe44f06cf15dc55b9797a8df8b4d22b0471f6a7d7f79f4c651393b130a9d"
+      sha256: "0670348cfeb5f62de97977f21e11c826c41e4fcf2a34e686de3aa94f1d47a190"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.5"
+    version: "2.1.5"
   intl:
     dependency: "direct main"
     description:
@@ -597,10 +605,10 @@ packages:
     dependency: "direct dev"
     description:
       name: lint
-      sha256: "4a539aa34ec5721a2c7574ae2ca0336738ea4adc2a34887d54b7596310b33c85"
+      sha256: "3e9343b1cededcfb1e8b40d0dbd3592b7a1c6c0121545663a991433390c2bc97"
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.0"
+    version: "2.0.1"
   lints:
     dependency: transitive
     description:
@@ -777,14 +785,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   rive:
     dependency: "direct main"
     description:
       name: rive
-      sha256: "22e3755b75f4ea4492d2fecf4fc2acf1c8d0073df39781d290a20cbfe74c3760"
+      sha256: "763b4915b5245428f1188d38c2ff8c26da83ca194d345daa319ca32d69ed670f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.1"
+    version: "0.10.3"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: "12ea4a1ca1aa2ddeb2ef212afa20517d6c140a5deb32149c713912a7e6b7e26e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   shelf:
     dependency: transitive
     description:
@@ -958,6 +982,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  vector_graphics:
+    dependency: transitive
+    description:
+      name: vector_graphics
+      sha256: "4cf8e60dbe4d3a693d37dff11255a172594c0793da542183cbfe7fe978ae4aaa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
+  vector_graphics_codec:
+    dependency: transitive
+    description:
+      name: vector_graphics_codec
+      sha256: "278ad5f816f58b1967396d1f78ced470e3e58c9fe4b27010102c0a595c764468"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
+  vector_graphics_compiler:
+    dependency: transitive
+    description:
+      name: vector_graphics_compiler
+      sha256: "0bf61ad56e6fd6688a2865d3ceaea396bc6a0a90ea0d7ad5049b1b76c09d6163"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
   vector_math:
     dependency: transitive
     description:
@@ -1055,5 +1103,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
-  flutter: ">=3.3.0"
+  dart: ">=2.19.6 <3.0.0"
+  flutter: ">=3.7.0-0"
