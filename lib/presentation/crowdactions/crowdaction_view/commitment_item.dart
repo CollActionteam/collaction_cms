@@ -49,9 +49,19 @@ class CommitmentItem extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     )),
                 const SizedBox(height: 5),
-                SelectableText(
-                  description,
-                  style: CollactionTextStyles.body,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 358,
+                      child: Text(
+                        description,
+                        style: CollactionTextStyles.body,
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 5),
                 SelectableText.rich(TextSpan(
