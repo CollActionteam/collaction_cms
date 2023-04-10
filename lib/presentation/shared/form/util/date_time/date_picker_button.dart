@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 class DatePickerButton extends StatefulWidget {
   final double width;
+  final Rect? popupRect;
   final Function(DateTime)? callback;
   final DateTime? selectedDate;
   final DateTime? earliestDate;
@@ -16,6 +17,7 @@ class DatePickerButton extends StatefulWidget {
   const DatePickerButton({
     super.key,
     required this.width,
+    this.popupRect,
     this.callback,
     this.selectedDate,
     this.earliestDate,
@@ -94,9 +96,7 @@ class _DatePickerButtonState extends State<DatePickerButton> {
                 },
                 onCancel: _closeDatePicker,
               ),
-              width: 280,
-              height: 300,
-              offset: 0,
+              rect: widget.popupRect ?? const Rect.fromLTWH(0, 0, 280, 300),
               onTapOutside: _closeDatePicker,
             ),
         ],

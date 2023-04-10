@@ -64,7 +64,7 @@ class _CollActionTimePickerState extends State<CollActionTimePicker> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 80,
+                width: 65,
                 height: 75,
                 child: NumberField(
                   label: "Hour",
@@ -82,13 +82,13 @@ class _CollActionTimePickerState extends State<CollActionTimePicker> {
                   ":",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 36,
                     color: kBlackPrimary300,
                   ),
                 ),
               ),
               SizedBox(
-                width: 80,
+                width: 65,
                 height: 75,
                 child: NumberField(
                   label: "Minute",

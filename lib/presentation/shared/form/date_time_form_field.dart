@@ -39,6 +39,14 @@ class _CollactionDateTimeFormFieldState
   late DateTime _dateTime;
   bool _dateSet = false;
   bool _timeSet = false;
+  late double _timePickerWidth;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _timePickerWidth = widget.width * 0.33 - 4;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +66,7 @@ class _CollactionDateTimeFormFieldState
             DatePickerButton(
               readOnly: widget.readOnly,
               width: widget.width * 0.67,
+              popupRect: Rect.fromLTWH(0, 0, widget.width, 300),
               selectedDate: _dateTime,
               earliestDate: widget.earliestDate,
               latestDate: widget.latestDate,
@@ -75,7 +84,9 @@ class _CollactionDateTimeFormFieldState
             const SizedBox(width: 4),
             TimePickerButton(
               readOnly: widget.readOnly || !_dateSet,
-              width: widget.width * 0.33 - 4,
+              width: _timePickerWidth,
+              popupRect: Rect.fromLTWH(
+                  _timePickerWidth - widget.width, 0, widget.width, 174),
               selectedTime: _dateTime,
               earliestTime: widget.earliestDate,
               latestTime: widget.latestDate,
@@ -112,10 +123,6 @@ class _CollactionDateTimeFormFieldState
             _dateSet,
             _timeSet,
           );
-
-    // _dateTime = _validationOutput.error || _validationOutput.output == ""
-    //     ? _dateTime
-    //     : DateTime.parse(_validationOutput.output);
 
     if (widget.latestDate != null &&
         _dateTime.compareTo(widget.latestDate!) > 0) {

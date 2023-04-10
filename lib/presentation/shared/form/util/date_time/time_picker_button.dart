@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 class TimePickerButton extends StatefulWidget {
   final double width;
+  final Rect? popupRect;
   final Function? callback;
   final DateTime? selectedTime;
   final DateTime? earliestTime;
@@ -16,6 +17,7 @@ class TimePickerButton extends StatefulWidget {
   const TimePickerButton({
     super.key,
     required this.width,
+    this.popupRect,
     this.callback,
     this.selectedTime,
     this.earliestTime,
@@ -92,9 +94,7 @@ class _TimePickerButtonState extends State<TimePickerButton> {
                 },
                 onCancel: _closeTimePicker,
               ),
-              height: 174,
-              width: 220,
-              offset: 0,
+              rect: widget.popupRect ?? const Rect.fromLTWH(0, 0, 220, 174),
               onTapOutside: _closeTimePicker,
             ),
         ],

@@ -5,14 +5,13 @@ import 'package:tap_canvas/tap_canvas.dart';
 Widget fieldPopup(
   Widget child, {
   Function? onTapOutside,
-  required double width,
-  required double height,
-  required double offset,
+  required Rect rect,
 }) {
   return Positioned(
-    top: offset,
-    width: width,
-    height: height,
+    top: rect.top,
+    left: rect.left,
+    width: rect.width,
+    height: rect.height,
     child: DeferPointer(
       paintOnTop: true,
       child: Material(

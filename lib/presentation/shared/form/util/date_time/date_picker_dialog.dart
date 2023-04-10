@@ -34,12 +34,15 @@ class _CollActionDatePickerState extends State<CollActionDatePicker> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: const ColorScheme.light(
-          primary: kAccentHoverColor,
-          onPrimary: Colors.white,
-          onSurface: kBlackPrimary400,
-        ),
-      ),
+          colorScheme: const ColorScheme.light(
+            primary: kAccentHoverColor,
+            onPrimary: Colors.white,
+            onSurface: kBlackPrimary400,
+          ),
+          iconButtonTheme: IconButtonThemeData(
+            style: ButtonStyle(
+                maximumSize: MaterialStateProperty.all(Size(10, 10))),
+          )),
       child: Column(
         children: [
           SizedBox(
