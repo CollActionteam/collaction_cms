@@ -72,9 +72,9 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
               cursorColor: kAccentColor,
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.fromLTRB(8, 25, 8, 0),
-                  enabledBorder: CollActionBorderStyles.formFieldBorderSide,
-                  border: CollActionBorderStyles.formFieldBorderSide,
-                  focusedBorder: CollActionBorderStyles.formFieldBorderSide,
+                  enabledBorder: CollActionBorderStyles.formFieldBorderOutline,
+                  border: CollActionBorderStyles.formFieldBorderOutline,
+                  focusedBorder: CollActionBorderStyles.formFieldBorderOutline,
                   fillColor: widget.backgroundColor,
                   filled: true,
                   suffixIcon: MouseRegion(

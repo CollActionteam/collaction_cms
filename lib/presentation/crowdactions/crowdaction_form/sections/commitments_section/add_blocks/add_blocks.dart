@@ -1,3 +1,5 @@
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/add_blocks/add_blocks_select.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/add_blocks/blocks_radio_table.dart';
 import 'package:flutter/material.dart';
 
 class AddBlocks extends StatelessWidget {
@@ -8,6 +10,7 @@ class AddBlocks extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
+        alignment: Alignment.topLeft,
         width: double.infinity,
         height: 270,
         decoration: BoxDecoration(
@@ -16,6 +19,15 @@ class AddBlocks extends StatelessWidget {
           border: Border.all(
             color: const Color(0xFFDADADA),
           ),
+        ),
+        child: Wrap(
+          children: const [
+            Expanded(child: AddBlocksSelect()),
+            SizedBox(
+              width: 80,
+            ),
+            Expanded(child: BlocksRadioTable())
+          ],
         ),
       ),
     );

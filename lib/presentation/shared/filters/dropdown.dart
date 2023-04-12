@@ -2,25 +2,33 @@ import 'package:collaction_cms/presentation/core/enums/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 
-class DropdownFilter extends StatefulWidget {
-  const DropdownFilter(
-      {Key? key,
-      required this.items,
-      this.rectSide,
-      this.getValueCallback,
-      this.label})
-      : super(key: key);
+class DropdownField extends StatefulWidget {
+  DropdownField({
+    Key? key,
+    required this.items,
+    this.rectSide,
+    this.getValueCallback,
+    this.label,
+    this.backgroundColor = Colors.white,
+    this.borderStyle,
+    this.primaryColor = false,
+  }) : super(key: key) {
+    borderStyle ??= CollActionBorderStyles.inputBorderSide;
+  }
 
   final List<String> items;
   final RectSide? rectSide;
   final Function? getValueCallback;
   final String? label;
+  final Color backgroundColor;
+  BorderSide? borderStyle;
+  final bool primaryColor;
 
   @override
-  State<DropdownFilter> createState() => _DropdownFilterState();
+  State<DropdownField> createState() => _DropdownFieldState();
 }
 
-class _DropdownFilterState extends State<DropdownFilter> {
+class _DropdownFieldState extends State<DropdownField> {
   String? _dropdownValue;
 
   @override
@@ -28,28 +36,34 @@ class _DropdownFilterState extends State<DropdownFilter> {
     return Stack(
       children: [
         Container(
-          width: 129,
+          height: 32,
+          width: double.infinity,
           alignment: Alignment.center,
           child: DropdownButtonFormField(
+            isExpanded: true,
+            menuMaxHeight: 270,
+            focusColor: Colors.transparent,
+            dropdownColor: widget.backgroundColor,
             elevation: 2,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             itemHeight: 50,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
-              isDense: true,
-              contentPadding: const EdgeInsets.only(
-                  left: 14, right: 7, top: 10, bottom: 10),
+              fillColor: widget.backgroundColor,
+              focusColor: widget.backgroundColor,
+              // isDense: true,
+              contentPadding:
+                  const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
               enabledBorder: OutlineInputBorder(
                   borderRadius: _borderRadius(widget.rectSide),
-                  borderSide: CollActionBorderStyles.inputBorderSide),
+                  borderSide: widget.borderStyle!),
               focusedBorder: OutlineInputBorder(
                   borderRadius: _borderRadius(widget.rectSide),
-                  borderSide: CollActionBorderStyles.inputBorderSide),
+                  borderSide: widget.borderStyle!),
             ),
             value: _dropdownValue ?? widget.items.first,
             icon: Container(
-              alignment: Alignment.center,
+              alignment: Alignment.centerRight,
               child: const Icon(
                 Icons.arrow_drop_down_rounded,
                 size: 26,
@@ -58,7 +72,14 @@ class _DropdownFilterState extends State<DropdownFilter> {
             items: widget.items.map<DropdownMenuItem>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: CollactionTextStyles.body14),
+                child: Text(
+                  value,
+                  style: widget.primaryColor
+                      ? CollactionTextStyles.body14Accent
+                          .copyWith(fontWeight: FontWeight.w400)
+                      : CollactionTextStyles.body,
+                  overflow: TextOverflow.ellipsis,
+                ),
               );
             }).toList(),
             onChanged: (value) {
@@ -77,20 +98,20 @@ class _DropdownFilterState extends State<DropdownFilter> {
 
   BorderRadius _borderRadius(RectSide? dropdownFilterRectSide) {
     if (dropdownFilterRectSide == null) {
-      return const BorderRadius.all(Radius.circular(8));
+      return const BorderRadius.all(Radius.circular(5));
     } else {
       if (dropdownFilterRectSide == RectSide.left) {
         return const BorderRadius.only(
             topLeft: Radius.zero,
             bottomLeft: Radius.zero,
-            topRight: Radius.circular(8),
-            bottomRight: Radius.circular(8));
+            topRight: Radius.circular(5),
+            bottomRight: Radius.circular(5));
       } else {
         return const BorderRadius.only(
           topRight: Radius.zero,
           bottomRight: Radius.zero,
-          topLeft: Radius.circular(8),
-          bottomLeft: Radius.circular(8),
+          topLeft: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
         );
       }
     }

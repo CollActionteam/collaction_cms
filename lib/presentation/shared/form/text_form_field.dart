@@ -96,9 +96,9 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
               8,
               widget.multiLine ? 8 : 0,
             ),
-            enabledBorder: CollActionBorderStyles.formFieldBorderSide,
-            border: CollActionBorderStyles.formFieldBorderSide,
-            focusedBorder: CollActionBorderStyles.formFieldBorderSide,
+            enabledBorder: CollActionBorderStyles.formFieldBorderOutline,
+            border: CollActionBorderStyles.formFieldBorderOutline,
+            focusedBorder: CollActionBorderStyles.formFieldBorderOutline,
             fillColor:
                 widget.readOnly ? kBlackPrimary0 : widget.backgroundColor,
             filled: true,
