@@ -3,11 +3,6 @@ import 'package:collaction_cms/presentation/shared/form/form_field.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
-/// USE ONLY [channelValidationOutput] if the validation is going to be externally, like [CollActionTagsField]
-/// In that case, the validator is validating, not the value of the [TextField] but the list of tags stored in
-/// [CollActionTagsField], so the [ValidationOutput] shouldn't be produced inside [CollActionTextFormField], but passed through.
-///
-///Is important to mention that if you are using the [channelValidationOutput] property you shouldn't pass a [ValidationCallback]
 class CollactionTextFormField extends StatefulWidget {
   final String? label;
   final double width;
@@ -20,10 +15,7 @@ class CollactionTextFormField extends StatefulWidget {
   final bool multiLine;
   final bool buttonTriggered;
   final TextStyle? style;
-  final bool actionSuffix;
-  final Function? suffixCallback;
   final Color backgroundColor;
-  final ValidationOutput? channelValidationOutput;
   final VoidCallback? stateModifierCallback;
 
   const CollactionTextFormField({
@@ -39,10 +31,7 @@ class CollactionTextFormField extends StatefulWidget {
     this.multiLine = false,
     this.buttonTriggered = false,
     this.style,
-    this.actionSuffix = false,
-    this.suffixCallback,
     this.backgroundColor = Colors.transparent,
-    this.channelValidationOutput,
     this.stateModifierCallback,
   });
 
@@ -57,16 +46,11 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   @override
   void initState() {
     super.initState();
-    if (widget.channelValidationOutput == null) {
-      widget.validationCallback == null
-          ? _validationOutput =
-              ValidationOutput(error: false, output: widget.initialValue)
-          : _validationOutput =
-              widget.validationCallback!(widget.initialValue ?? "");
-    } else {
-      ///This prevents [LateInitializationError] complications
-      _validationOutput = widget.channelValidationOutput!;
-    }
+    widget.validationCallback == null
+        ? _validationOutput =
+            ValidationOutput(error: false, output: widget.initialValue)
+        : _validationOutput =
+            widget.validationCallback!(widget.initialValue ?? "");
 
     widget.callback?.call(_validationOutput);
   }
@@ -75,7 +59,9 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   Widget build(BuildContext context) {
     return CollActionFormField(
       readOnly: widget.readOnly,
-      error: _passingError(),
+      error: widget.buttonTriggered && _validationOutput.error
+          ? _validationOutput.output
+          : null,
       label: widget.label,
       width: widget.width,
       child: SizedBox(
@@ -87,12 +73,10 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           controller: widget.initialValue == null ? widget.controller : null,
           focusNode: widget.focusNode,
           onChanged: (value) {
-            if (widget.channelValidationOutput == null) {
-              widget.validationCallback == null
-                  ? _validationOutput =
-                      ValidationOutput(error: false, output: value)
-                  : _validationOutput = widget.validationCallback!(value);
-            }
+            widget.validationCallback == null
+                ? _validationOutput =
+                    ValidationOutput(error: false, output: value)
+                : _validationOutput = widget.validationCallback!(value);
             setState(() {});
             widget.stateModifierCallback?.call();
             widget.callback == null
@@ -106,18 +90,6 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
               ? TextAlignVertical.top
               : TextAlignVertical.center,
           decoration: InputDecoration(
-            suffixIcon: widget.actionSuffix
-                ? MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () => widget.suffixCallback?.call(),
-                      child: const Icon(
-                        Icons.add_circle_outline,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
             contentPadding: EdgeInsets.fromLTRB(
               8,
               widget.multiLine ? 8 : 25,
@@ -142,20 +114,5 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
         ),
       ),
     );
-  }
-
-  String? _passingError() {
-    if (widget.channelValidationOutput?.error == true &&
-        widget.buttonTriggered) {
-      return widget.channelValidationOutput!.output;
-    }
-
-    if (widget.buttonTriggered &&
-        _validationOutput.error &&
-        widget.channelValidationOutput == null) {
-      return _validationOutput.output;
-    }
-
-    return null;
   }
 }

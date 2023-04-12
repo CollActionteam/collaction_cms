@@ -1,6 +1,7 @@
 import 'package:collaction_cms/domain/core/value_validators.dart';
 import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
-import 'package:collaction_cms/presentation/shared/form/text_form_field.dart';
+import 'package:collaction_cms/presentation/shared/form/form_field.dart';
+import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 
 class CollActionTagsField extends StatefulWidget {
@@ -58,26 +59,48 @@ class _CollActionTagsFieldState extends State<CollActionTagsField> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CollactionTextFormField(
-          buttonTriggered: widget.buttonTriggered,
-          controller: _textEditingController,
+        CollActionFormField(
+          error: widget.buttonTriggered && _validationOutput.error
+              ? _validationOutput.output
+              : null,
           label: "Tags",
-          actionSuffix: true,
-          suffixCallback: () {
-            if (!_isIncluded(
-                    _tagsNotifier.value, _textEditingController.text) &&
-                _textEditingController.text.isNotEmpty) {
-              setState(() {
-                _tagsNotifier.value = [
-                  ..._tagsNotifier.value,
-                  _textEditingController.text
-                ];
-                _textEditingController.text = "";
-              });
-            }
-          },
-          backgroundColor: widget.backgroundColor,
-          channelValidationOutput: _validationOutput,
+          child: SizedBox(
+            height: 32,
+            child: TextFormField(
+              controller: _textEditingController,
+              style: CollactionTextStyles.body,
+              cursorColor: kAccentColor,
+              decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.fromLTRB(8, 25, 8, 0),
+                  enabledBorder: CollActionBorderStyles.formFieldBorderSide,
+                  border: CollActionBorderStyles.formFieldBorderSide,
+                  focusedBorder: CollActionBorderStyles.formFieldBorderSide,
+                  fillColor: widget.backgroundColor,
+                  filled: true,
+                  suffixIcon: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (!_isIncluded(_tagsNotifier.value,
+                                _textEditingController.text) &&
+                            _textEditingController.text.isNotEmpty) {
+                          setState(() {
+                            _tagsNotifier.value = [
+                              ..._tagsNotifier.value,
+                              _textEditingController.text
+                            ];
+                            _textEditingController.text = "";
+                          });
+                        }
+                      },
+                      child: const Icon(
+                        Icons.add_circle_outline,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )),
+            ),
+          ),
         ),
         Container(
           width: double.infinity,
