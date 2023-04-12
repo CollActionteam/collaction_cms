@@ -14,6 +14,7 @@ class CollactionDateTimeFormField extends StatefulWidget {
   final DateTime? earliestDate;
   final DateTime? latestDate;
   final bool buttonTriggered;
+  final bool isFullWidth;
 
   const CollactionDateTimeFormField({
     super.key,
@@ -26,6 +27,7 @@ class CollactionDateTimeFormField extends StatefulWidget {
     this.earliestDate,
     this.latestDate,
     this.buttonTriggered = false,
+    this.isFullWidth = false,
   });
 
   @override
@@ -39,14 +41,6 @@ class _CollactionDateTimeFormFieldState
   late DateTime _dateTime;
   bool _dateSet = false;
   bool _timeSet = false;
-  late double _timePickerWidth;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _timePickerWidth = widget.width * 0.33 - 4;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +60,9 @@ class _CollactionDateTimeFormFieldState
             DatePickerButton(
               readOnly: widget.readOnly,
               width: widget.width * 0.67,
-              popupRect: Rect.fromLTWH(0, 0, widget.width, 300),
+              popupRect: !widget.isFullWidth
+                  ? null
+                  : Rect.fromLTWH(0, 0, widget.width, 300),
               selectedDate: _dateTime,
               earliestDate: widget.earliestDate,
               latestDate: widget.latestDate,
@@ -84,9 +80,11 @@ class _CollactionDateTimeFormFieldState
             const SizedBox(width: 4),
             TimePickerButton(
               readOnly: widget.readOnly || !_dateSet,
-              width: _timePickerWidth,
-              popupRect: Rect.fromLTWH(
-                  _timePickerWidth - widget.width, 0, widget.width, 174),
+              width: _getTimePickerWidth(),
+              popupRect: !widget.isFullWidth
+                  ? null
+                  : Rect.fromLTWH(_getTimePickerWidth() - widget.width, 0,
+                      widget.width, 174),
               selectedTime: _dateTime,
               earliestTime: widget.earliestDate,
               latestTime: widget.latestDate,
@@ -133,5 +131,9 @@ class _CollactionDateTimeFormFieldState
         _dateTime.compareTo(widget.earliestDate!) < 0) {
       _dateTime = widget.earliestDate!;
     }
+  }
+
+  double _getTimePickerWidth() {
+    return widget.width * 0.33 - 4;
   }
 }

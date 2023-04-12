@@ -12,12 +12,14 @@ import 'package:flutter/cupertino.dart';
 class CrowdActionInfoForm extends StatefulWidget {
   final double width;
   final bool buttonTriggered;
+  final bool isFullWidth;
   final CrowdActionInfoFormController controller;
 
   const CrowdActionInfoForm({
     super.key,
     this.width = double.infinity,
     this.buttonTriggered = false,
+    this.isFullWidth = false,
     required this.controller,
   });
 
@@ -82,6 +84,7 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
           const FormHeader(title: "Basic Information"),
           const SizedBox(height: 18),
           Container(
+            alignment: Alignment.topLeft,
             padding: const EdgeInsets.symmetric(horizontal: 23),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -123,7 +126,7 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                     ),
                     CollactionDateTimeFormField(
                       label: "Start date",
-                      width: halfWidth,
+                      width: widget.isFullWidth ? fullWidth : halfWidth,
                       selectedDate: startDate,
                       earliestDate:
                           DateTime.now().add(const Duration(minutes: 5)),
@@ -140,10 +143,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                         setState(() {});
                       },
                       buttonTriggered: widget.buttonTriggered,
+                      isFullWidth: widget.isFullWidth,
                     ),
                     CollactionDateTimeFormField(
                       label: "End date",
-                      width: halfWidth,
+                      width: widget.isFullWidth ? fullWidth : halfWidth,
                       selectedDate: endDate,
                       earliestDate: _getEarliestEndDateTime(),
                       validationCallback:
@@ -157,10 +161,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                         setState(() {});
                       },
                       buttonTriggered: widget.buttonTriggered,
+                      isFullWidth: widget.isFullWidth,
                     ),
                     CollactionDateTimeFormField(
                       label: "Join end at",
-                      width: halfWidth,
+                      width: widget.isFullWidth ? fullWidth : halfWidth,
                       selectedDate: joinByDate,
                       earliestDate:
                           DateTime.now().add(const Duration(minutes: 5)),
@@ -176,10 +181,11 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                         setState(() {});
                       },
                       buttonTriggered: widget.buttonTriggered,
+                      isFullWidth: widget.isFullWidth,
                     ),
                     CollActionCountryField(
                       label: "Country",
-                      width: halfWidth,
+                      width: widget.isFullWidth ? fullWidth : halfWidth,
                       buttonTriggered: widget.buttonTriggered,
                       validationCallback: validateEmptyField,
                       callback: (ValidationOutput validationOutput) {

@@ -88,6 +88,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                   width: halfWidth,
                                   buttonTriggered: _buttonTriggered,
                                   controller: _crowdActionInfoFormController,
+                                  isFullWidth: constraints.maxWidth < 640,
                                 ),
                                 // replace with CrowdActionImagesForm
                                 CrowdActionImagesForm(
