@@ -68,6 +68,12 @@ class CollactionTextStyles {
       fontWeight: FontWeight.w300,
       color: kBlackPrimary300);
 
+  static const bodyAccent = TextStyle(
+      fontFamily: "Rubik",
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      color: kAccentColor);
+
   static const bodyLabelRegular = TextStyle(
     fontFamily: "Rubik",
     fontSize: 15,
@@ -136,5 +142,11 @@ class CollactionTextStyles {
       fontFamily: "Rubik",
       fontSize: 16,
       fontWeight: FontWeight.w300,
+      color: kTextCompositionColor);
+
+  static const headline = TextStyle(
+      fontFamily: "Rubik",
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
       color: kTextCompositionColor);
 }

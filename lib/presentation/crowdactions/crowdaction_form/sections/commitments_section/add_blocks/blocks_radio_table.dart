@@ -5,6 +5,10 @@ class BlocksRadioTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+      width: 350,
+      height: 230,
+    );
   }
 }

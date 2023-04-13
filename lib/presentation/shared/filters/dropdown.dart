@@ -12,6 +12,7 @@ class DropdownField extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.borderStyle,
     this.primaryColor = false,
+    this.isLoading,
   }) : super(key: key) {
     borderStyle ??= CollActionBorderStyles.inputBorderSide;
   }
@@ -23,6 +24,7 @@ class DropdownField extends StatefulWidget {
   final Color backgroundColor;
   BorderSide? borderStyle;
   final bool primaryColor;
+  final bool? isLoading;
 
   @override
   State<DropdownField> createState() => _DropdownFieldState();
@@ -51,7 +53,6 @@ class _DropdownFieldState extends State<DropdownField> {
               filled: true,
               fillColor: widget.backgroundColor,
               focusColor: widget.backgroundColor,
-              // isDense: true,
               contentPadding:
                   const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
               enabledBorder: OutlineInputBorder(
@@ -61,7 +62,9 @@ class _DropdownFieldState extends State<DropdownField> {
                   borderRadius: _borderRadius(widget.rectSide),
                   borderSide: widget.borderStyle!),
             ),
-            value: _dropdownValue ?? widget.items.first,
+            value: widget.isLoading == false || widget.isLoading == null
+                ? _dropdownValue ?? widget.items.first
+                : "-",
             icon: Container(
               alignment: Alignment.centerRight,
               child: const Icon(
@@ -72,13 +75,16 @@ class _DropdownFieldState extends State<DropdownField> {
             items: widget.items.map<DropdownMenuItem>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(
-                  value,
-                  style: widget.primaryColor
-                      ? CollactionTextStyles.body14Accent
-                          .copyWith(fontWeight: FontWeight.w400)
-                      : CollactionTextStyles.body,
-                  overflow: TextOverflow.ellipsis,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    value,
+                    style: widget.primaryColor
+                        ? CollactionTextStyles.bodyAccent
+                            .copyWith(fontWeight: FontWeight.w400)
+                        : CollactionTextStyles.body,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               );
             }).toList(),
