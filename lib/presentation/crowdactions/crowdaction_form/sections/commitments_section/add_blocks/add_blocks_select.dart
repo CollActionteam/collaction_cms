@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class AddBlocksSelect extends StatelessWidget {
   final bool? isLoading;
   final List<Commitment> commitments;
+  final Function callback;
   const AddBlocksSelect({
     Key? key,
     required this.isLoading,
     required this.commitments,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,6 @@ class AddBlocksSelect extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
           const SelectableText(
             "Add Blocks",
@@ -47,6 +48,12 @@ class AddBlocksSelect extends StatelessWidget {
           SizedBox(
             width: 192,
             child: DropdownField(
+              getValueCallback: (String value) {
+                var commitment = commitments
+                    .where((commitment) => commitment.label == value)
+                    .toList()[0];
+                callback(commitment);
+              },
               isLoading: isLoading,
               primaryColor: true,
               backgroundColor: Colors.white,

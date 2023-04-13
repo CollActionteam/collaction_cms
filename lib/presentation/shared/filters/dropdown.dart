@@ -90,10 +90,9 @@ class _DropdownFieldState extends State<DropdownField> {
             }).toList(),
             onChanged: (value) {
               setState(() {
+                print(value);
                 _dropdownValue = value;
-                widget.getValueCallback != null
-                    ? widget.getValueCallback!(value)
-                    : null;
+                widget.getValueCallback?.call(value);
               });
             },
           ),

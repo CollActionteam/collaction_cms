@@ -14,6 +14,7 @@ class AddBlocks extends StatefulWidget {
 
 class _AddBlocksState extends State<AddBlocks> {
   bool _isLoading = true;
+  Commitment? _selectedCommitment;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class _AddBlocksState extends State<AddBlocks> {
         state.map(
           commitmentsSet: (value) {
             _isLoading = false;
+            _selectedCommitment = value.commitments[0];
           },
           initial: (value) {
             _isLoading = true;
@@ -29,13 +31,13 @@ class _AddBlocksState extends State<AddBlocks> {
         );
       },
       builder: (context, state) {
+        print(_selectedCommitment);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Container(
             alignment: Alignment.center,
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 60),
-            height: 270,
+            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
             decoration: BoxDecoration(
               color: const Color(0xFFF9F9F9),
               borderRadius: BorderRadius.circular(10),
@@ -44,13 +46,26 @@ class _AddBlocksState extends State<AddBlocks> {
               ),
             ),
             child: Wrap(
+              runAlignment: WrapAlignment.center,
+              alignment: WrapAlignment.center,
+              runSpacing: 20,
+              spacing: 90,
               children: [
                 AddBlocksSelect(
-                    isLoading: _isLoading, commitments: state.commitments),
-                SizedBox(
-                  width: 80,
+                  isLoading: _isLoading,
+                  commitments: state.commitments,
+                  callback: (Commitment value) {
+                    _selectedCommitment = value;
+                    setState(() {});
+                  },
                 ),
-                BlocksRadioTable()
+                BlocksRadioTable(
+                    commitmentsToSelect: _selectedCommitment == null
+                        ? []
+                        : state.commitments
+                            .where((element) =>
+                                element.label != _selectedCommitment!.label)
+                            .toList())
               ],
             ),
           ),

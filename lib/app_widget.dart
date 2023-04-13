@@ -32,7 +32,6 @@ class AppWidget extends StatelessWidget {
           BlocProvider(
             create: (_) => getIt<CrowdActionSelectedCubit>(),
           ),
-          BlocProvider(create: (_) => getIt<CommitmentsBloc>())
         ],
         child: MultiBlocListener(
           listeners: [
