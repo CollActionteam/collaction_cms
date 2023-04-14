@@ -44,19 +44,28 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
         children: [
           Row(
             children: [
-              const SelectableText(
-                "LABEL",
-                style: CollactionTextStyles.body,
+              const Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: SelectableText(
+                  "LABEL",
+                  style: CollactionTextStyles.body,
+                ),
               ),
               const Spacer(),
-              SvgPicture.asset(
-                width: 18,
-                "assets/icons/disabled.svg",
-                color: Colors.grey[600],
+              Padding(
+                padding: const EdgeInsets.only(right: 17),
+                child: SvgPicture.asset(
+                  width: 18,
+                  "assets/icons/disabled.svg",
+                  color: Colors.grey[600],
+                ),
               ),
             ],
           ),
-          Divider(),
+          const SizedBox(height: 2.5),
+          const Divider(
+            height: 1,
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: widget._commitmentsFiltered.length,
@@ -65,13 +74,16 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
                   children: [
                     Row(
                       children: [
-                        SelectableText(
-                          widget._commitmentsFiltered[index].label,
-                          style: CollactionTextStyles.bodyAccent,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: SelectableText(
+                            widget._commitmentsFiltered[index].label,
+                            style: CollactionTextStyles.bodyAccent,
+                          ),
                         ),
                         const Spacer(),
-                        Transform(
-                          transform: Matrix4.translationValues(6.5, 0, 0),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
                           child: Checkbox(
                               splashRadius: 12,
                               shape: const CircleBorder(),
@@ -92,7 +104,9 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
                         )
                       ],
                     ),
-                    const Divider()
+                    const Divider(
+                      height: 1,
+                    )
                   ],
                 );
               },
