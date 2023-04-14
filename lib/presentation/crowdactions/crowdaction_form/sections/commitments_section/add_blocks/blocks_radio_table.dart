@@ -29,9 +29,6 @@ class BlocksRadioTable extends StatefulWidget {
 class _BlocksRadioTableState extends State<BlocksRadioTable> {
   @override
   Widget build(BuildContext context) {
-    // print("${widget._commitmentsFiltered}");
-    print("${widget.commitments}");
-    print("SELECTED COMMITMENT ${widget.selectedCommitment}");
     return Container(
       width: 350,
       height: 230,
@@ -64,33 +61,38 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
             child: ListView.builder(
               itemCount: widget._commitmentsFiltered.length,
               itemBuilder: (context, index) {
-                return Row(
+                return Column(
                   children: [
-                    SelectableText(
-                      widget._commitmentsFiltered[index].label,
-                      style: CollactionTextStyles.bodyAccent,
+                    Row(
+                      children: [
+                        SelectableText(
+                          widget._commitmentsFiltered[index].label,
+                          style: CollactionTextStyles.bodyAccent,
+                        ),
+                        const Spacer(),
+                        Transform(
+                          transform: Matrix4.translationValues(6.5, 0, 0),
+                          child: Checkbox(
+                              splashRadius: 12,
+                              shape: const CircleBorder(),
+                              value: _isItBlocked(
+                                  widget.commitments
+                                      .where((element) =>
+                                          element.id ==
+                                          widget.selectedCommitment!.id)
+                                      .toList()[0],
+                                  widget._commitmentsFiltered[index]),
+                              onChanged: (value) {
+                                _triggerBlocEvent(
+                                    context,
+                                    value!,
+                                    widget.selectedCommitment!,
+                                    widget._commitmentsFiltered[index]);
+                              }),
+                        )
+                      ],
                     ),
-                    const Spacer(),
-                    Transform(
-                      transform: Matrix4.translationValues(6.5, 0, 0),
-                      child: Checkbox(
-                          splashRadius: 12,
-                          shape: const CircleBorder(),
-                          value: _isItBlocked(
-                              widget.commitments
-                                  .where((element) =>
-                                      element.id ==
-                                      widget.selectedCommitment!.id)
-                                  .toList()[0],
-                              widget._commitmentsFiltered[index]),
-                          onChanged: (value) {
-                            _triggerBlocEvent(
-                                context,
-                                value!,
-                                widget.selectedCommitment!,
-                                widget._commitmentsFiltered[index]);
-                          }),
-                    )
+                    const Divider()
                   ],
                 );
               },

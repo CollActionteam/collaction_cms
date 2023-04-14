@@ -28,8 +28,12 @@ class _AddBlocksState extends State<AddBlocks> {
             }
 
             if (_selectedCommitment != null && value.commitments.isNotEmpty) {
-              _selectedCommitment = value.commitments.firstWhere(
-                  (element) => element.id == _selectedCommitment!.id);
+              try {
+                _selectedCommitment = value.commitments.firstWhere(
+                    (element) => element.id == _selectedCommitment!.id);
+              } catch (e) {
+                _selectedCommitment = null;
+              }
             }
           },
           initial: (value) {
@@ -38,9 +42,6 @@ class _AddBlocksState extends State<AddBlocks> {
         );
       },
       builder: (context, state) {
-        print(_isLoading == false
-            ? "COMMITMENTS LENGTH: ${state.commitments.length}"
-            : "loading");
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Container(
@@ -73,12 +74,6 @@ class _AddBlocksState extends State<AddBlocks> {
                         (state.commitments.isNotEmpty
                             ? state.commitments.first
                             : null),
-                    // commitmentsToSelect: _selectedCommitment == null
-                    //     ? []
-                    //     : state.commitments
-                    //         .where((element) =>
-                    //             element.label != _selectedCommitment!.label)
-                    //         .toList(),
                     commitments: _isLoading == true ? [] : state.commitments),
               ],
             ),
@@ -87,13 +82,4 @@ class _AddBlocksState extends State<AddBlocks> {
       },
     );
   }
-
-  // List<Commitment> _commitmentsToSelectLogic(CommitmentsState state) {
-  //   if (_isLoading == true) {
-  //     return [];
-  //   }
-  //   return state.commitments
-  //       .where((element) => element.label != _selectedCommitment!.label)
-  //       .toList();
-  // }
 }
