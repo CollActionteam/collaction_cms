@@ -90,6 +90,7 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                 ),
                 const Spacer(),
                 CollActionButtonRectangle.wrapped(
+                  width: 205,
                   text: "Add CrowdAction",
                   onPressed: () => showCrowdActionFormModal(context, null),
                   iconData: Icons.add_circle_outline_rounded,
