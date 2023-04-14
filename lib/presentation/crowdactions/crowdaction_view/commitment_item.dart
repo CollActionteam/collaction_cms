@@ -22,6 +22,8 @@ class CommitmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double width = size.width;
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: Color(0XFFE7E7E7)))),
@@ -37,49 +39,49 @@ class CommitmentItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          Container(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(label,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF585858),
-                      fontWeight: FontWeight.w700,
-                    )),
-                const SizedBox(height: 5),
-                SizedBox(
-                  width: 358,
-                  child: Text(
-                    description,
-                    style: CollactionTextStyles.body,
-                    softWrap: true,
-                    maxLines: 2,
-                    overflow: TextOverflow.fade,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                SelectableText.rich(TextSpan(
-                    text: "Tags: ",
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF585858),
-                      fontWeight: FontWeight.w500,
+          Expanded(
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SelectableText(label,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF585858),
+                        fontWeight: FontWeight.w700,
+                      )),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: width / 3 - 121,
+                    child: SelectableText(
+                      description,
+                      style: CollactionTextStyles.body,
+                      maxLines: 2,
                     ),
-                    children: [
-                      TextSpan(
-                        text: tagsPresentationOutput,
-                        style: CollactionTextStyles.body,
-                      )
-                    ])),
-                const SizedBox(height: 5),
-                SelectableText(
-                  "Points: $points",
-                  style: CollactionTextStyles.body,
-                ),
-                const SizedBox(height: 10)
-              ],
+                  ),
+                  const SizedBox(height: 5),
+                  SelectableText.rich(TextSpan(
+                      text: "Tags: ",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF585858),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: tagsPresentationOutput,
+                          style: CollactionTextStyles.body,
+                        )
+                      ])),
+                  const SizedBox(height: 5),
+                  SelectableText(
+                    "Points: $points",
+                    style: CollactionTextStyles.body,
+                  ),
+                  const SizedBox(height: 10)
+                ],
+              ),
             ),
           )
         ],
