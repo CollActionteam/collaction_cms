@@ -63,8 +63,10 @@ class _DropdownFieldState extends State<DropdownField> {
                   borderSide: widget.borderStyle!),
             ),
             value: widget.isLoading == false || widget.isLoading == null
-                ? _dropdownValue ?? widget.items.first
-                : "-",
+                ? widget.items.contains(_dropdownValue)
+                    ? _dropdownValue
+                    : widget.items.first
+                : null,
             icon: Container(
               alignment: Alignment.centerRight,
               child: const Icon(
@@ -90,7 +92,6 @@ class _DropdownFieldState extends State<DropdownField> {
             }).toList(),
             onChanged: (value) {
               setState(() {
-                print(value);
                 _dropdownValue = value;
                 widget.getValueCallback?.call(value);
               });
@@ -121,4 +122,6 @@ class _DropdownFieldState extends State<DropdownField> {
       }
     }
   }
+
+  String? getInitialValue() {}
 }
