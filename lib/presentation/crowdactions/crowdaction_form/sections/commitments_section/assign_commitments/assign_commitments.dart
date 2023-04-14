@@ -73,7 +73,7 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                     )),
                 child: !onOrOff
                     ? Container(
-                        padding: const EdgeInsets.only(top: 50),
+                        padding: const EdgeInsets.only(top: 105),
                         alignment: Alignment.topCenter,
                         child: const SelectableText(
                           "Not yet supported",

@@ -12,8 +12,6 @@ enum CommitmentItemType { simple, addButton, statusChecker }
 class CommitmentItem extends StatefulWidget {
   const CommitmentItem({
     super.key,
-    required this.iconData,
-    required this.label,
     required this.commitmentItemType,
     this.buttonTriggered = false,
     this.buttonCallback,
@@ -21,8 +19,6 @@ class CommitmentItem extends StatefulWidget {
     this.formOnChange,
   });
 
-  final IconData iconData;
-  final String label;
   final CommitmentItemType commitmentItemType;
   final bool buttonTriggered;
   final VoidCallback? buttonCallback;

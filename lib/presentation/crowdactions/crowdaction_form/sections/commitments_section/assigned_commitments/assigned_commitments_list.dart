@@ -36,8 +36,6 @@ class _AssignedCommitmentsListState extends State<AssignedCommitmentsList> {
                 child: CommitmentItem(
                     commitment: widget.commitments[index],
                     buttonTriggered: widget.buttonTriggered,
-                    iconData: mapIcon("no-beef"),
-                    label: "No beef for one week",
                     commitmentItemType: CommitmentItemType.statusChecker,
                     buttonCallback: () {
                       BlocProvider.of<CommitmentsBloc>(context).add(
