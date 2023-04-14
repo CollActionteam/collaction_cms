@@ -6,13 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BlocksRadioTable extends StatefulWidget {
-  final List<Commitment> commitmentsToSelect;
+  final List<Commitment> commitments;
   final Commitment? selectedCommitment;
-  const BlocksRadioTable({
+  late List<Commitment> _commitmentsFiltered;
+
+  BlocksRadioTable({
     Key? key,
-    required this.commitmentsToSelect,
+    required this.commitments,
     required this.selectedCommitment,
-  }) : super(key: key);
+  }) : super(key: key) {
+    _commitmentsFiltered = commitments
+        .where((element) =>
+            element.label !=
+            (selectedCommitment?.label ?? commitments.first.label))
+        .toList();
+  }
 
   @override
   State<BlocksRadioTable> createState() => _BlocksRadioTableState();
@@ -21,6 +29,9 @@ class BlocksRadioTable extends StatefulWidget {
 class _BlocksRadioTableState extends State<BlocksRadioTable> {
   @override
   Widget build(BuildContext context) {
+    // print("${widget._commitmentsFiltered}");
+    print("${widget.commitments}");
+    print("SELECTED COMMITMENT ${widget.selectedCommitment}");
     return Container(
       width: 350,
       height: 230,
@@ -51,12 +62,12 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
           Divider(),
           Expanded(
             child: ListView.builder(
-              itemCount: widget.commitmentsToSelect.length,
+              itemCount: widget._commitmentsFiltered.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
                     SelectableText(
-                      widget.commitmentsToSelect[index].label,
+                      widget._commitmentsFiltered[index].label,
                       style: CollactionTextStyles.bodyAccent,
                     ),
                     const Spacer(),
@@ -65,14 +76,19 @@ class _BlocksRadioTableState extends State<BlocksRadioTable> {
                       child: Checkbox(
                           splashRadius: 12,
                           shape: const CircleBorder(),
-                          value: _isItBlocked(widget.selectedCommitment,
-                              widget.commitmentsToSelect[index]),
+                          value: _isItBlocked(
+                              widget.commitments
+                                  .where((element) =>
+                                      element.id ==
+                                      widget.selectedCommitment!.id)
+                                  .toList()[0],
+                              widget._commitmentsFiltered[index]),
                           onChanged: (value) {
                             _triggerBlocEvent(
                                 context,
                                 value!,
                                 widget.selectedCommitment!,
-                                widget.commitmentsToSelect[index]);
+                                widget._commitmentsFiltered[index]);
                           }),
                     )
                   ],
