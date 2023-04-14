@@ -10,7 +10,7 @@ class ComboButtonsOnOff extends StatefulWidget {
   ComboButtonsOnOff({
     super.key,
     required this.onOrOffCallback,
-    this.height = 37,
+    this.height = 35,
     this.width = 193,
     this.fontSize = 16,
   });
