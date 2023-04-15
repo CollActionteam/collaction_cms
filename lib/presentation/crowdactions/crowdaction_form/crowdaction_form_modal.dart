@@ -99,10 +99,9 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                     controller: _crowdActionInfoFormController,
                                   ),
                                   // replace with CrowdActionImagesForm
-                                  CrowdActionInfoForm(
+                                  CrowdActionImagesForm(
                                     width: halfWidth,
                                     buttonTriggered: _buttonTriggered,
-                                    controller: _crowdActionInfoFormController,
                                   ),
                                   CrowdActionCommitmentsForm(
                                     width: halfWidthCommitments,
