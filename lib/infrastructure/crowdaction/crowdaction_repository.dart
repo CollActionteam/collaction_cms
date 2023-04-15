@@ -25,7 +25,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-            '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions?page=$page&pageSize=$pageSize&status=${status ?? ''}'),
+            '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions?page=$page&pageSize=$pageSize${status != null ? '&status=$status' : ''}'),
         headers: <String, String>{'Content-Type': 'application/json'},
       );
 
