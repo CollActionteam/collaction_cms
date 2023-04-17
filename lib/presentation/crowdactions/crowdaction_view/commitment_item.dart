@@ -53,7 +53,6 @@ class CommitmentItem extends StatelessWidget {
                   SelectableText(
                     description,
                     style: CollactionTextStyles.body,
-                    maxLines: 2,
                   ),
                   const SizedBox(height: 5),
                   SelectableText.rich(TextSpan(
