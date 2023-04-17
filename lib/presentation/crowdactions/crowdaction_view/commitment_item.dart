@@ -22,8 +22,6 @@ class CommitmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double width = size.width;
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: Color(0XFFE7E7E7)))),
@@ -52,13 +50,10 @@ class CommitmentItem extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       )),
                   const SizedBox(height: 5),
-                  SizedBox(
-                    width: width / 3 - 121,
-                    child: SelectableText(
-                      description,
-                      style: CollactionTextStyles.body,
-                      maxLines: 2,
-                    ),
+                  SelectableText(
+                    description,
+                    style: CollactionTextStyles.body,
+                    maxLines: 2,
                   ),
                   const SizedBox(height: 5),
                   SelectableText.rich(TextSpan(
