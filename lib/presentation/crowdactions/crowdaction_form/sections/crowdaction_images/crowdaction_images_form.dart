@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:collaction_cms/domain/core/value_validators.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images/crowdaction_images_controller.dart';
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
 import 'package:collaction_cms/presentation/shared/form/image_field.dart';
 import 'package:flutter/widgets.dart';
@@ -8,11 +9,13 @@ import 'package:flutter/widgets.dart';
 class CrowdActionImagesForm extends StatefulWidget {
   final double width;
   final bool buttonTriggered;
+  final CrowdActionImagesFormController controller;
 
   const CrowdActionImagesForm({
     super.key,
     this.width = double.infinity,
     this.buttonTriggered = false,
+    required this.controller,
   });
 
   @override
@@ -39,15 +42,21 @@ class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
                 ImageField(
                   label: "Card",
                   buttonTriggered: widget.buttonTriggered,
-                  validationCallback: validateEmptyField,
-                  callback: (Uint8List? image) => cardImage = image,
+                  callback: (Uint8List? image) =>
+                      widget.controller.setValidationOutput(
+                    'card',
+                    ValidationOutput(error: false, output: image),
+                  ),
                   aspectRatio: 16 / 9,
                 ),
                 ImageField(
                   label: "Banner",
                   buttonTriggered: widget.buttonTriggered,
-                  validationCallback: validateEmptyField,
-                  callback: (Uint8List? image) => bannerImage = image,
+                  callback: (Uint8List? image) =>
+                      widget.controller.setValidationOutput(
+                    'card',
+                    ValidationOutput(error: false, output: image),
+                  ),
                   aspectRatio: 16 / 9,
                 ),
               ],
