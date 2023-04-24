@@ -103,10 +103,12 @@ class _CollactionDateTimeFormFieldState
 
   void _validateDateTime() {
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(
-            error: false,
-            output: _dateTime,
-          )
+        ? _dateSet && _timeSet
+            ? _validationOutput = ValidationOutput(
+                error: false,
+                output: _dateTime,
+              )
+            : _validationOutput = ValidationOutput(error: true, output: null)
         : _validationOutput = widget.validationCallback!(
             _dateTime,
             _dateSet,
