@@ -98,8 +98,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputLabel =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'title',
+                          validationOutput,
+                        );
                       },
                     ),
                     CollactionTextFormField(
@@ -108,8 +110,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       validationCallback: validateEmptyField,
                       buttonTriggered: widget.buttonTriggered,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputCategory =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'category',
+                          validationOutput,
+                        );
                       },
                     ),
                     CollactionTextFormField(
@@ -117,8 +121,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: halfWidth,
                       buttonTriggered: widget.buttonTriggered,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputSubcategory =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'subcategory',
+                          validationOutput,
+                        );
                       },
                     ),
                     CollactionDateTimeFormField(
@@ -133,8 +139,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       validationCallback: validateIncompleteDateTimeField,
                       callback: (ValidationOutput validationOutput,
                           DateTime dateTime) {
-                        widget.controller.validationOutputStartDate =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'startDate',
+                          validationOutput,
+                        );
                         startDate = dateTime;
                         startDateSet = true;
                         setState(() {});
@@ -146,12 +154,13 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: halfWidth,
                       selectedDate: endDate,
                       earliestDate: _getEarliestEndDateTime(),
-                      validationCallback:
-                          validateIncompleteDateTimeField, // not required
+                      validationCallback: validateIncompleteDateTimeField,
                       callback: (ValidationOutput validationOutput,
                           DateTime dateTime) {
-                        widget.controller.validationOutputEndDate =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'endDate',
+                          validationOutput,
+                        );
                         endDate = dateTime;
                         endDateSet = true;
                         setState(() {});
@@ -169,8 +178,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                           : null,
                       callback: (ValidationOutput validationOutput,
                           DateTime dateTime) {
-                        widget.controller.validationOutputJoinEndAt =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'joinEndAt',
+                          validationOutput,
+                        );
                         joinByDate = dateTime;
                         joinByDateSet = true;
                         setState(() {});
@@ -183,8 +194,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       buttonTriggered: widget.buttonTriggered,
                       validationCallback: validateEmptyField,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputCountry =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'country',
+                          validationOutput,
+                        );
                       },
                     ),
                     CollactionTextFormField(
@@ -194,8 +207,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       buttonTriggered: widget.buttonTriggered,
                       validationCallback: validateEmptyField,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputDescription =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'description',
+                          validationOutput,
+                        );
                       },
                     ),
                     CollactionTextFormField(
@@ -203,8 +218,10 @@ class _CrowdActionInfoFormState extends State<CrowdActionInfoForm> {
                       width: fullWidth,
                       buttonTriggered: widget.buttonTriggered,
                       callback: (ValidationOutput validationOutput) {
-                        widget.controller.validationOutputPassword =
-                            validationOutput;
+                        widget.controller.setValidationOutput(
+                          'password',
+                          validationOutput,
+                        );
                       },
                     ),
                   ],
