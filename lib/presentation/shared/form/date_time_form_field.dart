@@ -113,10 +113,6 @@ class _CollactionDateTimeFormFieldState
             _timeSet,
           );
 
-    // _dateTime = _validationOutput.error || _validationOutput.output == ""
-    //     ? _dateTime
-    //     : DateTime.parse(_validationOutput.output);
-
     if (widget.latestDate != null &&
         _dateTime.compareTo(widget.latestDate!) > 0) {
       _dateTime = widget.latestDate!;
