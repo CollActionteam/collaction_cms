@@ -51,14 +51,17 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                DropdownFilter(
-                  items: dropdownItemsSearchBy,
-                  rectSide: RectSide.right,
-                  getValueCallback: (String value) {
-                    setState(() {
-                      dropdownItemSearchByValue = value;
-                    });
-                  },
+                SizedBox(
+                  width: 129,
+                  child: DropdownField(
+                    items: dropdownItemsSearchBy,
+                    rectSide: RectSide.right,
+                    getValueCallback: (String value) {
+                      setState(() {
+                        dropdownItemSearchByValue = value;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(width: 10),
                 SearchInput(
@@ -87,6 +90,7 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
                 ),
                 const Spacer(),
                 CollActionButtonRectangle.wrapped(
+                  width: 205,
                   text: "Add CrowdAction",
                   onPressed: () => showCrowdActionFormModal(context, null),
                   iconData: Icons.add_circle_outline_rounded,
@@ -124,13 +128,16 @@ class _CrowdActionsPageState extends State<CrowdActionsPage> {
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  DropdownFilter(
-                    items: dropdownItemsSearchByStatus,
-                    getValueCallback: (String value) {
-                      setState(() {
-                        dropdownItemSearchByStatus = value;
-                      });
-                    },
+                  SizedBox(
+                    width: 129,
+                    child: DropdownField(
+                      items: dropdownItemsSearchByStatus,
+                      getValueCallback: (String value) {
+                        setState(() {
+                          dropdownItemSearchByStatus = value;
+                        });
+                      },
+                    ),
                   ),
                   const SizedBox(width: 10),
                   SearchIcon(

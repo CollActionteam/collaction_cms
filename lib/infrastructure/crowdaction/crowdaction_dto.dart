@@ -118,10 +118,10 @@ class CommitmentDto {
   });
 
   final String id;
-  final List<String?> tags;
+  final List<String> tags;
   final String label;
   final int points;
-  final List<String?> blocks;
+  final List<String> blocks;
   final String? description;
   final String? icon;
 

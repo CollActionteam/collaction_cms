@@ -8,16 +8,19 @@ class SmallOutlinedButton extends StatelessWidget {
     super.key,
     required this.smallOutlinedButtonType,
     required this.callback,
+    this.width,
   });
 
   final SmallOutlinedButtonType smallOutlinedButtonType;
-  final Function callback;
+  final Function? callback;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 20,
-      width: smallOutlinedButtonType == SmallOutlinedButtonType.add ? 47 : 69,
+      width: width ??
+          (smallOutlinedButtonType == SmallOutlinedButtonType.add ? 47 : 69),
       child: TextButton(
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(
@@ -36,7 +39,7 @@ class SmallOutlinedButton extends StatelessWidget {
                 ),
               ),
             )),
-        onPressed: () => callback(),
+        onPressed: () => callback?.call(),
         child: Container(
           alignment: Alignment.center,
           child: Text(

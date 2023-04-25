@@ -2,6 +2,8 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_dto.dart';
 
+part 'creation_crowdaction_dto.g.dart';
+
 @JsonSerializable()
 class CreateCrowdActionDto {
   CreateCrowdActionDto({

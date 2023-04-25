@@ -1,45 +1,64 @@
-# CollAction AdminCMS
+# :thinking: **What is a CMS?**
 
-CollAction cross-platform AdminCMS project (iOS/Android/Web).
+The Content Managment System _(CMS)_ aims to allow users to create/modify/delete/supervise content in a user-friendly way, without coding or accessing any service console such as Google/Firebase or connecting directly to the database.
 
-## Code Generation
+Examples of CMS applications:
+- **Wordpress**: Users are able to add, modify or remove articles, content or shopping items
+- **Medium**: Users are able to add, modify, or remove articles.
 
-In order to generate code related to `freezed`, `injectable`, `json_serializable`, etc. choose a
-command to run when you need to build or re-build these files:
+It encourages more people from different backgrounds to contribute and take action, like creating CrowdActions or modifying existing ones. Access to the application is restricted to users who have been assigned the **ADMIN** or **MODERATOR** role. 
 
-_The watch command keeps re-building generated files. It is generally not recommended to use._
+To test the app, please use the following link:
+- https://collaction-development.web.app/
 
-```bash
-  flutter pub run build_runner watch --delete-conflicting-outputs
-```
+# 🏗️ **Setting up the project**
 
-_If you want to build once you are done with your changes, to build generated files once run this
-command, it's preferred._
+## Clone the repo
+https://github.com/CollActionteam/collaction_cms.git
 
-```bash
-  flutter pub run build_runner build --delete-conflicting-outputs
-```
+## Fill environment variables
+Make a copy of the `env.example` file, name it `env`, and fill out the missing secrets. You can ask other members of the team for the secrets, but also you can find the secrets in **Firebase console / Collaction-development project  / Project Settings** and in **Your apps** section choose **API - WEB APP**. You’ll find the secrets below **SDK setup and configuration**, just copy and paste the values of `firebaseConfig` into the `env` file accordingly.
 
-## Imutable app settings
+:warning: It’s important to name the `env` file as env without the `.` prefix, because right now Firebase hosting has a rule that ignores files with `.` prefix like `.env`.
 
-We use an environment file called `.env` to define secrets used in the application. `
-These secrets are bundled with the application at build-time.
+## Api config
+To test the api locally fill the variable `BASE_API_ENDPOINT_URL` with `http://localhost:3000/api` and run the api locally, you can follow the tutorial to set up the api locally. To test the api on development, just fill `BASE_API_ENDPOINT_URL` with `https://devapi.collaction.org`.
 
-Make a copy of the `.env.example` file, name it `.env` and fill out the missing secrets.
+## Install the dependencies
+On the root path of the project run `flutter pub get` on the command.
 
-## Firebase
+## Firebase configuration
+Firebase config is managed by `FirebaseOptionsFactory` inside `generate_firebase_options.dart` this factory is going to generate a `FirebaseOptions` object based on `env` values. So no action is needed.
 
-TBD
+Check firebase configuration documentation [here](https://docs.collaction.org/configuring-firebase)
 
-## Getting Started
+## Generating Code
+In order to generate code related to `freezed` , `injectable` , `json_serializable`. Choose a command to run when you need to build or re-build these files.
 
-This project is a starting point for a Flutter application.
+The watch command keeps re-building generated files. It’s generally not recommended to use
 
-A few resources to get you started if this is your first Flutter project:
+ `flutter pub run build_runner watch --delete-conflicting-outputs`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+If you want to build generated files once run this command, It’s preferred.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+`flutter pub run build_runner build --delete-conflicting-outputs`
+
+Sometimes, the values of the generated files don’t update properly, If that’s the case, one solution could be to run the following command before running the above commands.
+
+`flutter pub run build_runner clean`.
+
+## Running the project
+
+**Firebase Emulator (Preferred method)**
+
+After running `build_runner` command, run `flutter build web` command to build the web directory. To test the routes it’s important to create a `404.html` file inside web/build and copy the content of the file `index.html` into `404.html` . This way of running the project should work with the **api** running locally, as long as the `ADMINCMS_URL` variable in `.env` file of the **api** project is set to `http://localhost:55714`.
+
+The command to run the firebase emulator is: `firebase emulators:start`.
+
+**Flutter run**
+
+Run the command  `flutter run -d chrome --web-port=<ADMINCMS_URL port>`.
+
+:warning: **Considerations**
+
+It has been reported some memory problems because Flutter appears to generate files in `.../Local/AppData/Temp` folder when running on Chrome `flutter run -d chrome` . Therefore it is recommended to check that folder for the presence of `flutter_tools` folders and erase them. 

@@ -37,43 +37,45 @@ class CommitmentItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          Container(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(label,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF585858),
-                      fontWeight: FontWeight.w700,
-                    )),
-                const SizedBox(height: 5),
-                SelectableText(
-                  description,
-                  style: CollactionTextStyles.body,
-                ),
-                const SizedBox(height: 5),
-                SelectableText.rich(TextSpan(
-                    text: "Tags: ",
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF585858),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: tagsPresentationOutput,
-                        style: CollactionTextStyles.body,
-                      )
-                    ])),
-                const SizedBox(height: 5),
-                SelectableText(
-                  "Points: $points",
-                  style: CollactionTextStyles.body,
-                ),
-                const SizedBox(height: 10)
-              ],
+          Expanded(
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SelectableText(label,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF585858),
+                        fontWeight: FontWeight.w700,
+                      )),
+                  const SizedBox(height: 5),
+                  SelectableText(
+                    description,
+                    style: CollactionTextStyles.body,
+                  ),
+                  const SizedBox(height: 5),
+                  SelectableText.rich(TextSpan(
+                      text: "Tags: ",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF585858),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: tagsPresentationOutput,
+                          style: CollactionTextStyles.body,
+                        )
+                      ])),
+                  const SizedBox(height: 5),
+                  SelectableText(
+                    "Points: $points",
+                    style: CollactionTextStyles.body,
+                  ),
+                  const SizedBox(height: 10)
+                ],
+              ),
             ),
           )
         ],

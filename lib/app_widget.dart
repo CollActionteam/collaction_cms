@@ -1,3 +1,4 @@
+import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
 import 'package:collaction_cms/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_cms/application/crowdaction/crowdaction_selected/crowdaction_selected_cubit.dart';
 import 'package:collaction_cms/application/crowdaction/pagination/pagination_cubit.dart';
@@ -30,7 +31,7 @@ class AppWidget extends StatelessWidget {
           BlocProvider(create: (_) => getIt<PaginationCubit>()),
           BlocProvider(
             create: (_) => getIt<CrowdActionSelectedCubit>(),
-          )
+          ),
         ],
         child: MultiBlocListener(
           listeners: [
