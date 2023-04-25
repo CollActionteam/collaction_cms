@@ -21,11 +21,23 @@ class AssignCommitments extends StatefulWidget {
 }
 
 class _AssignCommitmentsState extends State<AssignCommitments> {
-  bool onOrOff = false;
+  ValueNotifier<bool> onOrOffNotifier = ValueNotifier(false);
   bool _buttonTriggered = false;
 
   final CommitmentFormController _commitmentFormController =
       CommitmentFormController();
+
+  @override
+  void initState() {
+    super.initState();
+    onOrOffNotifier.addListener(() {
+      if (onOrOffNotifier.value == false) {
+        setState(() {
+          _buttonTriggered = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +68,7 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                 onOrOffCallback: (onOrOffValue) {
                   setState(
                     () {
-                      onOrOff = onOrOffValue;
+                      onOrOffNotifier.value = onOrOffValue;
                     },
                   );
                 },
@@ -71,7 +83,7 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                     border: Border.all(
                       color: const Color(0xFFDADADA),
                     )),
-                child: !onOrOff
+                child: !onOrOffNotifier.value
                     ? Container(
                         padding: const EdgeInsets.only(top: 105),
                         alignment: Alignment.topCenter,

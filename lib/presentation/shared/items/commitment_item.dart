@@ -53,8 +53,8 @@ class _CommitmentItemState extends State<CommitmentItem>
 
   @override
   void dispose() {
-    super.dispose();
     _dropdownController.dispose();
+    super.dispose();
   }
 
   @override

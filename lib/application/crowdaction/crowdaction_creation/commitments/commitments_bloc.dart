@@ -62,16 +62,6 @@ class CommitmentsBloc extends Bloc<CommitmentsEvent, CommitmentsState> {
         return commitment;
       }
     }).toList();
-
-    // emit(CommitmentsState.commitmentsSet([
-    //   Commitment(
-    //       blocks: [],
-    //       id: "dasd2",
-    //       tags: ["Asdsa"],
-    //       points: Math.Random().nextInt(100),
-    //       label: "Asdas")
-    // ]));
-
     emit(CommitmentsState.commitmentsSet([...commitmentsNew]));
   }
 }

@@ -23,6 +23,18 @@ class AssignedCommitmentsList extends StatefulWidget {
 
 class _AssignedCommitmentsListState extends State<AssignedCommitmentsList> {
   final ScrollController _scrollController = ScrollController();
+  final Map<String, Key> _keyMap = {};
+
+  @override
+  void didUpdateWidget(covariant AssignedCommitmentsList oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    for (var commitment in widget.commitments) {
+      if (!_keyMap.containsKey(commitment.id)) {
+        _keyMap.addAll({commitment.id: UniqueKey()});
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +44,12 @@ class _AssignedCommitmentsListState extends State<AssignedCommitmentsList> {
             itemCount: widget.commitments.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
+                key: _keyMap[widget.commitments[index].id],
                 padding: const EdgeInsets.only(top: 10),
                 child: CommitmentItem(
                     commitment: widget.commitments[index],
-                    buttonTriggered: widget.buttonTriggered,
+                    // buttonTriggered: widget.buttonTriggered,
+                    buttonTriggered: true,
                     commitmentItemType: CommitmentItemType.statusChecker,
                     buttonCallback: () {
                       BlocProvider.of<CommitmentsBloc>(context).add(
