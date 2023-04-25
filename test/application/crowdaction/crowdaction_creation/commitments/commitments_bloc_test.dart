@@ -24,6 +24,8 @@ void main() {
           bloc.add(const CommitmentsEvent.removeCommitment("0002"));
           bloc.add(CommitmentsEvent.editCommitment(
               tCommitment3.copyWith(description: "Abacab")));
+          bloc.add(CommitmentsEvent.editCommitment(
+              tCommitment3.copyWith(description: "Invisible Touch")));
         },
         expect: () => [
               const CommitmentsState.commitmentsSet(<Commitment>[tCommitment1]),
@@ -36,6 +38,10 @@ void main() {
               CommitmentsState.commitmentsSet(<Commitment>[
                 tCommitment1,
                 tCommitment3.copyWith(description: "Abacab")
+              ]),
+              CommitmentsState.commitmentsSet(<Commitment>[
+                tCommitment1,
+                tCommitment3.copyWith(description: "Invisible Touch")
               ])
             ]);
   });

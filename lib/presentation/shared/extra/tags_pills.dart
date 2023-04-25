@@ -6,10 +6,12 @@ class TagPill extends StatelessWidget {
     super.key,
     required this.value,
     required this.callback,
+    this.backgroundColor = Colors.transparent,
   });
 
   final String value;
   final Function callback;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class TagPill extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(15),
               border: Border.all(
                 color: const Color(0xFF707070).withOpacity(0.5),

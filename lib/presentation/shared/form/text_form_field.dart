@@ -15,8 +15,8 @@ class CollactionTextFormField extends StatefulWidget {
   final bool multiLine;
   final bool buttonTriggered;
   final TextStyle? style;
-  final bool actionSuffix;
-  final Function? suffixCallback;
+  final Color backgroundColor;
+  final VoidCallback? stateModifierCallback;
 
   const CollactionTextFormField({
     super.key,
@@ -31,8 +31,8 @@ class CollactionTextFormField extends StatefulWidget {
     this.multiLine = false,
     this.buttonTriggered = false,
     this.style,
-    this.actionSuffix = false,
-    this.suffixCallback,
+    this.backgroundColor = Colors.transparent,
+    this.stateModifierCallback,
   });
 
   @override
@@ -47,9 +47,12 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
   void initState() {
     super.initState();
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(error: false)
+        ? _validationOutput =
+            ValidationOutput(error: false, output: widget.initialValue)
         : _validationOutput =
             widget.validationCallback!(widget.initialValue ?? "");
+
+    widget.callback?.call(_validationOutput);
   }
 
   @override
@@ -71,9 +74,11 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
           focusNode: widget.focusNode,
           onChanged: (value) {
             widget.validationCallback == null
-                ? _validationOutput = ValidationOutput(error: false)
+                ? _validationOutput =
+                    ValidationOutput(error: false, output: value)
                 : _validationOutput = widget.validationCallback!(value);
             setState(() {});
+            widget.stateModifierCallback?.call();
             widget.callback == null
                 ? null
                 : widget.callback!(_validationOutput);
@@ -85,28 +90,17 @@ class _CollactionTextFormFieldState extends State<CollactionTextFormField> {
               ? TextAlignVertical.top
               : TextAlignVertical.center,
           decoration: InputDecoration(
-            suffixIcon: widget.actionSuffix
-                ? MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () => widget.callback ?? {},
-                      child: const Icon(
-                        Icons.add_circle_outline,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
             contentPadding: EdgeInsets.fromLTRB(
               8,
               widget.multiLine ? 8 : 25,
               8,
               widget.multiLine ? 8 : 0,
             ),
-            enabledBorder: CollActionBorderStyles.formFieldBorderSide,
-            border: CollActionBorderStyles.formFieldBorderSide,
-            focusedBorder: CollActionBorderStyles.formFieldBorderSide,
-            fillColor: widget.readOnly ? kBlackPrimary0 : Colors.transparent,
+            enabledBorder: CollActionBorderStyles.formFieldBorderOutline,
+            border: CollActionBorderStyles.formFieldBorderOutline,
+            focusedBorder: CollActionBorderStyles.formFieldBorderOutline,
+            fillColor:
+                widget.readOnly ? kBlackPrimary0 : widget.backgroundColor,
             filled: true,
           ),
           mouseCursor: widget.readOnly

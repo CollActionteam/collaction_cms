@@ -34,7 +34,10 @@ class CrowdActionHeader extends StatelessWidget {
               CrowdActionTitle(joinStatus: joinStatus, title: title),
               const Spacer(),
               CollActionButtonRectangle.wrapped(
-                  text: "Edit CrowdAction", onPressed: () => {})
+                width: 170,
+                text: "Edit CrowdAction",
+                onPressed: () => {},
+              )
             ],
           ),
           const SizedBox(height: 20),
