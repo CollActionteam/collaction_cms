@@ -1,6 +1,7 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/commitments_form.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images/crowdaction_images_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_form.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_info/crowdaction_info_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images/crowdaction_images_form.dart';
@@ -28,6 +29,8 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
   bool _buttonTriggered = false;
   final CrowdActionInfoFormController _crowdActionInfoFormController =
       CrowdActionInfoFormController();
+  final CrowdActionImagesFormController _crowdActionImagesFormController =
+      CrowdActionImagesFormController();
 
   @override
   void initState() {
@@ -102,6 +105,7 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                   CrowdActionImagesForm(
                                     width: halfWidth,
                                     buttonTriggered: _buttonTriggered,
+                                    controller: _crowdActionImagesFormController,
                                   ),
                                   CrowdActionCommitmentsForm(
                                     width: halfWidthCommitments,

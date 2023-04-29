@@ -103,19 +103,17 @@ class _CollactionDateTimeFormFieldState
 
   void _validateDateTime() {
     widget.validationCallback == null
-        ? _validationOutput = ValidationOutput(
-            error: false,
-            output: _dateTime,
-          )
+        ? _dateSet && _timeSet
+            ? _validationOutput = ValidationOutput(
+                error: false,
+                output: _dateTime,
+              )
+            : _validationOutput = ValidationOutput(error: false, output: null)
         : _validationOutput = widget.validationCallback!(
             _dateTime,
             _dateSet,
             _timeSet,
           );
-
-    // _dateTime = _validationOutput.error || _validationOutput.output == ""
-    //     ? _dateTime
-    //     : DateTime.parse(_validationOutput.output);
 
     if (widget.latestDate != null &&
         _dateTime.compareTo(widget.latestDate!) > 0) {
