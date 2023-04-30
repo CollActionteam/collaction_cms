@@ -35,7 +35,7 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
           description: crowdActionInfo.description,
           category: crowdActionInfo.category,
           subcategory: crowdActionInfo.subcategory,
-          country: crowdActionInfo.country.code,
+          country: crowdActionInfo.country.name,
           password: crowdActionInfo.password,
           startAt: crowdActionInfo.startDate,
           endAt: crowdActionInfo.endDate,
@@ -46,9 +46,10 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
                 tags: commitment.tags,
                 label: commitment.label,
                 points: commitment.points,
-                blocks: commitment.blocks);
+                blocks: commitment.blocks,
+                description: commitment.description,
+                icon: commitment.iconId);
           }).toList());
-
       final user = await _authClientRepository.user.first;
       late final Future<String> tokenId;
       user.map((user) async {
@@ -62,14 +63,14 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${await tokenId}"
           },
-          body: jsonEncode(createCrowdActionDto));
+          body: jsonEncode(createCrowdActionDto.toJson()));
 
       if (response.statusCode == 201) {
         crowdActionId =
             (jsonDecode(response.body) as Map<String, dynamic>)['id'];
         //Add logic that checks for null values in CrowdActionImages
-        if (crowdActionImages.banner == null &&
-            crowdActionImages.card == null) {
+        if (crowdActionImages.banner != null ||
+            crowdActionImages.card != null) {
           return await updateCrowdActionImages(
               crowdActionImages, await tokenId, crowdActionId);
         } else {

@@ -103,6 +103,8 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                           buttonCallback: () => {
                             setState(() {
                               _buttonTriggered = true;
+                              print(_commitmentFormController
+                                  .commitmentFactory());
                             }),
                             if (_commitmentFormController.isReadyForBloc() &&
                                 _preventLabelDuplication(

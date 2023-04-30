@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' as Math;
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_cms/application/crowdaction/crowdaction_creation/mediator/mediator_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_creation/crowdaction_creation_failures.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_fracture.dart';

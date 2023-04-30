@@ -105,7 +105,7 @@ class LocationDto {
       _$LocationDtoFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CommitmentDto {
   CommitmentDto({
     required this.id,
@@ -139,4 +139,6 @@ class CommitmentDto {
 
   factory CommitmentDto.fromJson(Map<String, dynamic> json) =>
       _$CommitmentDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CommitmentDtoToJson(this);
 }

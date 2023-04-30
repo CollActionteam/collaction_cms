@@ -4,7 +4,7 @@ import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_dto.dart';
 
 part 'creation_crowdaction_dto.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CreateCrowdActionDto {
   CreateCrowdActionDto({
     required this.title,
@@ -29,4 +29,8 @@ class CreateCrowdActionDto {
   final DateTime endAt;
   final DateTime? joinEndAt;
   final List<CommitmentDto> commitments;
+
+  factory CreateCrowdActionDto.fromJson(Map<String, dynamic> json) =>
+      _$CreateCrowdActionDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$CreateCrowdActionDtoToJson(this);
 }

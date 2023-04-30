@@ -1,4 +1,5 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
+import 'package:collaction_cms/application/crowdaction/crowdaction_creation/main/crowdaction_creation_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/commitments_form.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/crowdaction_images/crowdaction_images_controller.dart';
@@ -48,118 +49,147 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<CommitmentsBloc>(),
-      child: SizedBox(
-        width: 1032,
-        height: 875,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 74,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Color(0xFF8B8B8B),
-                      width: 0.25,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<CommitmentsBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CrowdActionCreationBloc>(),
+        )
+      ],
+      child: Builder(
+        builder: (contextBuilder) {
+          return SizedBox(
+            width: 1032,
+            height: 875,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 74,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFF8B8B8B),
+                          width: 0.25,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      modalTitle,
+                      style: CollactionTextStyles.titleStyle,
                     ),
                   ),
-                ),
-                child: Text(
-                  modalTitle,
-                  style: CollactionTextStyles.titleStyle,
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: DeferredPointerHandler(
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          LayoutBuilder(
-                            builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double halfWidth = constraints.maxWidth < 640
-                                  ? double.infinity
-                                  : constraints.maxWidth * 0.5 - 5;
-                              double halfWidthCommitments =
-                                  constraints.maxWidth < 760
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: DeferredPointerHandler(
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              LayoutBuilder(
+                                builder: (BuildContext context,
+                                    BoxConstraints constraints) {
+                                  double halfWidth = constraints.maxWidth < 640
                                       ? double.infinity
                                       : constraints.maxWidth * 0.5 - 5;
-                              return Wrap(
-                                spacing: 10,
-                                children: [
-                                  CrowdActionInfoForm(
-                                    width: halfWidth,
-                                    buttonTriggered: _buttonTriggered,
-                                    controller: _crowdActionInfoFormController,
-                                  ),
-                                  // replace with CrowdActionImagesForm
-                                  CrowdActionImagesForm(
-                                    width: halfWidth,
-                                    buttonTriggered: _buttonTriggered,
-                                    controller: _crowdActionImagesFormController,
-                                  ),
-                                  CrowdActionCommitmentsForm(
-                                    width: halfWidthCommitments,
-                                    buttonTriggered: _buttonTriggered,
-                                  )
-                                ],
-                              );
-                            },
+                                  double halfWidthCommitments =
+                                      constraints.maxWidth < 760
+                                          ? double.infinity
+                                          : constraints.maxWidth * 0.5 - 5;
+                                  return Wrap(
+                                    spacing: 10,
+                                    children: [
+                                      CrowdActionInfoForm(
+                                        width: halfWidth,
+                                        buttonTriggered: _buttonTriggered,
+                                        controller:
+                                            _crowdActionInfoFormController,
+                                      ),
+                                      CrowdActionImagesForm(
+                                        width: halfWidth,
+                                        buttonTriggered: _buttonTriggered,
+                                        controller:
+                                            _crowdActionImagesFormController,
+                                      ),
+                                      CrowdActionCommitmentsForm(
+                                        width: halfWidthCommitments,
+                                        buttonTriggered: _buttonTriggered,
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Container(
-                height: 88,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Color(0xFF8B8B8B),
-                      width: 0.25,
+                  Container(
+                    height: 88,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: Color(0xFF8B8B8B),
+                          width: 0.25,
+                        ),
+                      ),
+                    ),
+                    child: ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        CollActionButtonRectangle.wrapped(
+                          text: "Save CrowdAction",
+                          onPressed: () => setState(() {
+                            _buttonTriggered = true;
+                            var commitments =
+                                BlocProvider.of<CommitmentsBloc>(contextBuilder)
+                                    .state
+                                    .commitments;
+                            if (_crowdActionInfoFormController
+                                    .isReadyForBloc() &&
+                                commitments.isNotEmpty) {
+                              BlocProvider.of<CrowdActionCreationBloc>(
+                                      contextBuilder)
+                                  .add(CrowdActionCreationEvent
+                                      .createCrowdAction(
+                                          _crowdActionInfoFormController
+                                              .crowdActionInfoFactory(),
+                                          commitments,
+                                          _crowdActionImagesFormController
+                                              .crowdActionImagesFactory()));
+                            }
+                          }),
+                          width: 157,
+                          height: 37,
+                          padding: 0,
+                        ),
+                        CollActionButtonRectangle.wrapped(
+                          text: "Cancel",
+                          onPressed: () => Navigator.of(
+                            context,
+                            rootNavigator: true,
+                          ).pop('dialog'),
+                          width: 157,
+                          height: 37,
+                          padding: 0,
+                          inverted: true,
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                child: ButtonBar(
-                  alignment: MainAxisAlignment.center,
-                  children: [
-                    CollActionButtonRectangle.wrapped(
-                      text: "Save CrowdAction",
-                      onPressed: () => setState(() {
-                        _buttonTriggered = true;
-                      }),
-                      width: 157,
-                      height: 37,
-                      padding: 0,
-                    ),
-                    CollActionButtonRectangle.wrapped(
-                      text: "Cancel",
-                      onPressed: () => Navigator.of(
-                        context,
-                        rootNavigator: true,
-                      ).pop('dialog'),
-                      width: 157,
-                      height: 37,
-                      padding: 0,
-                      inverted: true,
-                    ),
-                  ],
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
