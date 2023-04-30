@@ -39,10 +39,15 @@ class Images {
 }
 
 class Location {
-  const Location({required this.code, required this.name});
+  const Location({
+    required this.code,
+    required this.name,
+    this.alpha2,
+  });
 
   final String code;
   final String name;
+  final String? alpha2;
 }
 
 enum Status {

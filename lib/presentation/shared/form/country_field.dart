@@ -107,6 +107,7 @@ class _CollActionCountryFieldState extends State<CollActionCountryField> {
                             widget.validationCallback!(Location(
                             code: _selectedCountry!.dialCode!,
                             name: _selectedCountry!.name!,
+                            alpha2: _selectedCountry!.alpha2Code,
                           ));
                     _showPopup = false;
                     widget.callback!(_validationOutput);

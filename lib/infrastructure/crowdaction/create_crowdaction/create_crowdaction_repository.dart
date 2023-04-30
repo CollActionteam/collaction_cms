@@ -35,7 +35,7 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
           description: crowdActionInfo.description,
           category: crowdActionInfo.category,
           subcategory: crowdActionInfo.subcategory,
-          country: crowdActionInfo.country.name,
+          country: crowdActionInfo.country.alpha2!,
           password: crowdActionInfo.password,
           startAt: crowdActionInfo.startDate,
           endAt: crowdActionInfo.endDate,
