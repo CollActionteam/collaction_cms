@@ -19,33 +19,32 @@ class CrowdActionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CrowdActionSelectedCubit, CrowdActionSelectedState>(
       builder: (context, state) {
-        if(state is Unknown) {
+        if (state is Unknown) {
           return const Center(
-            child: CircularProgressIndicator(
-              color: kAccentColor
-            ),
+            child: CircularProgressIndicator(color: kAccentColor),
           );
         }
 
-        if(state is CrowdActionSelected) {
+        if (state is CrowdActionSelected) {
           var crowdAction = state.crowdAction;
+          print(crowdAction.images.banner);
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CrowdActionHeader(
-                  title: crowdAction.title, 
-                  joinStatus: crowdAction.joinStatus, 
-                  status: crowdAction.status, 
-                  participationCount: crowdAction.participantCount),
+                    title: crowdAction.title,
+                    joinStatus: crowdAction.joinStatus,
+                    status: crowdAction.status,
+                    participationCount: crowdAction.participantCount),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Column(
-                        children:  [
+                        children: [
                           BasePanel(
                             crowdAction: crowdAction,
                           )
@@ -53,18 +52,19 @@ class CrowdActionPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 70),
-                    Expanded(child: CommitmentsPanel(
+                    Expanded(
+                        child: CommitmentsPanel(
                       commitments: crowdAction.commitments,
                     ))
                   ],
                 ),
-                const SizedBox(height: 20,)
+                const SizedBox(
+                  height: 20,
+                )
               ],
             ),
           );
-        }
-
-        else {
+        } else {
           return const Center(
             child: CircularProgressIndicator(
               color: kAccentColor,

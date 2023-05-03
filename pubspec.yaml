@@ -67,6 +67,7 @@ dependencies:
       ref: main
   bloc_test: ^9.1.1
   uuid: ^3.0.7
+  http_parser: ^4.0.2
 
 dev_dependencies:
   flutter_test:

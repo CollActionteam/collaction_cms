@@ -54,7 +54,7 @@ class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
                   buttonTriggered: widget.buttonTriggered,
                   callback: (Uint8List? image) =>
                       widget.controller.setValidationOutput(
-                    'card',
+                    'banner',
                     ValidationOutput(error: false, output: image),
                   ),
                   aspectRatio: 16 / 9,
