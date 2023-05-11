@@ -5,6 +5,7 @@ import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sectio
 import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:collaction_cms/presentation/shared/buttons/combo_buttons.dart';
 import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
+import 'package:collaction_cms/presentation/shared/form/util/icon_search.dart';
 import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,9 +88,49 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                     ? Container(
                         padding: const EdgeInsets.only(top: 105),
                         alignment: Alignment.topCenter,
-                        child: const SelectableText(
-                          "Not yet supported",
-                          style: CollactionTextStyles.body,
+                        child: Padding(
+                          padding: const EdgeInsets.all(19.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.search),
+                                    suffixIcon: Icon(Icons.add_circle_outline),
+                                    hintText:
+                                        'Search commitmets templates tags',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Text("Selected tags:"),
+                              ),
+                              Row(
+                                children: const [
+                                  Chip(
+                                    avatar: Icon(
+                                      Icons.close,
+                                      weight: 10,
+                                    ),
+                                    label: Text("Text"),
+                                  ),
+                                  Chip(label: Text("Text")),
+                                  Chip(label: Text("Text")),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     : Container(
