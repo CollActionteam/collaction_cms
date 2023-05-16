@@ -49,7 +49,8 @@ class AuthApiRepository implements IAuthApiRepository {
         return right(unit);
       } else {
         print(response.body);
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
+        return left(
+            const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);
@@ -71,19 +72,19 @@ class AuthApiRepository implements IAuthApiRepository {
           body: jsonEncode({'email': email, 'url': url}));
 
       if (response.statusCode.toString().startsWith("20")) {
-        if(response.body.isEmpty) {
-          return left( const AuthFailure.missingValues("Missing values from backend response"));
+        if (response.body.isEmpty) {
+          return left(const AuthFailure.missingValues(
+              "Missing values from backend response"));
         }
 
-        final PreAuthCredentialDto preAuthCredentialDto = 
+        final PreAuthCredentialDto preAuthCredentialDto =
             PreAuthCredentialDto.fromJson(
-              (jsonDecode(response.body) as Map<String, dynamic>)
-            );
-        
+                (jsonDecode(response.body) as Map<String, dynamic>));
+
         return right(preAuthCredentialDto.toDomain());
-            
       } else {
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
+        return left(
+            const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);
@@ -102,13 +103,14 @@ class AuthApiRepository implements IAuthApiRepository {
           headers: <String, String>{
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token'
-            },
+          },
           body: jsonEncode({'password': password}));
 
       if (response.statusCode.toString().startsWith("20")) {
         return right(unit);
       } else {
-        return left(const AuthFailure.networkRequestFailed("Network request failed"));
+        return left(
+            const AuthFailure.networkRequestFailed("Network request failed"));
       }
     } catch (e) {
       print(e);

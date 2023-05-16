@@ -27,7 +27,6 @@ class CrowdActionPage extends StatelessWidget {
 
         if (state is CrowdActionSelected) {
           var crowdAction = state.crowdAction;
-          print(crowdAction.images.banner);
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,

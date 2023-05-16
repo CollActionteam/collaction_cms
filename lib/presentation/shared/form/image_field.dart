@@ -8,6 +8,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
+import 'package:mime/mime.dart';
+
 class ImageField extends StatefulWidget {
   final String label;
   final String caption;

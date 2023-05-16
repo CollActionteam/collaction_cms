@@ -282,6 +282,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.1"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "347d56c26d63519552ef9a569f2a593dda99a81fdbdff13c584b7197cfe05059"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.2"
   dotenv:
     dependency: transitive
     description:
@@ -546,13 +554,13 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
-      sha256: "483a389d6ccb292b570c31b3a193779b1b0178e7eb571986d9a49904b6861227"
+      sha256: a72242c9a0ffb65d03de1b7113bc4e189686fc07c7147b8b41811d0dd0e0d9bf
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.15"
+    version: "4.0.17"
   image_network:
     dependency: "direct main"
     description:
@@ -666,13 +674,13 @@ packages:
     source: hosted
     version: "1.8.0"
   mime:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mime
-      sha256: dab22e92b41aa1255ea90ddc4bc2feaf35544fd0728e209638cad041a6e3928a
+      sha256: e4ff8e8564c03f255408decd16e7899da1733852a9110a58fe6d1b817684a63e
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4"
   mocktail:
     dependency: "direct main"
     description:
@@ -697,6 +705,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  network_to_file_image:
+    dependency: "direct main"
+    description:
+      name: network_to_file_image
+      sha256: "47528730539abf61ea9b5edf30fe2803b5f8212b2049e1a6cb3b564acadc46dc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   node_preamble:
     dependency: transitive
     description:

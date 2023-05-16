@@ -153,18 +153,19 @@ class _CrowdActionFormModalState extends State<CrowdActionFormModal> {
                                 BlocProvider.of<CommitmentsBloc>(contextBuilder)
                                     .state
                                     .commitments;
-                            // if (_crowdActionInfoFormController
-                            //         .isReadyForBloc() &&
-                            //     commitments.isNotEmpty) {
-                            BlocProvider.of<CrowdActionCreationBloc>(
-                                    contextBuilder)
-                                .add(CrowdActionCreationEvent.createCrowdAction(
-                                    _crowdActionInfoFormController
-                                        .crowdActionInfoFactory(),
-                                    commitments,
-                                    _crowdActionImagesFormController
-                                        .crowdActionImagesFactory()));
-                            // }
+                            if (_crowdActionInfoFormController
+                                    .isReadyForBloc() &&
+                                commitments.isNotEmpty) {
+                              BlocProvider.of<CrowdActionCreationBloc>(
+                                      contextBuilder)
+                                  .add(CrowdActionCreationEvent
+                                      .createCrowdAction(
+                                          _crowdActionInfoFormController
+                                              .crowdActionInfoFactory(),
+                                          commitments,
+                                          _crowdActionImagesFormController
+                                              .crowdActionImagesFactory()));
+                            }
                           }),
                           width: 157,
                           height: 37,

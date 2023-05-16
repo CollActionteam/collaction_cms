@@ -8,11 +8,15 @@ import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdactio
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_info.dart';
 import 'package:collaction_cms/infrastructure/crowdaction/create_crowdaction/creation_crowdaction_dto.dart';
 import 'package:collaction_cms/infrastructure/crowdaction/crowdaction_dto.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
 import 'package:collaction_cms/domain/core/i_settings_repository.dart';
+import 'package:image/image.dart' as img;
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
+import 'package:mime/mime.dart';
 
 @LazySingleton(as: ICreateCrowdActionRepository)
 class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
@@ -30,61 +34,57 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
     CrowdActionImages crowdActionImages,
   ) async {
     try {
-      //   late String crowdActionId;
-      //   var createCrowdActionDto = CreateCrowdActionDto(
-      //       title: crowdActionInfo.title,
-      //       description: crowdActionInfo.description,
-      //       category: crowdActionInfo.category,
-      //       subcategory: crowdActionInfo.subcategory,
-      //       country: crowdActionInfo.country.alpha2!,
-      //       password: crowdActionInfo.password,
-      //       startAt: crowdActionInfo.startDate,
-      //       endAt: crowdActionInfo.endDate,
-      //       joinEndAt: crowdActionInfo.joinEndAt,
-      //       commitments: commitments.map((commitment) {
-      //         return CommitmentDto(
-      //             id: commitment.id,
-      //             tags: commitment.tags,
-      //             label: commitment.label,
-      //             points: commitment.points,
-      //             blocks: commitment.blocks,
-      //             description: commitment.description,
-      //             icon: commitment.iconId);
-      //       }).toList());
+      late String crowdActionId;
+      var createCrowdActionDto = CreateCrowdActionDto(
+          title: crowdActionInfo.title,
+          description: crowdActionInfo.description,
+          category: crowdActionInfo.category,
+          subcategory: crowdActionInfo.subcategory,
+          country: crowdActionInfo.country.alpha2!,
+          password: crowdActionInfo.password,
+          startAt: crowdActionInfo.startDate,
+          endAt: crowdActionInfo.endDate,
+          joinEndAt: crowdActionInfo.joinEndAt,
+          commitments: commitments.map((commitment) {
+            return CommitmentDto(
+                id: commitment.id,
+                tags: commitment.tags,
+                label: commitment.label,
+                points: commitment.points,
+                blocks: commitment.blocks,
+                description: commitment.description,
+                icon: commitment.iconId);
+          }).toList());
       final user = await _authClientRepository.user.first;
       late final Future<String> tokenId;
       user.map((user) async {
         tokenId = user.getIdToken();
       });
 
-      //   final uri = Uri.parse(
-      //       "${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions");
-      //   final response = await _client.post(uri,
-      //       headers: <String, String>{
-      //         "Content-Type": "application/json",
-      //         "Authorization": "Bearer ${await tokenId}"
-      //       },
-      //       body: jsonEncode(createCrowdActionDto.toJson()));
+      final uri = Uri.parse(
+          "${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions");
+      final response = await _client.post(uri,
+          headers: <String, String>{
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${await tokenId}"
+          },
+          body: jsonEncode(createCrowdActionDto.toJson()));
 
-      //   if (response.statusCode == 201) {
-      //     crowdActionId =
-      //         (jsonDecode(response.body) as Map<String, dynamic>)['id'];
-      //     //Add logic that checks for null values in CrowdActionImages
-      //     if (crowdActionImages.banner != null ||
-      //         crowdActionImages.card != null) {
-      //       return await updateCrowdActionImages(
-      //           crowdActionImages, await tokenId, crowdActionId);
-      //     } else {
-      //       return right(crowdActionId);
-      //     }
-      //   } else {
-      //     return left(const CrowdActionCreationFailure.networkRequestFailed(
-      //         "Network request failed"));
-      //   }
-      var response = await updateCrowdActionImages(
-          crowdActionImages, await tokenId, "63a528458fed6625c6c1711a");
-      print(response);
-      return response;
+      if (response.statusCode == 201) {
+        crowdActionId =
+            (jsonDecode(response.body) as Map<String, dynamic>)['id'];
+        //Add logic that checks for null values in CrowdActionImages
+        if (crowdActionImages.banner != null ||
+            crowdActionImages.card != null) {
+          return await updateCrowdActionImages(
+              crowdActionImages, await tokenId, crowdActionId);
+        } else {
+          return right(crowdActionId);
+        }
+      } else {
+        return left(const CrowdActionCreationFailure.networkRequestFailed(
+            "Network request failed"));
+      }
     } catch (e) {
       return left(const CrowdActionCreationFailure.serverError("Server error"));
     }
@@ -98,30 +98,12 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
   ) async {
     try {
       var uri = Uri.parse(
-          // "${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/$id/images");
-          "${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/644df5c336721911d6c119ef/images");
+          "${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/$id/images");
       var request = http.MultipartRequest("POST", uri);
       var headers = <String, String>{
         "Content-Type": "multipart/form-data",
         "Authorization": "Bearer $tokenId"
       };
-      try {
-        var test = crowdActionImages.card;
-        if (test == null) {
-          print("CARD NULL");
-        }
-      } catch (e) {
-        print("NULL CARD $e");
-      }
-
-      try {
-        var test = crowdActionImages.banner;
-        if (test == null) {
-          print("BANNER NULL");
-        }
-      } catch (e) {
-        print("NULL BANNER $e");
-      }
 
       request.headers.addAll(headers);
       // Handle possible null values
@@ -147,17 +129,13 @@ class CreateCrowdActionRepository implements ICreateCrowdActionRepository {
       if (response.statusCode == 201) {
         return right(id);
       } else {
-        print(response.statusCode);
         response.stream.listen(
-          (value) {
-            print(value);
-          },
+          (value) {},
         );
         return left(const CrowdActionCreationFailure.networkRequestFailed(
             "Network Requested Failed"));
       }
     } catch (e) {
-      print(e);
       return left(const CrowdActionCreationFailure.serverError("Server error"));
     }
   }

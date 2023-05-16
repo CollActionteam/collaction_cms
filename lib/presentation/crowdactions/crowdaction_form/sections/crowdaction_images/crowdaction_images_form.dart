@@ -5,6 +5,7 @@ import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sectio
 import 'package:collaction_cms/presentation/shared/form/form_header.dart';
 import 'package:collaction_cms/presentation/shared/form/image_field.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mime/mime.dart';
 
 class CrowdActionImagesForm extends StatefulWidget {
   final double width;
@@ -42,11 +43,12 @@ class _CrowdActionImagesFormState extends State<CrowdActionImagesForm> {
                 ImageField(
                   label: "Card",
                   buttonTriggered: widget.buttonTriggered,
-                  callback: (Uint8List? image) =>
-                      widget.controller.setValidationOutput(
-                    'card',
-                    ValidationOutput(error: false, output: image),
-                  ),
+                  callback: (Uint8List? image) {
+                    widget.controller.setValidationOutput(
+                      'card',
+                      ValidationOutput(error: false, output: image),
+                    );
+                  },
                   aspectRatio: 16 / 9,
                 ),
                 ImageField(
