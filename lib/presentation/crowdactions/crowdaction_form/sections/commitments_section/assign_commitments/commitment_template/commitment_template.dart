@@ -1,4 +1,5 @@
 import 'package:collaction_cms/presentation/core/icons/collaction_icons.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/commitment_template_expandablecard.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../theme/constants.dart';
@@ -54,9 +55,24 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
           ),
           const Divider(),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SelectableText("Commitments"),
-              const SelectableText("8"),
+              const SelectableText(
+                "Commitments",
+                style: CollactionTextStyles.captionStyleBold,
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 13),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const SelectableText(
+                  "8",
+                  style: CollactionTextStyles.captionStyle,
+                ),
+              ),
               const Spacer(),
               TextButton(
                   onPressed: () {},
@@ -78,61 +94,7 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
             child: SingleChildScrollView(
               child: ListView(
                 shrinkWrap: true,
-                children: [
-                  ExpansionTile(
-                    iconColor: kBlackPrimary300,
-                    title: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 10.0),
-                          child: Icon(
-                            CollactionIcons.vegan,
-                            color: kAccentColor,
-                          ),
-                        ),
-                        const Text(
-                          "5 days per week",
-                          style: CollactionTextStyles.body,
-                        ),
-                        const Spacer(),
-                        OutlinedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              side: MaterialStateProperty.all(const BorderSide(
-                                color: kAccentColor,
-                              )),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0))),
-                            ),
-                            child: const Text(
-                              "Add",
-                              style: CollactionTextStyles.addButton,
-                            ))
-                      ],
-                    ),
-                    children: [
-                      ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Divider(),
-                            Text(
-                              "Tags: [Diet, Days, Veganuary ]",
-                              style: CollactionTextStyles.bodyBold,
-                            ),
-                            Text(
-                                "Description: Commit to eating a vegan diet 4 day per week",
-                                style: CollactionTextStyles.body),
-                            Text("Points: 20",
-                                style: CollactionTextStyles.body),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                children: const [ExpandableTemplateCard()],
               ),
             ),
           )
