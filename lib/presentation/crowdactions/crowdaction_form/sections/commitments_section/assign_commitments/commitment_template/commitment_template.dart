@@ -1,8 +1,10 @@
 import 'package:collaction_cms/presentation/core/icons/collaction_icons.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/commitment_template_expandablecard.dart';
+import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../theme/constants.dart';
+import 'commitment_template_widgets/previousNextButton.dart';
 
 class CommitmentTemplate extends StatefulWidget {
   final double fullWidth;
@@ -27,6 +29,7 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
                 prefixIcon: Icon(Icons.search),
                 suffixIcon: Icon(Icons.add_circle_outline),
                 hintText: 'Search commitmets templates tags',
+                hintStyle: CollactionTextStyles.captionStyleLight,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
@@ -38,19 +41,25 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
           ),
           const Padding(
             padding: EdgeInsets.all(10.0),
-            child: Text("Selected tags:"),
+            child: Text(
+              "Selected tags:",
+              style: CollactionTextStyles.captionStyleLight,
+            ),
           ),
           Row(
-            children: const [
-              Chip(
-                avatar: Icon(
-                  Icons.close,
-                  weight: 10,
-                ),
-                label: Text("Text"),
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: TagPill(value: "Days", callback: () {}),
               ),
-              Chip(label: Text("Text")),
-              Chip(label: Text("Text")),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: TagPill(value: "Veganuary", callback: () {}),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: TagPill(value: "Diet", callback: () {}),
+              ),
             ],
           ),
           const Divider(),
@@ -74,27 +83,37 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
                 ),
               ),
               const Spacer(),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Previous",
-                    style: CollactionTextStyles.body,
-                  )),
-              const SelectableText("Page 1 of 5"),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Next",
-                    style: CollactionTextStyles.body,
-                  )),
+              PreviousNextbutton(
+                buttonText: 'Previous',
+                buttonAction: () {},
+              ),
+              const SelectableText(
+                "Page 1 of 5",
+                style: CollactionTextStyles.captionStyleLight,
+              ),
+              PreviousNextbutton(
+                buttonText: 'Next',
+                buttonAction: () {},
+              ),
             ],
           ),
-          SizedBox(
-            height: widget.fullWidth - 79,
-            child: SingleChildScrollView(
-              child: ListView(
-                shrinkWrap: true,
-                children: const [ExpandableTemplateCard()],
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 16,
+            ),
+            child: SizedBox(
+              height: widget.fullWidth - 100,
+              child: SingleChildScrollView(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: const [
+                    ExpandableTemplateCard(),
+                    ExpandableTemplateCard(),
+                    ExpandableTemplateCard(),
+                    ExpandableTemplateCard(),
+                    ExpandableTemplateCard(),
+                  ],
+                ),
               ),
             ),
           )

@@ -13,82 +13,113 @@ class ExpandableTemplateCard extends StatefulWidget {
 class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      iconColor: kBlackPrimary300,
-      title: Row(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Icon(
-              CollactionIcons.vegan,
-              color: kAccentColor,
-            ),
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 5,
+        bottom: 5,
+      ),
+      child: ExpansionTile(
+        backgroundColor: kScaffoldColorWhite,
+        collapsedBackgroundColor: kScaffoldColorWhite,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: const BorderSide(
+            color: kBlackPrimary100,
           ),
-          const SelectableText(
-            "5 days per week",
-            style: CollactionTextStyles.bodyLabelRegular,
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: const BorderSide(
+            color: kBlackPrimary100,
           ),
-          const Spacer(),
-          OutlinedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                side: MaterialStateProperty.all(const BorderSide(
-                  color: kAccentColor,
-                )),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
+        ),
+        iconColor: kBlackPrimary300,
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: kBlackPrimary0,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    CollactionIcons.vegan,
+                    color: kAccentColor,
+                  ),
+                ),
               ),
-              child: const Text(
-                "Add",
-                style: CollactionTextStyles.addButton,
-              ))
+            ),
+            const SelectableText(
+              "5 days per week",
+              style: CollactionTextStyles.bodyLabelRegular,
+            ),
+            const Spacer(),
+            OutlinedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(const BorderSide(
+                    color: kAccentColor,
+                  )),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                child: const Text(
+                  "Add",
+                  style: CollactionTextStyles.addButton,
+                ))
+          ],
+        ),
+        children: [
+          ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Divider(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    SelectableText.rich(TextSpan(
+                        text: "Tags: ",
+                        style: CollactionTextStyles.bodyMedium14,
+                        children: [
+                          TextSpan(
+                            text: "[Diet, Days, Veganuary ]",
+                            style: CollactionTextStyles.body14,
+                          )
+                        ])),
+                    SizedBox(height: 5),
+                    SelectableText.rich(TextSpan(
+                        text: "Description: ",
+                        style: CollactionTextStyles.bodyMedium14,
+                        children: [
+                          TextSpan(
+                            text:
+                                "Commit to eating a vegan diet 4 day per week",
+                            style: CollactionTextStyles.body14,
+                          )
+                        ])),
+                    SizedBox(height: 5),
+                    SelectableText.rich(TextSpan(
+                        text: "Points: ",
+                        style: CollactionTextStyles.bodyMedium14,
+                        children: [
+                          TextSpan(
+                            text: "20",
+                            style: CollactionTextStyles.body14,
+                          )
+                        ])),
+                    SizedBox(height: 5),
+                  ],
+                )
+              ],
+            ),
+          )
         ],
       ),
-      children: [
-        ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Divider(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  SelectableText.rich(TextSpan(
-                      text: "Tags: ",
-                      style: CollactionTextStyles.bodyMedium14,
-                      children: [
-                        TextSpan(
-                          text: "[Diet, Days, Veganuary ]",
-                          style: CollactionTextStyles.body14,
-                        )
-                      ])),
-                  SizedBox(height: 5),
-                  SelectableText.rich(TextSpan(
-                      text: "Description: ",
-                      style: CollactionTextStyles.bodyMedium14,
-                      children: [
-                        TextSpan(
-                          text: "Commit to eating a vegan diet 4 day per week",
-                          style: CollactionTextStyles.body14,
-                        )
-                      ])),
-                  SizedBox(height: 5),
-                  SelectableText.rich(TextSpan(
-                      text: "Points: ",
-                      style: CollactionTextStyles.bodyMedium14,
-                      children: [
-                        TextSpan(
-                          text: "20",
-                          style: CollactionTextStyles.body14,
-                        )
-                      ])),
-                  SizedBox(height: 5),
-                ],
-              )
-            ],
-          ),
-        )
-      ],
     );
   }
 }
