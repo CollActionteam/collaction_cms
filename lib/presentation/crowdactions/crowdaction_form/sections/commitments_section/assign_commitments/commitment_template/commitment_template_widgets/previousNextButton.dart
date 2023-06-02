@@ -11,6 +11,7 @@ class PreviousNextbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 20,
       margin: const EdgeInsets.only(left: 5, right: 5),
       alignment: Alignment.center,
       decoration: BoxDecoration(

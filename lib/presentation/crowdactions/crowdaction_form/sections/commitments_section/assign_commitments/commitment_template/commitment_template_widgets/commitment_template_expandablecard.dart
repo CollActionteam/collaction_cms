@@ -1,10 +1,21 @@
+import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../../core/icons/collaction_icons.dart';
 import '../../../../../../../theme/constants.dart';
 
 class ExpandableTemplateCard extends StatefulWidget {
-  const ExpandableTemplateCard({super.key});
+  final String label;
+  final IconData icons;
+  final List<String> tags;
+  final String description;
+  final String points;
+
+  const ExpandableTemplateCard(
+      {super.key,
+      required this.label,
+      required this.icons,
+      required this.tags,
+      required this.description,
+      required this.points});
 
   @override
   State<ExpandableTemplateCard> createState() => _ExpandableTemplateCardState();
@@ -44,33 +55,24 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
                   color: kBlackPrimary0,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    CollactionIcons.vegan,
+                    widget.icons,
                     color: kAccentColor,
                   ),
                 ),
               ),
             ),
-            const SelectableText(
-              "5 days per week",
+            SelectableText(
+              widget.label,
               style: CollactionTextStyles.bodyLabelRegular,
             ),
             const Spacer(),
-            OutlinedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  side: MaterialStateProperty.all(const BorderSide(
-                    color: kAccentColor,
-                  )),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
-                ),
-                child: const Text(
-                  "Add",
-                  style: CollactionTextStyles.addButton,
-                ))
+            const SmallOutlinedButton(
+              smallOutlinedButtonType: SmallOutlinedButtonType.add,
+              callback: null,
+            )
           ],
         ),
         children: [
@@ -81,38 +83,37 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
                 const Divider(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SelectableText.rich(TextSpan(
                         text: "Tags: ",
                         style: CollactionTextStyles.bodyMedium14,
                         children: [
                           TextSpan(
-                            text: "[Diet, Days, Veganuary ]",
+                            text: widget.tags.toString(),
                             style: CollactionTextStyles.body14,
                           )
                         ])),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     SelectableText.rich(TextSpan(
                         text: "Description: ",
                         style: CollactionTextStyles.bodyMedium14,
                         children: [
                           TextSpan(
-                            text:
-                                "Commit to eating a vegan diet 4 day per week",
+                            text: widget.description,
                             style: CollactionTextStyles.body14,
                           )
                         ])),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     SelectableText.rich(TextSpan(
                         text: "Points: ",
                         style: CollactionTextStyles.bodyMedium14,
                         children: [
                           TextSpan(
-                            text: "20",
+                            text: widget.points,
                             style: CollactionTextStyles.body14,
                           )
                         ])),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                   ],
                 )
               ],
