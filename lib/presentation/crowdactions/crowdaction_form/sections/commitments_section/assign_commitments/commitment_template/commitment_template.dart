@@ -1,9 +1,10 @@
-import 'package:collaction_cms/presentation/core/icons/collaction_icons.dart';
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/commitment_template_expandablecard.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/dummy_data.dart';
+
 import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../theme/constants.dart';
+import 'commitment_template_widgets/expandable_card_list.dart';
 import 'commitment_template_widgets/previousNextButton.dart';
 
 class CommitmentTemplate extends StatefulWidget {
@@ -15,17 +16,20 @@ class CommitmentTemplate extends StatefulWidget {
 }
 
 class _CommitmentTemplateState extends State<CommitmentTemplate> {
+  List<String> tags = [];
   @override
   Widget build(BuildContext context) {
+    List<DummyModel> itemList = dummyData;
+
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(10.0),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 suffixIcon: Icon(Icons.add_circle_outline),
                 hintText: 'Search commitmets templates tags',
@@ -37,6 +41,11 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
                   borderSide: BorderSide(color: Colors.grey),
                 ),
               ),
+              onSubmitted: (value) {
+                setState(() {
+                  tags.add(value);
+                });
+              },
             ),
           ),
           const Padding(
@@ -46,22 +55,7 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
               style: CollactionTextStyles.captionStyleLight,
             ),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: TagPill(value: "Days", callback: () {}),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: TagPill(value: "Veganuary", callback: () {}),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: TagPill(value: "Diet", callback: () {}),
-              ),
-            ],
-          ),
+          buildTagsRow(tags),
           const Divider(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,8 +71,8 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const SelectableText(
-                  "8",
+                child: SelectableText(
+                  dummyData.length.toString(),
                   style: CollactionTextStyles.captionStyle,
                 ),
               ),
@@ -97,28 +91,32 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 16,
-            ),
-            child: SizedBox(
-              height: widget.fullWidth - 100,
-              child: SingleChildScrollView(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: const [
-                    ExpandableTemplateCard(),
-                    ExpandableTemplateCard(),
-                    ExpandableTemplateCard(),
-                    ExpandableTemplateCard(),
-                    ExpandableTemplateCard(),
-                  ],
-                ),
-              ),
-            ),
+          ExpandableCardList(
+            itemList: itemList,
+            height: widget.fullWidth - 100,
           )
         ],
       ),
+    );
+  }
+
+  Widget buildTagsRow(List<String> tags) {
+    List<Widget> rowItems = [];
+    for (var i = 0; i < tags.length; i++) {
+      Widget rowItem = Padding(
+        padding: const EdgeInsets.only(left: 5, right: 5),
+        child: TagPill(
+            value: tags[i],
+            callback: () {
+              setState(() {
+                tags.removeAt(i);
+              });
+            }),
+      );
+      rowItems.add(rowItem);
+    }
+    return Row(
+      children: rowItems,
     );
   }
 }
