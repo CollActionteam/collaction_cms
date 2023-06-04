@@ -1,6 +1,7 @@
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/dummy_data.dart';
 
 import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../theme/constants.dart';
@@ -17,10 +18,20 @@ class CommitmentTemplate extends StatefulWidget {
 
 class _CommitmentTemplateState extends State<CommitmentTemplate> {
   List<String> tags = [];
+  final PageController controller = PageController();
+  int _currentPage = 0;
+  List<Widget> pages = [];
+  static const _kDuration = Duration(milliseconds: 300);
+  static const _kCurve = Curves.ease;
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<DummyModel> itemList = dummyData;
-
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(
@@ -31,7 +42,9 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
             child: TextField(
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
+                prefixIconColor: Colors.grey,
                 suffixIcon: Icon(Icons.add_circle_outline),
+                suffixIconColor: Colors.grey,
                 hintText: 'Search commitmets templates tags',
                 hintStyle: CollactionTextStyles.captionStyleLight,
                 enabledBorder: UnderlineInputBorder(
@@ -79,22 +92,21 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
               const Spacer(),
               PreviousNextbutton(
                 buttonText: 'Previous',
-                buttonAction: () {},
+                buttonAction: () => controller.previousPage(
+                    duration: _kDuration, curve: _kCurve),
               ),
-              const SelectableText(
-                "Page 1 of 5",
+              SelectableText(
+                "Page $_currentPage of ${pages.length.toString()}",
                 style: CollactionTextStyles.captionStyleLight,
               ),
               PreviousNextbutton(
                 buttonText: 'Next',
-                buttonAction: () {},
+                buttonAction: () =>
+                    controller.nextPage(duration: _kDuration, curve: _kCurve),
               ),
             ],
           ),
-          ExpandableCardList(
-            itemList: itemList,
-            height: widget.fullWidth - 100,
-          )
+          SizedBox(height: widget.fullWidth - 100, child: buildPages(itemList)),
         ],
       ),
     );
@@ -117,6 +129,29 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
     }
     return Row(
       children: rowItems,
+    );
+  }
+
+  Widget buildPages(List itemsList) {
+    List<List> itemLists = itemsList.slices(4).toList();
+    for (var i = 0; i < itemLists.length; i++) {
+      ExpandableCardList item = ExpandableCardList(
+        itemList: itemLists[i],
+        height: widget.fullWidth - 100,
+      );
+      setState(() {
+        pages.add(item);
+      });
+    }
+    return PageView.builder(
+      controller: controller,
+      itemCount: pages.length,
+      itemBuilder: (BuildContext context, int index) {
+        return pages[index % pages.length];
+      },
+      onPageChanged: (page) => setState(() {
+        _currentPage = page;
+      }),
     );
   }
 }
