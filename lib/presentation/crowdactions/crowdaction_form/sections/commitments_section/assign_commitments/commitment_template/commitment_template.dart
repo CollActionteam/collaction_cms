@@ -1,12 +1,6 @@
-import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/dummy_data.dart';
-
-import 'package:collaction_cms/presentation/shared/extra/tags_pills.dart';
-import 'package:collection/collection.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/commitment_list_pages.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template_widgets/tag_search.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../theme/constants.dart';
-import 'commitment_template_widgets/expandable_card_list.dart';
-import 'commitment_template_widgets/previousNextButton.dart';
 
 class CommitmentTemplate extends StatefulWidget {
   final double fullWidth;
@@ -17,141 +11,15 @@ class CommitmentTemplate extends StatefulWidget {
 }
 
 class _CommitmentTemplateState extends State<CommitmentTemplate> {
-  List<String> tags = [];
-  final PageController controller = PageController();
-  int _currentPage = 0;
-  List<Widget> pages = [];
-  static const _kDuration = Duration(milliseconds: 300);
-  static const _kCurve = Curves.ease;
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    List<DummyModel> itemList = dummyData;
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                prefixIconColor: Colors.grey,
-                suffixIcon: Icon(Icons.add_circle_outline),
-                suffixIconColor: Colors.grey,
-                hintText: 'Search commitmets templates tags',
-                hintStyle: CollactionTextStyles.captionStyleLight,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-              onSubmitted: (value) {
-                setState(() {
-                  tags.add(value);
-                });
-              },
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              "Selected tags:",
-              style: CollactionTextStyles.captionStyleLight,
-            ),
-          ),
-          buildTagsRow(tags),
-          const Divider(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SelectableText(
-                "Commitments",
-                style: CollactionTextStyles.captionStyleBold,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 13),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: SelectableText(
-                  dummyData.length.toString(),
-                  style: CollactionTextStyles.captionStyle,
-                ),
-              ),
-              const Spacer(),
-              PreviousNextbutton(
-                buttonText: 'Previous',
-                buttonAction: () => controller.previousPage(
-                    duration: _kDuration, curve: _kCurve),
-              ),
-              SelectableText(
-                "Page $_currentPage of ${pages.length.toString()}",
-                style: CollactionTextStyles.captionStyleLight,
-              ),
-              PreviousNextbutton(
-                buttonText: 'Next',
-                buttonAction: () =>
-                    controller.nextPage(duration: _kDuration, curve: _kCurve),
-              ),
-            ],
-          ),
-          SizedBox(height: widget.fullWidth - 100, child: buildPages(itemList)),
-        ],
-      ),
-    );
-  }
-
-  Widget buildTagsRow(List<String> tags) {
-    List<Widget> rowItems = [];
-    for (var i = 0; i < tags.length; i++) {
-      Widget rowItem = Padding(
-        padding: const EdgeInsets.only(left: 5, right: 5),
-        child: TagPill(
-            value: tags[i],
-            callback: () {
-              setState(() {
-                tags.removeAt(i);
-              });
-            }),
-      );
-      rowItems.add(rowItem);
-    }
-    return Row(
-      children: rowItems,
-    );
-  }
-
-  Widget buildPages(List itemsList) {
-    List<List> itemLists = itemsList.slices(4).toList();
-    for (var i = 0; i < itemLists.length; i++) {
-      ExpandableCardList item = ExpandableCardList(
-        itemList: itemLists[i],
-        height: widget.fullWidth - 100,
-      );
-      setState(() {
-        pages.add(item);
-      });
-    }
-    return PageView.builder(
-      controller: controller,
-      itemCount: pages.length,
-      itemBuilder: (BuildContext context, int index) {
-        return pages[index % pages.length];
-      },
-      onPageChanged: (page) => setState(() {
-        _currentPage = page;
-      }),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const TagSearchSection(),
+        const Divider(),
+        CommitmentListPages(fullWidth: widget.fullWidth),
+      ]),
     );
   }
 }
