@@ -6,6 +6,12 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - development
+
+env:
+  flutter_version: "3.7.1"
+  flutter_channel: "stable"
+  java_version: "12.x"
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
