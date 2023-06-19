@@ -40,13 +40,13 @@ dependencies:
   dartz: ^0.10.1
   go_router: ^5.0.1
   injectable: ^1.5.3
-  firebase_auth: ^3.9.0
+  firebase_auth: ^4.6.3
   get_it: ^7.2.0
-  cloud_firestore: ^3.4.8
+  cloud_firestore: ^4.8.1
   intl: ^0.17.0
   bloc: ^8.1.0
   equatable: ^2.0.5
-  firebase_core: ^1.23.0
+  firebase_core: ^2.14.0
   flutter_svg: ^1.1.5
   navigation_history_observer: ^1.1.0
   rive: ^0.9.1
