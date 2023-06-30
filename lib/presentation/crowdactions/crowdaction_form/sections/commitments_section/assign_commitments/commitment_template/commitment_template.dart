@@ -17,9 +17,13 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const TagSearchSection(),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 5.0),
+          child: TagSearchSection(),
+        ),
         const Divider(
-          color: kBlackPrimary200,
+          color: kBlackPrimary100,
+          thickness: 1,
         ),
         CommitmentListPages(fullWidth: widget.fullWidth),
       ]),

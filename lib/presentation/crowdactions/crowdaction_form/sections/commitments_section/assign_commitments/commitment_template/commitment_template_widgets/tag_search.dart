@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../../../shared/extra/tags_pills.dart';
@@ -12,29 +14,57 @@ class TagSearchSection extends StatefulWidget {
 
 class _TagSearchSectionState extends State<TagSearchSection> {
   List<String> tags = ["Days", "Veganuary", "Diet"];
+  String hintText = 'Search commitment-template tags';
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      setState(() {
+        if (focusNode.hasFocus) {
+          hintText = '';
+        } else {
+          hintText = 'Search commitment-template tags';
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 10.0,
-            right: 10,
-          ),
+        SizedBox(
+          height: 24,
           child: TextField(
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              prefixIconColor: Colors.grey,
-              suffixIcon: Icon(Icons.add_circle_outline),
-              suffixIconColor: Colors.grey,
-              hintText: 'Search commitment-template tags',
-              hintStyle: CollactionTextStyles.captionStyleLight,
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
+            cursorHeight: 12,
+            focusNode: focusNode,
+            cursorColor: kBlackPrimary200,
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 13.0),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.only(right: 14.0, bottom: 10),
+                child: Icon(
+                  Icons.search,
+                ),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
+              prefixIconColor: kBlackPrimary300,
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: Icon(Icons.add_circle_outline),
+              ),
+              suffixIconColor: kBlackPrimary300,
+              hintText: hintText,
+              hintStyle: CollactionTextStyles.captionStyle.copyWith(
+                  color: const Color(0xFF707070), fontWeight: FontWeight.w200),
+              enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: kBlackPrimary100),
+              ),
+              focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: kBlackPrimary100),
               ),
             ),
             onSubmitted: (seachedTag) {
@@ -45,7 +75,7 @@ class _TagSearchSectionState extends State<TagSearchSection> {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.fromLTRB(10, 10, 0, 8),
           child: Text(
             "Selected tags:",
             style: CollactionTextStyles.captionStyleLight,
