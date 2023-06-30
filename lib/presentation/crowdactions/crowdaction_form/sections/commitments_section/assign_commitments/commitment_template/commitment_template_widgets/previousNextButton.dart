@@ -11,8 +11,8 @@ class PreviousNextbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      margin: const EdgeInsets.only(left: 5, right: 5),
+      height: 25,
+      margin: const EdgeInsets.only(left: 10, right: 10),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -24,7 +24,7 @@ class PreviousNextbutton extends StatelessWidget {
           onPressed: buttonAction,
           child: Text(
             buttonText,
-            style: CollactionTextStyles.captionStyleLight,
+            style: CollactionTextStyles.captionStyleLight.copyWith(height: -1),
           )),
     );
   }

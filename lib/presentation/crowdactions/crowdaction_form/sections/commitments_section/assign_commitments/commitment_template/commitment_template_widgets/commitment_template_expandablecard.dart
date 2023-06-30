@@ -86,7 +86,7 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
                   children: [
                     SelectableText.rich(TextSpan(
                         text: "Tags: ",
-                        style: CollactionTextStyles.bodyMedium14,
+                        style: CollactionTextStyles.bodySemiBold,
                         children: [
                           TextSpan(
                             text: widget.tags.toString(),
@@ -96,7 +96,7 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
                     const SizedBox(height: 5),
                     SelectableText.rich(TextSpan(
                         text: "Description: ",
-                        style: CollactionTextStyles.bodyMedium14,
+                        style: CollactionTextStyles.bodySemiBold,
                         children: [
                           TextSpan(
                             text: widget.description,
@@ -106,7 +106,7 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
                     const SizedBox(height: 5),
                     SelectableText.rich(TextSpan(
                         text: "Points: ",
-                        style: CollactionTextStyles.bodyMedium14,
+                        style: CollactionTextStyles.bodySemiBold,
                         children: [
                           TextSpan(
                             text: widget.points,

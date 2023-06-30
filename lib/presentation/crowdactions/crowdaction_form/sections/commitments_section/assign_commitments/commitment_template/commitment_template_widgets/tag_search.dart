@@ -18,14 +18,17 @@ class _TagSearchSectionState extends State<TagSearchSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(
+            left: 10.0,
+            right: 10,
+          ),
           child: TextField(
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.search),
               prefixIconColor: Colors.grey,
               suffixIcon: Icon(Icons.add_circle_outline),
               suffixIconColor: Colors.grey,
-              hintText: 'Search commitmets templates tags',
+              hintText: 'Search commitment-template tags',
               hintStyle: CollactionTextStyles.captionStyleLight,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
