@@ -61,10 +61,10 @@ class _TagSearchSectionState extends State<TagSearchSection> {
               hintStyle: CollactionTextStyles.captionStyle.copyWith(
                   color: const Color(0xFF707070), fontWeight: FontWeight.w200),
               enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: kBlackPrimary100),
+                borderSide: BorderSide(color: kCommitmentDividerColor),
               ),
               focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: kBlackPrimary100),
+                borderSide: BorderSide(color: kCommitmentDividerColor),
               ),
             ),
             onSubmitted: (seachedTag) {

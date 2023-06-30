@@ -48,7 +48,7 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
         title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 10.0),
+              padding: const EdgeInsets.only(right: 10.0, top: 5, bottom: 5),
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -80,41 +80,57 @@ class _ExpandableTemplateCardState extends State<ExpandableTemplateCard> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Divider(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SelectableText.rich(TextSpan(
-                        text: "Tags: ",
-                        style: CollactionTextStyles.bodySemiBold,
-                        children: [
-                          TextSpan(
-                            text: widget.tags.toString(),
-                            style: CollactionTextStyles.body14,
-                          )
-                        ])),
-                    const SizedBox(height: 5),
-                    SelectableText.rich(TextSpan(
-                        text: "Description: ",
-                        style: CollactionTextStyles.bodySemiBold,
-                        children: [
-                          TextSpan(
-                            text: widget.description,
-                            style: CollactionTextStyles.body14,
-                          )
-                        ])),
-                    const SizedBox(height: 5),
-                    SelectableText.rich(TextSpan(
-                        text: "Points: ",
-                        style: CollactionTextStyles.bodySemiBold,
-                        children: [
-                          TextSpan(
-                            text: widget.points,
-                            style: CollactionTextStyles.body14,
-                          )
-                        ])),
-                    const SizedBox(height: 5),
-                  ],
+                const Divider(
+                  color: kCommitmentDividerColor,
+                  thickness: 1,
+                  height: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0, bottom: 5, left: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectableText.rich(TextSpan(
+                          text: "Tags: ",
+                          style: CollactionTextStyles.bodySemiBold.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF707070)),
+                          children: [
+                            TextSpan(
+                              text: widget.tags.toString(),
+                              style: CollactionTextStyles.body14,
+                            )
+                          ])),
+                      const SizedBox(height: 5),
+                      SelectableText.rich(TextSpan(
+                          text: "Description: ",
+                          style: CollactionTextStyles.bodySemiBold.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF707070)),
+                          children: [
+                            TextSpan(
+                              text: widget.description,
+                              style: CollactionTextStyles.body14,
+                            )
+                          ])),
+                      const SizedBox(height: 5),
+                      SelectableText.rich(TextSpan(
+                          text: "Points: ",
+                          style: CollactionTextStyles.bodySemiBold.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF707070)),
+                          children: [
+                            TextSpan(
+                              text: widget.points,
+                              style: CollactionTextStyles.body14,
+                            )
+                          ])),
+                      const SizedBox(height: 5),
+                    ],
+                  ),
                 )
               ],
             ),

@@ -22,7 +22,7 @@ class _CommitmentTemplateState extends State<CommitmentTemplate> {
           child: TagSearchSection(),
         ),
         const Divider(
-          color: kBlackPrimary100,
+          color: kCommitmentDividerColor,
           thickness: 1,
         ),
         CommitmentListPages(fullWidth: widget.fullWidth),
