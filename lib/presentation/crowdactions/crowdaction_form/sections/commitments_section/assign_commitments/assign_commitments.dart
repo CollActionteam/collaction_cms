@@ -1,11 +1,11 @@
 import 'package:collaction_cms/application/crowdaction/crowdaction_creation/commitments/commitments_bloc.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assign_commitments/commitment_template/commitment_template.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_form_controller.dart';
 import 'package:collaction_cms/presentation/crowdactions/crowdaction_form/sections/commitments_section/assigned_commitments/commitment_item_form.dart';
 import 'package:collaction_cms/presentation/shared/buttons/button_outlined.dart';
 import 'package:collaction_cms/presentation/shared/buttons/combo_buttons.dart';
 import 'package:collaction_cms/presentation/shared/composition/text_composition.dart';
-import 'package:collaction_cms/presentation/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -84,14 +84,7 @@ class _AssignCommitmentsState extends State<AssignCommitments> {
                       color: const Color(0xFFDADADA),
                     )),
                 child: !onOrOffNotifier.value
-                    ? Container(
-                        padding: const EdgeInsets.only(top: 105),
-                        alignment: Alignment.topCenter,
-                        child: const SelectableText(
-                          "Not yet supported",
-                          style: CollactionTextStyles.body,
-                        ),
-                      )
+                    ? CommitmentTemplate(fullWidth: fullWidth)
                     : Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 20),

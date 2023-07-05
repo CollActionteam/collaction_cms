@@ -22,6 +22,7 @@ const kNavItemInactiveColor = Color(0xFF777777);
 const kNavItemActiveBackgroundColor = Color(0xFFF4F4F4);
 
 const kDividerColor = Color(0xFFBFBFBF);
+const kCommitmentDividerColor = Color(0xFFDADADA);
 
 const kFillInputTextColor = Color(0xFFEFEFEF);
 const kPlaceholderTextColor = Color(0xFFB5B5B5);

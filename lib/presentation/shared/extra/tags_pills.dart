@@ -23,7 +23,7 @@ class TagPill extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: const Color(0xFF707070).withOpacity(0.5),
               )),
@@ -41,10 +41,13 @@ class TagPill extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5),
-              Text(
-                value,
-                style: CollactionTextStyles.captionStyleBold.copyWith(
-                  color: const Color(0xFF585858),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5),
+                child: Text(
+                  value,
+                  style: CollactionTextStyles.captionStyleBold.copyWith(
+                    color: const Color(0xFF585858),
+                  ),
                 ),
               )
             ],

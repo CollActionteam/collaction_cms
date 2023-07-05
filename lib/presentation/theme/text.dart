@@ -61,6 +61,13 @@ class CollactionTextStyles {
     color: kBlackPrimary300,
   );
 
+  ///Figma - Add Button Commitment Template #1
+  static const addButton = TextStyle(
+    fontFamily: "Rubik",
+    fontSize: 12,
+    color: kAccentColor,
+  );
+
   ///Figma - Body
   static const body = TextStyle(
       fontFamily: "Rubik",
