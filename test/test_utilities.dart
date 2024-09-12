@@ -3,6 +3,16 @@ import 'dart:typed_data';
 import 'package:collaction_cms/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_images.dart';
 import 'package:collaction_cms/domain/crowdaction/crowdaction_utility/crowdaction_info.dart';
+import 'package:collaction_cms/domain/auth/i_auth_client_repository.dart';
+import 'package:collaction_cms/domain/profile/i_profile_repository.dart';
+import 'package:collaction_cms/domain/profile/profile.dart';
+import 'package:collaction_cms/domain/profile/user_profile.dart';
+import 'package:collaction_cms/domain/user/user.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockAuthClientRepository extends Mock implements IAuthClientRepository {}
+
+class MockProfileRepository extends Mock implements IProfileRepository {}
 
 final tCrowdActionInfo = CrowdActionInfo(
     title: "tTitle",
@@ -68,3 +78,27 @@ const tCommitmentsList = [tCommitment1, tCommitment2, tCommitment3];
 const Location tLocation = Location(code: 'tCode', name: 'tName');
 
 final List<String> tCommitment = ['tCommitment'];
+
+const tUser = User(
+  id: 'tId',
+  getIdToken: User.getAnonymousIdToken,
+);
+
+const tProfile = Profile(
+  userId: 'tId',
+  firstName: 'tFirstName',
+  lastName: 'tLastName',
+  avatar: 'tAvatar',
+);
+
+const tAdminUserProfile = UserProfile(
+  user: tUser,
+  profile: tProfile,
+  role: Role.admin,
+);
+
+const tModeratorUserProfile = UserProfile(
+  user: tUser,
+  profile: tProfile,
+  role: Role.moderator,
+);
